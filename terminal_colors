@@ -1,0 +1,14 @@
+FOREGROUND: #b2b2b2 - #ffffff - #656565
+BACKGROUND: #262832 - #686868 - #000000
+COLOR1:     #000000 - #686868 - #181818
+COLOR2:		#b21818 - #ff5454 - #650000
+COLOR3:		#68ad59 - #54ff54 - #82af60
+COLOR4:		#b29710 - #ffff54 - #655e00
+COLOR5:		#1818b2 - #00d2ff - #000065
+COLOR6: 	#b22d93 - #cf66ae - #650065
+COLOR7: 	#45b8ac - #8ffff4 - #006565
+COLOR8: 	#b2b2b2 - #ffffff - #656565
+
+FONT: 		Source Code Pro
+FONT STYLE: Semibold
+FONT SIZE: 	11
