@@ -12,9 +12,11 @@ LIGHT_GREEN="\[\033[1;32m\]"
  LIGHT_BLUE="\[\033[1;34m\]"
       WHITE="\[\033[1;37m\]"
  LIGHT_GRAY="\[\033[0;37m\]"
+ DIM_YELLOW="\[\033[2;33m\]"
+   DIM_CYAN="\[\033[2;36m\]"
  COLOR_NONE="\[\e[0m\]"
 #DPC : Default Prompt Color
-DPC=${GREEN}
+DPC=${DIM_YELLOW}
 
 function parse_git_branch {
 	git rev-parse --git-dir &> /dev/null
@@ -40,16 +42,16 @@ function parse_git_branch {
 	if [[ ${git_status} =~ ${branch_pattern} ]]; then
 		branch=${BASH_REMATCH[1]}
 		if (( ${special_token} == 1 )); then
-			echo "${LIGHT_BLUE}(${branch} ${not_indexed}${indexed}${untracked}${LIGHT_BLUE})${DPC}"
+			echo "${LIGHT_BLUE}(${branch} ${not_indexed}${indexed}${untracked}${LIGHT_BLUE})${COLOR_NONE}"
 		else
-			echo "${LIGHT_BLUE}(${branch})${DPC}"
+			echo "${LIGHT_BLUE}(${branch})${COLOR_NONE}"
 		fi
 	fi
 }
 
 function set_prompt() {
 
-	prompt="${DPC}[\u@\h \e[3;36m\]\w${DPC}] $(parse_git_branch)\$❯${COLOR_NONE}"
+	prompt="${DPC}[\u@\h ${COLOR_NONE}${DIM_CYAN}\w${COLOR_NONE}${DPC}] ${COLOR_NONE}$(parse_git_branch)${DPC}\$❯${COLOR_NONE}"
 	PS1="${prompt} "
 
 }
@@ -57,3 +59,5 @@ function set_prompt() {
 PROMPT_COMMAND=set_prompt
 
 alias ls="ls --color"
+
+neofetch
