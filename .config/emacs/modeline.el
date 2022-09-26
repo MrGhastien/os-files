@@ -117,7 +117,9 @@
 
 (defun custom-mode-line/get-modified-icon ()
   (cond
-   (buffer-read-only (propertize (concat (all-the-icons-material "lock" :v-adjust -0.1) " ") 'face `(:height 1.2 :foreground ,custom-mode-line/read-only-name-color)))
+   (buffer-read-only
+    (propertize (concat (all-the-icons-material "lock" :v-adjust -0.1) " ")
+		'face `(:height 1.1 :foreground ,custom-mode-line/read-only-name-color :box (:line-width 8 :color ,(custom-mode-line/bg-color nil)))))
    ((buffer-modified-p)
     (propertize (concat (all-the-icons-material "save" :v-adjust -0.1) " ")
 		'face `(:height 1.1 :foreground ,(custom-mode-line/fg-color custom-mode-line/modified-name-color)
@@ -169,16 +171,21 @@
 (add-hook 'evil-visual-state-entry-hook 'custom-mode-line/evil-visual)
 (add-hook 'evil-replace-state-entry-hook 'custom-mode-line/evil-replace)
 
-(setq-default mode-line-format
-	      (list
-	       ""
-	       '(:eval (when (not buffer-read-only) (custom-mode-line/get-evil-mode)))
-	       " "
-	       'custom-mode-line/major-mode
-	       '(:eval (custom-mode-line/get-modified-icon))
-	       '(:eval (custom-mode-line/get-modified-name))
-	       " %l:%c %o"
-	       '(:eval (custom-mode-line/padding))
-	       'custom-mode-line/right-txt
-	       )
-	      )
+(defvar cml/format
+  (list
+   ""
+   '(:eval (when (not buffer-read-only) (custom-mode-line/get-evil-mode)))
+   " "
+   'custom-mode-line/major-mode
+   '(:eval (custom-mode-line/get-modified-icon))
+   '(:eval (custom-mode-line/get-modified-name))
+   " %l:%c %o"
+   '(:eval (custom-mode-line/padding))
+   'custom-mode-line/right-txt
+   )
+  )
+
+(message "Setting mode line format.")
+(setq mode-line-format cml/format)
+(setq-default mode-line-format cml/format)
+	      
