@@ -21,8 +21,10 @@
 ;; Packages
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-refresh-contents)
 (package-initialize)
-(require 'evil)
+
+(use-package evil)
 (evil-mode 1)
 
 (use-package neotree
