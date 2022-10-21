@@ -17,6 +17,7 @@
 
 ;; Keybindings
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit) 
+(global-set-key (kbd "M-D") 'compile) 
 
 ;; Packages
 (require 'package)
@@ -31,7 +32,10 @@
   :ensure t)
 
 (use-package tex
-	:ensure auctex)
+  :ensure auctex)
+
+(use-package pdf-tools
+  :ensure t)
 
 (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
@@ -54,7 +58,12 @@
 (defun onTeXStyleHook (&rest _)
   (LaTeX-add-environments
    '("definition" latex-tcolorbox-env)
-   '("prop" latex-tcolorbox-env))
+   '("prop" latex-tcolorbox-env)
+   '("theorem" latex-tcolorbox-env)
+   '("corollary" latex-tcolorbox-env)
+   '("algo" latex-tcolorbox-env)
+   '("lemma" latex-tcolorbox-env)
+   )
   )
 
 (add-hook 'LaTeX-mode-hook 'onTeXStyleHook)
@@ -64,15 +73,15 @@
 
 (defun latex-tcolorbox-env (env)
   "Insert an tcolorbox environment with an optional label."
-  (let ((title (read-string "(Optional) Title :")) (prefix (eval (cdr (assoc env LaTeX-label-alist))))) ;; Set the 'title' variable to the input typed in the mini-buffer
+  (let ((title (read-string "(Optional) Title :"))) ;; Set the 'title' variable to the input typed in the mini-buffer
     (let ((label (if (string-blank-p title) ;; Prompt for the label if the title isn't empty
                      ""
-                   (read-string "(Optional) Label :" prefix)
+                   (read-string "(Optional) Label :")
                    )
                  )
           )
-      (LaTeX-insert-environment env (format "{%s}{%s}" title (if (string= label prefix) "" label)))
-    )
+      (LaTeX-insert-environment env (format "{%s}{%s}" title label))
+      )
     )
   )
 
@@ -99,7 +108,7 @@
   (use-package org-bullets
     :after org
     :hook (org-mode . org-bullets-mode)
-    :custom (org-bullets-bullet-list '("I" "II" "III")))
+    :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
   (load "~/.config/emacs/modeline.el")
   )
 
