@@ -9,6 +9,18 @@
 (defvar custom-mode-line/modified-name-color "#de4f32")
 (defvar custom-mode-line/read-only-name-color "light goldenrod")
 
+(defvar cml-normal-mode-bg "#ff8e31")
+(defvar cml-insert-mode-bg "#98d64e")
+(defvar cml-visual-mode-bg "#00ffff")
+(defvar cml-replace-mode-bg "#b732de")
+(defvar cml-emacs-mode-bg "#7f5ab6")
+
+(defvar cml-normal-mode-fg "#ffffff")
+(defvar cml-insert-mode-fg "#000000")
+(defvar cml-visual-mode-fg "#000000")
+(defvar cml-replace-mode-fg "#000000")
+(defvar cml-emacs-mode-fg "#ffffff")
+
 (defvar custom-mode-line/selwin nil)
 
 (defun custom-mode-line/set-selwin (win)
@@ -154,22 +166,26 @@
   )
 
 (defun custom-mode-line/evil-normal ()
-  (custom-mode-line/update-evil " NORMAL " "#ff8e31" "#ffffff")
+  (custom-mode-line/update-evil " NORMAL " cml-normal-mode-bg cml-normal-mode-fg)
   )
 (defun custom-mode-line/evil-insert ()
-  (custom-mode-line/update-evil " INSERT " "#98d64e" "#000000")
+  (custom-mode-line/update-evil " INSERT " cml-insert-mode-bg cml-insert-mode-fg)
   )
 (defun custom-mode-line/evil-visual ()
-  (custom-mode-line/update-evil " VISUAL " "#00ffff" "#000000")
+  (custom-mode-line/update-evil " VISUAL " cml-visual-mode-bg cml-visual-mode-fg)
   )
 (defun custom-mode-line/evil-replace ()
-  (custom-mode-line/update-evil " REPLACE " "#b732de" "#000000")
+  (custom-mode-line/update-evil " REPLACE " cml-replace-mode-bg cml-replace-mode-fg)
+  )
+(defun custom-mode-line/evil-emacs ()
+  (custom-mode-line/update-evil " EMACS " cml-emacs-mode-bg cml-emacs-mode-fg)
   )
 
 (add-hook 'evil-insert-state-entry-hook 'custom-mode-line/evil-insert)
 (add-hook 'evil-normal-state-entry-hook 'custom-mode-line/evil-normal)
 (add-hook 'evil-visual-state-entry-hook 'custom-mode-line/evil-visual)
 (add-hook 'evil-replace-state-entry-hook 'custom-mode-line/evil-replace)
+(add-hook 'evil-emacs-state-entry-hook 'custom-mode-line/evil-emacs)
 
 (defvar cml/format
   (list

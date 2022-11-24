@@ -3,7 +3,12 @@
 
 (custom-theme-set-variables
  'Test
- '(cursor-type 'hbar))
+ '(evil-normal-state-cursor '(hbar "#ff8e31"))
+ '(evil-insert-state-cursor '(bar "#22ff22"))
+ '(evil-replace-state-cursor '(hollow "#b732de"))
+ '(evil-visual-state-cursor '(box "#00ffff"))
+ '(evil-emacs-state-cursor '(hbar "#a575ec"))
+)
 
 (custom-theme-set-faces
  'Test
@@ -11,13 +16,13 @@
  '(error ((t (:underline (:color "red" :style wave)))))
  '(mode-line ((t (:box (:line-width (-1 . 8) :color "#2c2726") :height 120 :foreground "white smoke" :background "#2c2726" :family "Fira Code"))))
  '(mode-line-inactive ((t (:box (:line-width (-1 . 8) :color "#0e0b0b") :height 120 :foreground "gray30" :background "#0e0b0b" :family "Fira Code"))))
- '(font-lock-builtin-face ((t (:foreground "turquoise"))))
+ '(font-lock-builtin-face ((t (:weight bold :foreground "turquoise"))))
  '(font-lock-function-name-face ((t (:foreground "#ff5d4a")))) ;((t (:foreground "lawn green")))
- '(font-lock-keyword-face ((t (:foreground "#ef6822")))) ;((t (:weight bold :foreground "#ff7800")))) ff7800 or ef6822
+ '(font-lock-keyword-face ((t (:weight ultra-bold :foreground "#ef6822")))) ;((t (:weight bold :foreground "#ff7800")))) ff7800 or ef6822
  '(font-lock-type-face ((t (:foreground "#febf53"))))
  '(font-lock-variable-name-face ((t (:foreground "#ffc7a6"))))
  '(font-lock-string-face ((t (:foreground "PaleGreen1"))))
- '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight bold))))
+ '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight extra-bold))))
  '(font-lock-comment-face ((t (:foreground "gray50" :slant italic :family "Courier Prime Code"))))
  '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-keyword-face))))
  '(font-latex-math-face ((t (:inherit font-lock-string-face :weight normal))))
