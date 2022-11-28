@@ -30,6 +30,6 @@
  '(font-latex-script-char-face ((t (:foreground "cyan"))))
  '(italic ((t (:slant italic))))
  '(font-latex-sectioning-5-face ((t (:weight extra-bold :underline t :inherit font-lock-function-name-face))))
- '(default ((t (:background "#101016" :foreground "#c2c0c4" :weight normal :width normal :height 140 :family "Inconsolata")))))
+ '(default ((t (:background "#101016" :foreground "#c2c0c4" :weight normal :width normal :height 120 :family "Fira Code")))))
 
 (provide-theme 'Galaxy)

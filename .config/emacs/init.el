@@ -2,6 +2,7 @@
 
 (setq custom-file "~/.config/emacs/custom.el")
 (load custom-file)
+(load-theme 'Test)
 
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
@@ -22,7 +23,6 @@
 ;; Packages
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(package-refresh-contents)
 (package-initialize)
 
 (use-package evil)
@@ -88,8 +88,6 @@
 ;; Mode line config
 
 (defun on-make-frame ()
-  (load-theme 'Test)
-  (set-face-attribute 'default nil :font "Source Code Pro" :height 125 :weight 'normal)
   (use-package all-the-icons
 	:if (display-graphic-p)
 	:ensure t)
