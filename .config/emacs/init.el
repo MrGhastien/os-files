@@ -34,6 +34,15 @@
 (use-package tex
   :ensure auctex)
 
+(use-package lsp-mode
+  :init (setq lsp-keymap-prefix "s-m")
+  :commands lsp
+  :ensure t)
+
+(use-package ccls
+  :hook ((c-mode) . (lambda () (require 'ccls) (lsp)))
+  :ensure t)
+
 (use-package pdf-tools
   :ensure t)
 
@@ -67,9 +76,6 @@
   )
 
 (add-hook 'LaTeX-mode-hook 'onTeXStyleHook)
-
-(defcustom LaTeX-definition-label "def:" "Prefix for definition environment labels.")
-(defcustom LaTeX-property-label "prop:" "Prefix for property environment labels.")
 
 (defun latex-tcolorbox-env (env)
   "Insert an tcolorbox environment with an optional label."
