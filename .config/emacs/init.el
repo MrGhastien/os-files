@@ -16,6 +16,10 @@
 (setq c-set-style "k&r")
 (setq c-basic-offset 4)
 
+(load "~/.config/emacs/chighlight.el")
+
+(setq backup-directory-alist '(("." . "~/emacs-backups")))
+
 ;; Keybindings
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit) 
 (global-set-key (kbd "M-D") 'compile) 
@@ -37,11 +41,15 @@
 (use-package lsp-mode
   :init (setq lsp-keymap-prefix "s-m")
   :commands lsp
+  :config (setq lsp-eldoc-render-all t)
   :ensure t)
 
 (use-package ccls
-  :hook ((c-mode) . (lambda () (require 'ccls) (lsp)))
+  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (lsp)))
   :ensure t)
+
+(add-hook 'c-mode-hook #'ligature-mode)
+(add-hook 'c++-mode-hook #'ligature-mode)
 
 (use-package pdf-tools
   :ensure t)
@@ -113,6 +121,9 @@
     :after org
     :hook (org-mode . org-bullets-mode)
     :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+  (ligature-set-ligatures 'c-mode '("->" "<=" ">=" "==" "!="))
+  
   (load "~/.config/emacs/modeline.el")
   )
 

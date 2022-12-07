@@ -14,25 +14,29 @@
  '(ccls-sem-highlight-method 'font-lock)
  '(ccls-sem-type-faces [font-lock-type-face])
  '(ccls-sem-variable-faces [default])
- '(ccls-sem-macro-faces [((t (:inherit font-lock-builtin-face :foreground "orchid")))])
+ '(ccls-sem-macro-faces [chl-macro-face])
 )
 
 (custom-theme-set-faces
  'Test
- '(default ((t (:background "#1b1918" :foreground "AntiqueWhite3" :weight normal :width normal :height 120 :family "Fira Code"))))
- '(cursor ((t (:background "green"))))
+ '(default ((t (:background "#222120" :foreground "AntiqueWhite2" :weight normal :width expanded :height 110 :family "Iosevka Custom"))))
  '(error ((t (:underline (:color "red" :style wave)))))
- '(mode-line ((t (:box (:line-width (-1 . 8) :color "#2c2726") :height 120 :foreground "white smoke" :background "#2c2726" :family "Fira Code"))))
- '(mode-line-inactive ((t (:box (:line-width (-1 . 8) :color "#0e0b0b") :height 120 :foreground "gray30" :background "#0e0b0b" :family "Fira Code"))))
- '(font-lock-builtin-face ((t (:weight semi-bold :foreground "turquoise"))))
- '(font-lock-function-name-face ((t (:foreground "#febf53")))) ;ff5d4a;((t (:foreground "lawn green")))
- '(font-lock-keyword-face ((t (:weight semi-bold :foreground "#ef6822")))) ;((t (:weight bold :foreground "#ff7800")))) ff7800 or ef6822
- '(font-lock-type-face ((t (:foreground "tomato"))))
- '(font-lock-variable-name-face ((t (:foreground "#ffc7a6"))))
- '(font-lock-string-face ((t (:foreground "PaleGreen1"))))
+ '(fringe ((t (:background "grey10"))))
+ '(linum ((t (:background "grey10"))))
+ '(mode-line ((t (:box (:line-width (-1 . 8) :color "#292726") :height 120 :foreground "white smoke" :background "#2c2726" :family "Fira Code"))))
+ '(mode-line-inactive ((t (:box (:line-width (-1 . 8) :color "#1f1e1d") :height 120 :foreground "gray30" :background "#1f1e1d" :family "Fira Code"))))
+
+ '(font-lock-builtin-face ((t (:weight normal :foreground "turquoise"))))
+ '(font-lock-function-name-face ((t (:foreground "#fb8b24")))) ;ff5d4a;((t (:foreground "lawn green")))
+ '(font-lock-keyword-face ((t (:weight normal :foreground "#f25c54")))) ;((t (:weight bold :foreground "#ff7800")))) ff7800 or ef6822
+ '(font-lock-type-face ((t (:foreground "#94d2bd"))))
+ '(font-lock-variable-name-face ((t (:foreground "#d8f3dc"))))
+ '(font-lock-string-face ((t (:foreground "#ffcdb2"))))
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold))))
- '(font-lock-comment-face ((t (:foreground "gray50" :slant italic :family "Courier Prime Code"))))
+ '(font-lock-comment-face ((t (:foreground "gray50" :slant italic :family "Iosevka Custom"))))
  '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-keyword-face))))
+ '(chl-number-face ((t (:weight normal :foreground "#e9aaa1"))))
+
  '(font-latex-math-face ((t (:inherit font-lock-string-face :weight normal))))
  '(font-latex-italic-face ((t (:inherit italic :foreground "misty rose"))))
  '(font-latex-script-char-face ((t (:foreground "cyan"))))
