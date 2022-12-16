@@ -74,12 +74,12 @@
   )
 
 (setq cml-right-txt
-       `(""
-	,(cml-eol-format)
-	,(cml-char-format)
-	,cml-major-mode-txt
-	"   "
-	)
+      '(""
+	    (:eval (cml-eol-format))
+	    (:eval (cml-char-format))
+	    cml-major-mode-txt
+        "  "
+	    )
       )
 
 (defun cml-padding ()
@@ -87,14 +87,16 @@
     (propertize " "
 		'display `(space :align-to (- right ,r-length)))))
 
+
+
 (defun cml-update-major (&rest _)
   (let ((icon (all-the-icons-icon-for-buffer)))
     (unless (symbolp icon)
       (setq cml-major-mode
-	    (format " %s "
-		    (propertize icon
-				'display '(raise -0.1)
-				'help-echo (format "Major mode: `%s`" major-mode))))))
+	        (format " %s "
+		            (propertize icon
+                                'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-buffer))
+				                'help-echo (format "Major mode: `%s`" major-mode))))))
   )
 
 (defun cml-update-major-txt (&rest _)
@@ -131,10 +133,10 @@
   (cond
    (buffer-read-only
     (propertize (concat (all-the-icons-material "lock" :v-adjust -0.1) " ")
-		'face `(:height 1.1 :foreground ,cml-read-only-name-color :box (:line-width 8 :color ,(cml-bg-color nil)))))
+		'face `(:height 1.0 :foreground ,cml-read-only-name-color :box (:line-width 8 :color ,(cml-bg-color nil)))))
    ((buffer-modified-p)
     (propertize (concat (all-the-icons-material "save" :v-adjust -0.1) " ")
-		'face `(:height 1.1 :foreground ,(cml-fg-color cml-modified-name-color)
+		'face `(:height 1.0 :foreground ,(cml-fg-color cml-modified-name-color)
 				:box (:line-width 7 :color ,(cml-bg-color nil)))))
    (t "")
    )
@@ -197,7 +199,7 @@
    '(:eval (cml-get-modified-name))
    " %l:%c %o"
    '(:eval (cml-padding))
-   'cml-right-txt
+   cml-right-txt
    )
   )
 

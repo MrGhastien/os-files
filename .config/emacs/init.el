@@ -2,7 +2,6 @@
 
 (setq custom-file "~/.config/emacs/custom.el")
 (load custom-file)
-(load-theme 'Test)
 
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
@@ -42,7 +41,9 @@
   :init (setq lsp-keymap-prefix "s-m")
   :commands lsp
   :config (setq lsp-eldoc-render-all t)
+  :config (setq lsp-lens-enable nil)
   :ensure t)
+
 
 (use-package ccls
   :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (lsp)))
@@ -52,6 +53,15 @@
 (add-hook 'c++-mode-hook #'ligature-mode)
 
 (use-package pdf-tools
+  :ensure t)
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  )
+
+(use-package dired-single
   :ensure t)
 
 (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
@@ -99,7 +109,7 @@
     )
   )
 
-;; Mode line config
+(load-theme 'Test)
 
 (defun on-make-frame ()
   (use-package all-the-icons
@@ -122,8 +132,9 @@
     :hook (org-mode . org-bullets-mode)
     :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-  (ligature-set-ligatures 'c-mode '("->" "<=" ">=" "==" "!="))
+  (ligature-set-ligatures 'c-mode '("->" "<-" "<=" ">=" "==" "!="))
   
+  ;; Mode line config
   (load "~/.config/emacs/modeline.el")
   )
 
@@ -131,3 +142,4 @@
     (add-hook 'after-make-frame-functions (lambda (frame) (with-selected-frame frame (on-make-frame))))
   (on-make-frame)
   )
+(put 'dired-find-alternate-file 'disabled nil)

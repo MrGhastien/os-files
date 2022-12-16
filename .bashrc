@@ -16,25 +16,25 @@ LIGHT_GREEN="\[\033[1;32m\]"
    DIM_CYAN="\[\033[2;36m\]"
  COLOR_NONE="\[\e[0m\]"
 #DPC : Default Prompt Color
-DPC=${DIM_YELLOW}
+DPC=${YELLOW}
 
 function parse_git_branch {
 	git rev-parse --git-dir &> /dev/null
 	git_status="$(git status 2> /dev/null)"
-	branch_pattern="^Sur la branche ([^${IFS}]*)"
+	branch_pattern="^On branch ([^${IFS}]*)"
 	remote_pattern="# Your branch is (.*) of"
 	diverge_pattern="# Your branch and (.*) have diverged"
 	special_token=0
-	if [[ ! ${git_status} =~ "la copie de travail est propre" ]]; then
-		if [[ ${git_status} =~ "Modifications qui ne seront pas validées" ]]; then
+	if [[ ! ${git_status} =~ "working tree clean" ]]; then
+		if [[ ${git_status} =~ "Changes not staged for commit" ]]; then
 			not_indexed="${RED}*"
 			special_token=1
 		fi
-		if [[ ${git_status} =~ "Modifications qui seront validées" ]]; then
+		if [[ ${git_status} =~ "Changes to be committed" ]]; then
 			indexed="${YELLOW}+"
 			special_token=1
 		fi
-		if [[ ${git_status} =~ "Fichiers non suivis" ]]; then
+		if [[ ${git_status} =~ "Untracked files" ]]; then
 			untracked="${RED}!"
 			special_token=1
 		fi
@@ -51,7 +51,7 @@ function parse_git_branch {
 
 function set_prompt() {
 
-	prompt="${DPC}[\u@\h ${COLOR_NONE}${CYAN}\w${COLOR_NONE}${DPC}] ${COLOR_NONE}$(parse_git_branch)${DPC}\$❯${COLOR_NONE}"
+	prompt="${DPC}[\u@\h ${COLOR_NONE}${CYAN}\w${COLOR_NONE}${DPC}] ${COLOR_NONE}$(parse_git_branch)${DPC}\$>${COLOR_NONE}"
 	PS1="${prompt} "
 
 }

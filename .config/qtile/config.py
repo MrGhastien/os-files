@@ -22,25 +22,37 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
+import subprocess
+
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile import hook
 
 mod = "mod4"
 terminal = guess_terminal()
 
-WALLPAPER1 = "~/Images/wallpapers/dog.jpg"
-WALLPAPER2 = "~/Images/wallpapers/loading-screen.jpg"
-WALLPAPER3 = "~/Images/wallpapers/dog.jpg"
+WALLPAPER1 = "~/Images/wallpapers/title_blue_widescreen_processed.png"
+WALLPAPER2 = "~/Images/wallpapers/Competitive_2844x1600.jpg"
+WALLPAPER3 = "~/Images/wallpapers/title_red_widescreen_processed.png"
+WALLPAPER4 = "~/Images/wallpapers/Ol_nick_2560x1600.jpg"
 
 # COLORS
-BACKGROUND_COLOR = "#322b29"
-BAR_BORDER_COLOR = "#7f6d68"
+BACKGROUND_COLOR = "#1a1818aa"
+BAR_BORDER_COLOR = "#000000"#"#924011"
 BORDER_COLOR="#d25710"
 
+# Events
+@hook.subscribe.startup_once
+def onStartupOnce():
+	startupShellScript = os.path.expanduser('~/.config/qtile/startup_once.sh')
+	subprocess.Popen([startupShellScript])
+
+# Key bindings
 keys = [
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
     # Switch between windows
@@ -72,9 +84,10 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn("env WINIT_X11_SCALE_FACTOR=1 " + terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    # Toggle between different layouts as defined below
     Key([mod, "shift"], "a", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -82,7 +95,7 @@ keys = [
 ]
 
 group_labels = [c for c in "1234567890"]
-group_names = ['ampersand', 'eacute', 'quotedbl', 'apostrophe', 'parenleft', 'section', 'egrave', 'exclam', 'ccedilla', 'agrave']
+group_names = ['ampersand', 'eacute', 'quotedbl', 'apostrophe', 'parenleft', 'hyphen', 'egrave', 'underscore', 'ccedilla', 'agrave']
 groups = []
 
 for i in range(len(group_names)):
@@ -123,15 +136,15 @@ for g in groups:
 
 
 layouts = [
-    layout.Columns(
-		border_focus=BORDER_COLOR,
-		border_width=2,
-		border_normal=BACKGROUND_COLOR,
-		margin=5,
-		border_on_single=False,	
-		margin_on_single=False,
-	),
-    layout.Max(),
+        layout.Columns(
+	        border_focus=BORDER_COLOR,
+	        border_width=2,
+	        border_normal=BACKGROUND_COLOR,
+	        margin=5,
+	        border_on_single=False,	
+	        margin_on_single=False,
+        ),
+        layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -157,94 +170,66 @@ extension_defaults = widget_defaults.copy()
 clock_format="%A %d/%m/%Y - %H:%M:%S"
 
 default_sep=widget.Sep(
-				padding=15,
-				size_percent=65,
-				linewidth=2,
-				foreground=BORDER_COLOR,
-			)
+	padding=15,
+	size_percent=75,
+	linewidth=1,
+	foreground="#3b3131",
+)
+
+systray = widget.Systray()
 
 def create_bar():
 	return bar.Bar(
-		[
-            widget.QuickExit(),
-			default_sep,
-            widget.CurrentLayout(),
-            widget.GroupBox(
-				highlight_method='block',
+                [
+                        widget.QuickExit(),
+	                default_sep,
+                        widget.CurrentLayout(),
+                        widget.GroupBox(
+			        highlight_method='line',
+                                highlight_color=[BACKGROUND_COLOR, "#6f2e0f"],
 				this_current_screen_border="#d54010",
 				this_screen_border="#d54010",
 				other_current_screen_border="#605050",
 				other_screen_border="#605050",
-				inactive="8f4d24",
+				inactive="#6f2800",
 			),
 			default_sep,
-            widget.Prompt(),
-            widget.WindowName(),
-            widget.Chord(
-                chords_colors={
-                    "launch": ("#ff0000", "#ffffff"),
-                },
-                name_transform=lambda name: name.upper(),
-            ),
+                        widget.Prompt(),
+                        widget.WindowName(),
+                        widget.Chord(
+                                chords_colors={
+                                        "launch": ("#ff0000", "#ffffff"),
+                                },
+                                name_transform=lambda name: name.upper(),
+                        ),
+                        systray,
 			widget.Net(),
 			default_sep,
-            widget.Clock(format=clock_format),
-        ],
-        35,
-        border_width=[2, 0, 0, 0],  # Draw top and bottom borders
-        border_color=BAR_BORDER_COLOR,
+                        widget.Clock(format=clock_format),
+                ],
+                35,
+                #border_width=[2, 0, 0, 0],  # Draw top and bottom borders
+                #border_color=BAR_BORDER_COLOR,
 		background=BACKGROUND_COLOR,
-		# opacity=0.9,
-		margin=[3, 0, 0, 0],
-    )
-
+		margin=[5, 20, 5, 20],
+        )
 
 screens = [
-    Screen(
-        bottom=create_bar(),
-		wallpaper=WALLPAPER1,
-    ),
 	Screen(
-        bottom=bar.Bar(
-		[
-            widget.QuickExit(),
-			default_sep,
-            widget.CurrentLayout(),
-            widget.GroupBox(
-				highlight_method='block',
-				this_current_screen_border="#d54010",
-				this_screen_border="#d54010",
-				other_current_screen_border="#605050",
-				other_screen_border="#605050",
-				inactive="8f4d24",
-			),
-			default_sep,
-            widget.Prompt(),
-            widget.WindowName(),
-            widget.Chord(
-                chords_colors={
-                    "launch": ("#ff0000", "#ffffff"),
-                },
-                name_transform=lambda name: name.upper(),
-            ),
-            widget.Systray(),
-			widget.Net(),
-			default_sep,
-            widget.Clock(format=clock_format),
-        ],
-        35,
-        border_width=[2, 0, 0, 0],  # Draw top and bottom borders
-        border_color=BAR_BORDER_COLOR,
-		background=BACKGROUND_COLOR,
-		# opacity=0.9,
-		margin=[3, 0, 0, 0],
-    ),
+		bottom=create_bar(),
 		wallpaper=WALLPAPER2,
-    ),
+                wallpaper_mode="fill",
+	),
 	Screen(
-        bottom=create_bar(),
-		wallpaper=WALLPAPER3,
-    )
+                bottom=create_bar(),
+		wallpaper=WALLPAPER4,
+                wallpaper_mode="fill",
+        ),
+	"""Screen(
+                bottom=create_bar(),
+	        wallpaper=WALLPAPER2,
+                wallpaper_mode="fill",
+        )"""
 ]
 
 # Drag floating layouts.
