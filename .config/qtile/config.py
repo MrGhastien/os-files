@@ -88,14 +88,15 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     # Toggle between different layouts as defined below
-    Key([mod, "shift"], "a", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod, "shift"], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
 ]
 
 group_labels = [c for c in "1234567890"]
-group_names = ['ampersand', 'eacute', 'quotedbl', 'apostrophe', 'parenleft', 'hyphen', 'egrave', 'underscore', 'ccedilla', 'agrave']
+# group_names = ['ampersand', 'eacute', 'quotedbl', 'apostrophe', 'parenleft', 'hyphen', 'egrave', 'underscore', 'ccedilla', 'agrave']
+group_names = [c for c in "1234567890"]
 groups = []
 
 for i in range(len(group_names)):
