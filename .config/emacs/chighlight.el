@@ -22,6 +22,13 @@
   (font-lock-add-keywords nil '(
                                     ("\\_<[0-9]+\\_>" . chl-number-face)
                                     ("\\_<0x[0-9a-fA-F]+\\_>" . chl-number-face)
+                                    ("\\_<int\\_>" . font-lock-keyword-face)
+                                    ("\\_<float\\_>" . font-lock-keyword-face)
+                                    ("\\_<long\\_>" . font-lock-keyword-face)
+                                    ("\\_<unsigned\\_>" . font-lock-keyword-face)
+                                    ("\\_<double\\_>" . font-lock-keyword-face)
+                                    ("\\_<bool\\_>" . font-lock-keyword-face)
+                                    ("\\_<boolean\\_>" . font-lock-keyword-face)
                                     )
                           )
   )

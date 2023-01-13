@@ -31,9 +31,6 @@
 (use-package evil)
 (evil-mode 1)
 
-(use-package neotree
-  :ensure t)
-
 (use-package tex
   :ensure auctex)
 
@@ -46,11 +43,12 @@
 
 
 (use-package ccls
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (lsp)))
+  :hook ((c-mode c++-mode java-mode) . (lambda () (require 'ccls) (lsp)))
   :ensure t)
 
 (add-hook 'c-mode-hook #'ligature-mode)
 (add-hook 'c++-mode-hook #'ligature-mode)
+(add-hook 'java-mode-hook #'ligature-mode)
 
 (use-package pdf-tools
   :ensure t)
@@ -63,6 +61,7 @@
 
 (use-package dired-single
   :ensure t)
+
 
 (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
@@ -112,17 +111,7 @@
 (load-theme 'Test)
 
 (defun on-make-frame ()
-  (use-package all-the-icons
-	:if (display-graphic-p)
-	:ensure t)
-  (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
   
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   	
   (use-package org
   	:config (setq org-ellipsis (all-the-icons-material "arrow_drop_down")))
@@ -133,6 +122,16 @@
     :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
   (ligature-set-ligatures 'c-mode '("->" "<-" "<=" ">=" "==" "!="))
+  
+  (use-package all-the-icons
+    :if (display-graphic-p)
+    :ensure t)
+  (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
+  (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
   
   ;; Mode line config
   (load "~/.config/emacs/modeline.el")
