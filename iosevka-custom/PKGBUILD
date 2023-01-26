@@ -1,0 +1,179 @@
+pkgname='iosevka-custom'
+pkgver=1.0.0
+pkgrel=1
+arch=(any)
+
+provides=('ttf-font')
+url="https://typeof.net/Iosevka/"
+license=('OFL')
+source=("iosevka-custom-bolditalic.ttf"
+        "iosevka-custom-boldoblique.ttf"
+        "iosevka-custom-bold.ttf"
+        "iosevka-custom-extendedbolditalic.ttf"
+        "iosevka-custom-extendedboldoblique.ttf"
+        "iosevka-custom-extendedbold.ttf"
+        "iosevka-custom-extendedextrabolditalic.ttf"
+        "iosevka-custom-extendedextraboldoblique.ttf"
+        "iosevka-custom-extendedextrabold.ttf"
+        "iosevka-custom-extendedextralightitalic.ttf"
+        "iosevka-custom-extendedextralightoblique.ttf"
+        "iosevka-custom-extendedextralight.ttf"
+        "iosevka-custom-extendedheavyitalic.ttf"
+        "iosevka-custom-extendedheavyoblique.ttf"
+        "iosevka-custom-extendedheavy.ttf"
+        "iosevka-custom-extendeditalic.ttf"
+        "iosevka-custom-extendedlightitalic.ttf"
+        "iosevka-custom-extendedlightoblique.ttf"
+        "iosevka-custom-extendedlight.ttf"
+        "iosevka-custom-extendedmediumitalic.ttf"
+        "iosevka-custom-extendedmediumoblique.ttf"
+        "iosevka-custom-extendedmedium.ttf"
+        "iosevka-custom-extendedoblique.ttf"
+        "iosevka-custom-extendedsemibolditalic.ttf"
+        "iosevka-custom-extendedsemiboldoblique.ttf"
+        "iosevka-custom-extendedsemibold.ttf"
+        "iosevka-custom-extendedthinitalic.ttf"
+        "iosevka-custom-extendedthinoblique.ttf"
+        "iosevka-custom-extendedthin.ttf"
+        "iosevka-custom-extended.ttf"
+        "iosevka-custom-extrabolditalic.ttf"
+        "iosevka-custom-extraboldoblique.ttf"
+        "iosevka-custom-extrabold.ttf"
+        "iosevka-custom-extralightitalic.ttf"
+        "iosevka-custom-extralightoblique.ttf"
+        "iosevka-custom-extralight.ttf"
+        "iosevka-custom-heavyitalic.ttf"
+        "iosevka-custom-heavyoblique.ttf"
+        "iosevka-custom-heavy.ttf"
+        "iosevka-custom-italic.ttf"
+        "iosevka-custom-lightitalic.ttf"
+        "iosevka-custom-lightoblique.ttf"
+        "iosevka-custom-light.ttf"
+        "iosevka-custom-mediumitalic.ttf"
+        "iosevka-custom-mediumoblique.ttf"
+        "iosevka-custom-medium.ttf"
+        "iosevka-custom-oblique.ttf"
+        "iosevka-custom-regular.ttf"
+        "iosevka-custom-semibolditalic.ttf"
+        "iosevka-custom-semiboldoblique.ttf"
+        "iosevka-custom-semibold.ttf"
+        "iosevka-custom-thinitalic.ttf"
+        "iosevka-custom-thinoblique.ttf"
+        "iosevka-custom-thin.ttf"
+        "OFL.txt")
+
+md5sums=('b6d0e9f374f580db5eae3f20df369ce5'
+         '3e613f8b0d146cd8442f9b60bb440fc6'
+         'e9016e166eba1f9f11fccb4968a303fe'
+         'f9ff35a5cc56d21af0a29c6cb9c4d5b0'
+         'c9afc49db5d4b49f9bacbdf2cbfda0fd'
+         '56aa862941f98fd6e5026cc2686180f6'
+         '6e7e5939f0a469d6b02c31718ca1250e'
+         '185aeed6b16be49f2859194e563c7159'
+         '08f77cf71c1476b37395e08128fe4b1b'
+         '1d6f10dab116ef5acd0019bb3ad980c6'
+         '0af1f33ffe4640ee3269325002262dcc'
+         '120208ff0311da0600f26191a22951af'
+         'd6eb2d9da306fa36e8e74bd8ae9f944e'
+         'ca7c921b6bdaa68280b9f122a5aa8004'
+         '4c1c69ab21837f25f2e07b64cf151880'
+         'a40fcb15b0c5880f399d6294d0cfd3ca'
+         'dc0a57904fedc58e7560e6f699d68c51'
+         '499934f5870a1ea9853c69bf0c62964c'
+         'fd3cfccc8a987863f31ebfad8d09c68e'
+         'cb36cb2bf24303ac16f9537212986514'
+         '5842d707153aec12e08e2e0248ccbfcf'
+         'efc0420e1c4727eb508cdc8f975be73c'
+         '4fb4de6bfa7f44ed053e5a930d06fecc'
+         '5a5d6d9ab3a8e26e089138943012bfc0'
+         'ed6445afb92b2cc2471a388845127af8'
+         '0ddb3ae7f67bb9c84abc53b7a6632dd0'
+         '60639d9e31bb2b05e9d0c6a17e98a6d1'
+         '3afe075bb730805452c0766551480eb4'
+         '9a927b84f9c824f3d7893a59dfdb4bef'
+         '294e2f412fcdd242274ac08334d4e93d'
+         '7bfb3599e2e8d95dc84f8b2f9f1d3a65'
+         '735866e5ef1c8fc22149d44f90958ba1'
+         'a4c21a42325c7de559c5a9a69b795ed2'
+         'eaaefbbd71ba63bd3cae47a2d50140b9'
+         'e732c5496f057d20b206bfa6751857ae'
+         '36a3ea4e51efa9f5941a62a739d3c95d'
+         '0dd84bc84627a697abe48f22bb029bae'
+         'ac3a73f30e0a268d40a4d96601a80b2b'
+         '0805c212801ed4310bc74766d65c0ba4'
+         '66be873c715315fb652c96be6d719260'
+         'f4e3f4fdc98cd3a10ca73022b76e13b2'
+         'bb0deba280f94cb10d4c0c9525e6106f'
+         '56bfd2a636a52688580f1c3aae40369a'
+         '6dfb8a89462e1324bca0b6ef4ccb0372'
+         '92f1a6f9655ca286a8f60033b15fb98e'
+         '0ebc3fd517da47bb4681ac5c3263fcd5'
+         'bf9d7ac90c5d29bf54cf27b0df678bcb'
+         '806679ff62230b46f1e7f8144decb41e'
+         '60b9c32a97bedafd9c47a83da1e1f9a3'
+         '214732ca9f325ba332ead85dfe1248ff'
+         '94eaa85ad118dbc2798d2d19ace7c58c'
+         '8bd8bed2749985623669c1f6c8d3cca2'
+         'f55a9790cc4afcd877ae9262c46e54c7'
+         'a3742a1de37bed9f24c52bf07999d501'
+         '6ed93967ff0dc6dd9c8d31c17f817a06')
+
+package() {
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-bolditalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-boldoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-bold.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedbolditalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedboldoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedbold.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedextrabolditalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedextraboldoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedextrabold.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedextralightitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedextralightoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedextralight.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedheavyitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedheavyoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedheavy.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendeditalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedlightitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedlightoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedlight.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedmediumitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedmediumoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedmedium.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedsemibolditalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedsemiboldoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedsemibold.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedthinitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedthinoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extendedthin.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extended.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extrabolditalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extraboldoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extrabold.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extralightitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extralightoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-extralight.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-heavyitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-heavyoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-heavy.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-italic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-lightitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-lightoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-light.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-mediumitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-mediumoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-medium.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-oblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-regular.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-semibolditalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-semiboldoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-semibold.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-thinitalic.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-thinoblique.ttf"
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" "iosevka-custom-thin.ttf"
+    fc-cache
+    install -d "${pkgdir}/usr/share/licenses/${pkgname}"
+    install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" "OFL.txt"
+}
