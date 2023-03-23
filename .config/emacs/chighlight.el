@@ -19,18 +19,30 @@
 (defvar chl-macro-face 'chl-macro-face)
 
 (defun add-custom-highlight ()
-  (font-lock-add-keywords nil '(
-                                    ("\\_<[0-9]+\\_>" . chl-number-face)
-                                    ("\\_<0x[0-9a-fA-F]+\\_>" . chl-number-face)
-                                    ("\\_<int\\_>" . font-lock-keyword-face)
-                                    ("\\_<float\\_>" . font-lock-keyword-face)
-                                    ("\\_<long\\_>" . font-lock-keyword-face)
-                                    ("\\_<unsigned\\_>" . font-lock-keyword-face)
-                                    ("\\_<double\\_>" . font-lock-keyword-face)
-                                    ("\\_<bool\\_>" . font-lock-keyword-face)
-                                    ("\\_<boolean\\_>" . font-lock-keyword-face)
-                                    )
-                          )
+  (font-lock-add-keywords
+   nil
+   '(
+     ("\\_<[0-9]+\\(\\.[0-9]+f?\\)?\\_>"         . chl-number-face)
+     ("\\_<0x[0-9a-fA-F]+\\_>" . chl-number-face)
+     ("\\<char\\>"           . font-lock-keyword-face)
+     ("\\<void\\>"           . font-lock-keyword-face)
+     ("\\<int\\>"            . font-lock-keyword-face)
+     ("\\<float\\>"          . font-lock-keyword-face)
+     ("\\<long\\>"           . font-lock-keyword-face)
+     ("\\<unsigned\\>"       . font-lock-keyword-face)
+     ("\\<double\\>"         . font-lock-keyword-face)
+     ("\\<delete\\(\\[\\]\\)"    1 font-lock-keyword-face prepend)
+     )
+   )
   )
 
-(add-hook 'c-mode-hook #'add-custom-highlight)
+(defun hack-c-not-decl-init-keywords ()
+  (add-custom-highlight)
+  (setq c-not-decl-init-keywords
+        (concat "\\(\\(static\\|const\\)?\\<\\(char\\|void\\|int\\|short\\|float\\|double\\|long\\|signed\\|unsigned\\|bool\\)\\>\\)\\|"
+                c-not-decl-init-keywords)
+        )
+  )
+
+;(add-hook 'c-mode-hook #'add-custom-highlight)
+(add-hook 'c++-mode-hook #'hack-c-not-decl-init-keywords)

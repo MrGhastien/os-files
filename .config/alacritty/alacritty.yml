@@ -5,8 +5,9 @@ window:
 
 font:
   normal:
-    family: Fira Code Retina
-  size: 11.0
+    family: Cascadia Code
+    style: Regular
+  size: 15.0
 
 # Colors (Gruvbox Material Dark Medium)
 colors:
@@ -79,6 +80,12 @@ cursor:
   blink_timeout: 0
   unfocused_hollow: false
   thickness: 0.25
+
+window:
+  opacity: 0.55
+
+bell:
+  animation: EaseOutExpo
 
 # Shell program
   program: /bin/bash

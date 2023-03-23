@@ -1,56 +1,20 @@
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 import os
 import subprocess
 
 from typing import List  # noqa: F401
 
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Click, Drag, EzKey, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile import hook
 
+from constants import *
+import groups
+import hooks
+
 mod = "mod4"
-terminal = guess_terminal()
-
-WALLPAPER1 = "~/Images/wallpapers/title_blue_widescreen_processed.png"
-WALLPAPER2 = "~/Images/wallpapers/Competitive_2844x1600.jpg"
-WALLPAPER3 = "~/Images/wallpapers/title_red_widescreen_processed.png"
-WALLPAPER4 = "~/Images/wallpapers/Ol_nick_2560x1600.jpg"
-
-# COLORS
-BACKGROUND_COLOR = "#1a1818aa"
-BAR_BORDER_COLOR = "#000000"#"#924011"
-BORDER_COLOR="#d25710"
-
-# Events
-@hook.subscribe.startup_once
-def onStartupOnce():
-	startupShellScript = os.path.expanduser('~/.config/qtile/startup_once.sh')
-	subprocess.Popen([startupShellScript])
+terminal = "alacritty"
 
 # Key bindings
 keys = [
@@ -84,7 +48,7 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn("env WINIT_X11_SCALE_FACTOR=1 " + terminal), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     # Toggle between different layouts as defined below
@@ -92,49 +56,25 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
+    Key([mod], "e", lazy.spawn("emacsclient -c -a ''"), desc="Launch emacs with a daemon"),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brillo -A 5 -u 100000"), desc="Increase monitor brightness"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brillo -U 5 -u 100000"), desc="Decrease monitor brightness"),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%+"), desc="Increase master volume"),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%-"), desc="Decrease master volume"),
+    Key([], "XF86AudioMute", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh toggle"), desc="Mute/unmute master"),
+    Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard()),
+    Key([mod], "f", lazy.window.toggle_floating()),
+    Key([mod], "g", lazy.window.toggle_minimize()),
+
+    # Key([mod, "shift"], "Return", lazy.spawn("aplay /home/mrghastien/dev/boom.wav")),
+    # Key([mod, "shift"], "Tab", lazy.spawn("aplay /home/mrghastien/dev/helikopter.wav")),
+    # Key([mod, "shift"], "b", lazy.spawn("aplay /home/mrghastien/dev/boom-disto.wav")),
+    # Key([mod, "shift"], "c", lazy.spawn("aplay /home/mrghastien/dev/OMG.wav")),
+    # Key([mod, "shift"], "n", lazy.spawn("aplay /home/mrghastien/dev/omg-bruh.wav")),
+    # Key([mod, "shift"], "v", lazy.spawn("aplay /home/mrghastien/dev/augh.wav")),
 ]
 
-group_labels = [c for c in "1234567890"]
-# group_names = ['ampersand', 'eacute', 'quotedbl', 'apostrophe', 'parenleft', 'hyphen', 'egrave', 'underscore', 'ccedilla', 'agrave']
-group_names = [c for c in "1234567890"]
-groups = []
-
-for i in range(len(group_names)):
-	groups.append(
-		Group(
-			name=group_names[i],
-			label=group_labels[i]
-		)
-	)
-
-for g in groups:
-	keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [mod],
-                g.name,
-                lazy.group[g.name].toscreen(),
-                desc="Switch to group {}".format(g.name),
-            ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
-            #Key(
-            #    [mod, "shift"],
-            #    k,
-            #    lazy.window.togroup(g.name, switch_group=True),
-            #    desc="Switch to & move focused window to group {}".format(i.name),
-            #),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            Key(
-                [mod, "shift"],
-                g.name,
-                lazy.window.togroup(g.name),
-                desc="move focused window to group {}".format(g.name),
-            ),
-        ]
-    )
-
+groups = groups.getGroups(keys, mod)
 
 layouts = [
         layout.Columns(
@@ -143,7 +83,7 @@ layouts = [
 	        border_normal=BACKGROUND_COLOR,
 	        margin=5,
 	        border_on_single=False,	
-	        margin_on_single=False,
+	        margin_on_single=0,
         ),
         layout.Max(),
     # Try more layouts by unleashing below layouts.
@@ -160,7 +100,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="source code pro bold",
+    font="Input Mono Bold",
     fontsize=14,
     #padding=2,
 	foreground="#cccccc",
@@ -178,59 +118,60 @@ default_sep=widget.Sep(
 )
 
 systray = widget.Systray()
+kbwidget = widget.KeyboardLayout(
+    configured_keyboards=KEYBOARD_LAYOUTS
+)
+
 
 def create_bar():
-	return bar.Bar(
-                [
-                        widget.QuickExit(),
-	                default_sep,
-                        widget.CurrentLayout(),
-                        widget.GroupBox(
-			        highlight_method='line',
-                                highlight_color=[BACKGROUND_COLOR, "#6f2e0f"],
-				this_current_screen_border="#d54010",
-				this_screen_border="#d54010",
-				other_current_screen_border="#605050",
-				other_screen_border="#605050",
-				inactive="#6f2800",
-			),
-			default_sep,
-                        widget.Prompt(),
-                        widget.WindowName(),
-                        widget.Chord(
-                                chords_colors={
-                                        "launch": ("#ff0000", "#ffffff"),
-                                },
-                                name_transform=lambda name: name.upper(),
-                        ),
-                        systray,
-			widget.Net(),
-			default_sep,
-                        widget.Clock(format=clock_format),
-                ],
-                35,
-                #border_width=[2, 0, 0, 0],  # Draw top and bottom borders
-                #border_color=BAR_BORDER_COLOR,
-		background=BACKGROUND_COLOR,
-		margin=[5, 20, 5, 20],
-        )
+    return bar.Bar(
+        [
+            widget.QuickExit(),
+	    default_sep,
+            widget.CurrentLayout(),
+            widget.GroupBox(
+	        highlight_method='line',
+                highlight_color=[SEL_WS_BG_COLOR, SEL_WS_BG_COLOR],
+                #highlight_color=[SEL_WS_BG_COLOR, "#6f2e0f"],
+	        this_current_screen_border="#d54010",
+	        this_screen_border="#d54010",
+	        other_current_screen_border="#605050",
+	        other_screen_border="#605050",
+	        inactive="#4a4742",
+	    ),
+	    default_sep,
+            widget.Prompt(),
+            widget.WindowName(),
+            widget.Chord(
+                chords_colors={
+                    "launch": ("#ff0000", "#ffffff"),
+                },
+                name_transform=lambda name: name.upper(),
+            ),
+            systray,
+	    widget.Net(),
+	    default_sep,
+            widget.Backlight(
+                backlight_name="intel_backlight"
+            ),
+            widget.Battery(),
+            kbwidget,
+            widget.Clock(format=clock_format),
+        ],
+        35,
+        #border_width=[2, 0, 0, 0],  # Draw top and bottom borders
+        #border_color=BAR_BORDER_COLOR,
+	background=BACKGROUND_COLOR,
+        #margin=[5, 5, 5, 5],
+        margin=0,
+    )
 
 screens = [
 	Screen(
 		bottom=create_bar(),
-		wallpaper=WALLPAPER2,
+		wallpaper=WALLPAPER,
                 wallpaper_mode="fill",
-	),
-	Screen(
-                bottom=create_bar(),
-		wallpaper=WALLPAPER4,
-                wallpaper_mode="fill",
-        ),
-	"""Screen(
-                bottom=create_bar(),
-	        wallpaper=WALLPAPER2,
-                wallpaper_mode="fill",
-        )"""
+	)
 ]
 
 # Drag floating layouts.
@@ -246,16 +187,19 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
-    float_rules=[
-        # Run the utility of `xprop` to see the wm class and name of an X client.
-        *layout.Floating.default_float_rules,
-        Match(wm_class="confirmreset"),  # gitk
-        Match(wm_class="makebranch"),  # gitk
-        Match(wm_class="maketag"),  # gitk
-        Match(wm_class="ssh-askpass"),  # ssh-askpass
-        Match(title="branchdialog"),  # gitk
-        Match(title="pinentry"),  # GPG key password entry
-    ]
+        border_focus="#fe8019",
+	border_width=2,
+	border_normal=BACKGROUND_COLOR,
+        float_rules=[
+                # Run the utility of `xprop` to see the wm class and name of an X client.
+                *layout.Floating.default_float_rules,
+                Match(wm_class="confirmreset"),  # gitk
+                Match(wm_class="makebranch"),  # gitk
+                Match(wm_class="maketag"),  # gitk
+                Match(wm_class="ssh-askpass"),  # ssh-askpass
+                Match(title="branchdialog"),  # gitk
+                Match(title="pinentry"),  # GPG key password entry
+        ]
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"

@@ -2,18 +2,23 @@
 
 (setq custom-file "~/.config/emacs/custom.el")
 (load custom-file)
+(setq custom-theme-directory "~/.config/emacs/themes")
 
-(setq inhibit-startup-message t)
+;(setq inhibit-startup-message t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(global-linum-mode t)
+(global-hl-line-mode 1)
+(global-display-line-numbers-mode 1)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq c-set-style "k&r")
 (setq c-basic-offset 4)
+
+(load "~/.config/emacs/foundation-faces.el")
+(load "~/.config/emacs/package-load.el")
 
 (load "~/.config/emacs/chighlight.el")
 
@@ -23,45 +28,13 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit) 
 (global-set-key (kbd "M-D") 'compile) 
 
-;; Packages
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
 
-(use-package evil)
-(evil-mode 1)
-
-(use-package tex
-  :ensure auctex)
-
-(use-package lsp-mode
-  :init (setq lsp-keymap-prefix "s-m")
-  :commands lsp
-  :config (setq lsp-eldoc-render-all t)
-  :config (setq lsp-lens-enable nil)
-  :ensure t)
-
-
-(use-package ccls
-  :hook ((c-mode c++-mode java-mode) . (lambda () (require 'ccls) (lsp)))
-  :ensure t)
-
-(add-hook 'c-mode-hook #'ligature-mode)
-(add-hook 'c++-mode-hook #'ligature-mode)
-(add-hook 'java-mode-hook #'ligature-mode)
-
-(use-package pdf-tools
-  :ensure t)
-
-(use-package dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :custom ((dired-listing-switches "-agho --group-directories-first"))
-  )
-
-(use-package dired-single
-  :ensure t)
-
+(dolist (mode '(treemacs-mode-hook
+                org-mode-hook
+                org-agenda-mode-hook
+                help-mode-hook
+                ))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 (evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
 (evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
@@ -108,13 +81,7 @@
     )
   )
 
-(load-theme 'Test)
-
 (defun on-make-frame ()
-  
-  	
-  (use-package org
-  	:config (setq org-ellipsis (all-the-icons-material "arrow_drop_down")))
   
   (use-package org-bullets
     :after org
@@ -134,7 +101,7 @@
   (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
   
   ;; Mode line config
-  (load "~/.config/emacs/modeline.el")
+  (cml-on-theme-change)
   )
 
 (if (daemonp)
@@ -142,3 +109,6 @@
   (on-make-frame)
   )
 (put 'dired-find-alternate-file 'disabled nil)
+
+(load "~/.config/emacs/modeline.el")
+(load-theme 'test2)

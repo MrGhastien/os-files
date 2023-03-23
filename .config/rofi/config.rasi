@@ -2,9 +2,12 @@ configuration {
 	drun {
 		display-name: "Run : ";
 	}
+    ssh {
+        display-name: "SSH Hosts :";
+    }
 	modi: "window,drun,ssh,combi";
-	font: "inconsolata 10";
+	font: "Inter 10";
 	combi-modi: "window,drun,ssh";
-    show-icons: true;
+    show-icons: false;
 }
 @theme "~/.config/rofi/themes/centered.rasi"

@@ -1,11 +1,12 @@
+(require 'svg-lib)
+
 (defvar-local cml-major-mode nil)
 (defvar-local cml-major-mode-txt nil)
 (defvar-local cml-evil-mode-str nil)
 (defvar-local cml-evil-mode-fg nil)
 (defvar-local cml-evil-mode-bg nil)
-(defvar-local cml-buf-name nil)
 
-(defvar cml-normal-name-color "#ffffff")
+(defvar cml-normal-name-color nil)
 (defvar cml-modified-name-color "#de4f32")
 (defvar cml-read-only-name-color "light goldenrod")
 
@@ -38,12 +39,12 @@
 (add-hook 'focus-in-hook #'cml-is-selwin-active)
 (add-hook 'focus-out-hook #'cml-is-selwin-active)
 
-;;;###autoload
 (put 'cml-right-txt 'risky-local-variable t)
 (put 'cml-major-mode 'risky-local-variable t)
 (put 'cml-major-mode-txt 'risky-local-variable t)
 (put 'cml-evil-mode 'risky-local-variable t)
-(put 'cml-buf-name 'risky-local-variable t)
+;(put 'cml-buf-name 'risky-local-variable t)
+;(put 'cml-buf-icon 'risky-local-variable t)
 
 (defun cml-eol-format ()
   (pcase (coding-system-eol-type buffer-file-coding-system)
@@ -55,14 +56,15 @@
 (defun cml-bg-color (active &optional inactive)
   (if (cml-is-selwin-active)
       (if active active (face-attribute 'mode-line ':background nil 'default))
-      (if inactive inactive(face-attribute 'mode-line-inactive ':background nil 'default)))
+      (if inactive inactive (face-attribute 'mode-line-inactive ':background nil 'default)))
   )
 
 (defun cml-fg-color (active &optional inactive)
   (if (cml-is-selwin-active)
       (if active active (face-attribute 'mode-line ':foreground nil 'default))
-      (if inactive inactive(face-attribute 'mode-line-inactive ':foreground nil 'default)))
+      (if inactive inactive (face-attribute 'mode-line-inactive ':foreground nil 'default)))
   )
+
 
 (defun cml-char-format ()
   (concat
@@ -82,12 +84,17 @@
 	    )
       )
 
+(defun cml-get-face-factor (face)
+  (let ((h (face-attribute face ':height)) (ph (face-attribute 'default ':height)))
+    (+ (/ h (float ph)) 0.08)
+    )
+  )
+
 (defun cml-padding ()
   (let ((r-length (length (format-mode-line cml-right-txt))))
     (propertize " "
-		'display `(space :align-to (- right ,r-length)))))
-
-
+		        'display `(space :align-to (- (+ right right-margin right-fringe) ,(* (- r-length 1.0) (cml-get-face-factor 'mode-line))))
+                'face 'mode-line)))
 
 (defun cml-update-major (&rest _)
   (let ((icon (all-the-icons-icon-for-buffer)))
@@ -100,16 +107,12 @@
   )
 
 (defun cml-update-major-txt (&rest _)
-  (let ((name (if (listp mode-name) (car mode-name) mode-name)))
-    (setq cml-major-mode-txt
-	  (propertize
-	   (if (string= name "ELisp")
-	       "Emacs-Lisp"
-	     mode-name
-	     )
-	   'face '(:weight bold))
-	  )
-    )
+  ;;(setq cml-major-mode-txt (propertize "<Mode>" 'face '(:weight bold)))
+  (setq cml-major-mode-txt
+        (propertize
+         (format-mode-line mode-name)
+         'face '(:weight bold))
+        )
   )
 
   
@@ -118,38 +121,118 @@
 (add-hook 'after-change-major-mode-hook #'cml-update-major t)
 (add-hook 'after-change-major-mode-hook #'cml-update-major-txt t)
 
-(defun cml-get-modified-name (&optional state)
-  (let ((name (propertize (buffer-name) 'face `(:weight bold :foreground
-							,(cml-fg-color (cond
-							  (buffer-read-only cml-read-only-name-color)
-							  ((or (buffer-modified-p) (string= state "modified")) cml-modified-name-color)
-							  (t cml-normal-name-color))))
-			  )))
-    (format "%s " name)
+(defun cml-get-buf-name ()
+  (propertize (buffer-name)
+              'face `(:weight bold
+                              :foreground
+							  ,(cml-fg-color (cond
+							                  (buffer-read-only cml-read-only-name-color)
+							                  ((buffer-modified-p) cml-modified-name-color)
+							                  (t cml-normal-name-color))
+                                             )
+                              )
+			  )
+  )
+
+;; ==== ICONS ====
+
+(defun cml-propertize-icon (icon collection face &optional text &rest props)
+  "Creates an icon from the svg image ICON from collection COLLECTION
+with the properties PROPS, using svg-lib.
+The resulting icon is actually TEXT with a display property specifying the icon, with the face FACE.
+
+If TEXT is nil, it is replaced with a single white space (\" \"). PROPS is a plist, used by svg-lib to create the icon
+"
+  (let ((txt (if text text " "))
+         (properties
+          (map-merge 'plist
+           props
+           `(:collection ,collection :foreground ,(plist-get face :foreground) :background ,(plist-get face :background))
+           )
+          )
+         )
+    (propertize txt
+                'display (svg-lib-icon icon properties)
+                'face face
+                )
     )
   )
 
-(defun cml-get-modified-icon ()
-  (cond
-   (buffer-read-only
-    (propertize (concat (all-the-icons-material "lock" :v-adjust -0.1) " ")
-		'face `(:height 1.0 :foreground ,cml-read-only-name-color :box (:line-width 8 :color ,(cml-bg-color nil)))))
-   ((buffer-modified-p)
-    (propertize (concat (all-the-icons-material "save" :v-adjust -0.1) " ")
-		'face `(:height 1.0 :foreground ,(cml-fg-color cml-modified-name-color)
-				:box (:line-width 7 :color ,(cml-bg-color nil)))))
-   (t "")
-   )
+(defvar cml-modif-icon nil)
+(defvar cml-ro-icon nil)
+(defvar cml-modif-icon-inactive nil)
+(defvar cml-ro-icon-inactive nil)
+
+(defvar after-theme-load-hook nil
+  "Hook run when loading a theme"
   )
 
-;;(defun cml-set-modified ()
-;;  (cml-update-modified "modified")
-;;  )
 
-;;(add-hook 'first-change-hook #'cml-set-modified)
-;;(add-hook 'buffer-list-update-hook #'cml-update-modified)
-;;(add-hook 'after-save-hook #'cml-update-modified)
-;;(add-hook 'read-only-mode-hook #'cml-update-modified)
+(defadvice load-theme (after run-after-theme-load-hook activate)
+  "Run the `after-theme-load-hook'."
+  (run-hooks 'after-theme-load-hook)
+  )
+
+                                        ; We regenerate the icons each time we load a theme (colors might change).
+                                        ; This is better than using 'propertize' with ':eval' keys, the latter causing incredible amounts of lag.
+
+(defun cml-on-theme-change ()
+  "Rebuilds all cml icons, mainly to update colors"
+  (setq cml-modif-icon
+        (cml-propertize-icon "content-save" "material"
+                             `(:foreground ,cml-modified-name-color :background ,(face-attribute 'mode-line :background nil 'default))
+                             " "
+                             :stroke 0
+                             :padding 0
+                             :margin 0
+                             :scale 0.9
+                             )
+        )
+  (setq cml-ro-icon
+        (cml-propertize-icon "lock" "material"
+                             `(:foreground ,cml-read-only-name-color :background ,(face-attribute 'mode-line :background nil 'default))
+                             " "
+                             :stroke 0
+                             :padding 0
+                             :margin 0
+                             :scale 0.9
+                             )
+        )
+
+  (setq cml-modif-icon-inactive
+        (cml-propertize-icon "content-save" "material"
+                             `(:foreground ,(face-attribute 'mode-line-inactive :foreground nil 'default)
+                                           :background ,(face-attribute 'mode-line-inactive :background nil 'default))
+                             " "
+                             :stroke 0
+                             :padding 0
+                             :margin 0
+                             :scale 0.9
+                             )
+        )
+  (setq cml-ro-icon-inactive
+        (cml-propertize-icon "lock" "material"
+                             `(:foreground ,(face-attribute 'mode-line-inactive :foreground nil 'default)
+                                           :background ,(face-attribute 'mode-line-inactive :background nil 'default))
+                             " "
+                             :stroke 0
+                             :padding 0
+                             :margin 0
+                             :scale 0.9
+                             )
+        )
+  )
+
+(add-hook 'after-theme-load-hook #'cml-on-theme-change)
+
+
+(defun cml-get-buf-icon ()
+  (cond
+   (buffer-read-only (if (cml-is-selwin-active) cml-ro-icon cml-ro-icon-inactive))
+   ((buffer-modified-p) (if (cml-is-selwin-active) cml-modif-icon cml-modif-icon-inactive))
+   (t "")
+  )
+)
 
 (defun cml-update-evil (mode color fg)
   (setq cml-evil-mode-str mode)
@@ -192,18 +275,20 @@
 (defvar cml-format
   (list
    "%e"
-   '(:eval (when (not buffer-read-only) (cml-get-evil-mode)))
+   '(:eval (unless buffer-read-only (cml-get-evil-mode)))
    " "
    'cml-major-mode
-   '(:eval (cml-get-modified-icon))
-   '(:eval (cml-get-modified-name))
+   '(:eval (cml-get-buf-icon))
+   " "
+   '(:eval (cml-get-buf-name))
    " %l:%c %o"
    '(:eval (cml-padding))
    cml-right-txt
    )
   )
 
+(cml-on-theme-change)
+
 (message "Setting mode line format.")
 (setq mode-line-format cml-format)
 (setq-default mode-line-format cml-format)
-	      

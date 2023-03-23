@@ -7,16 +7,19 @@
 
 
 * {
-    background-color:           #282421;
-    border-color:               #31322f;
-    text-color:                 #bbc2cf;
-    font:                       "Inconsolata 13";
+    background-color:           #282828;
+    //border-color:               #31322f;
+    border-color:               #504945;
+    text-color:                 #fbf1c0;
+    font:                       "Fira Code Semibold 11";
     prompt-font:                "Ubuntu Bold 12";
-    prompt-background:          #d25710;
-    prompt-foreground:          #cccccc;
+    prompt-background:          @background-color;
+    //prompt-foreground:          #fb4934;
+    prompt-foreground:          #fe8019;
     prompt-padding:             10px;
-    selected-normal-background: #282421;
-    selected-normal-foreground: #d54010;
+    selected-normal-background: #fe8019;
+    //selected-normal-background: #fb4934;
+    selected-normal-foreground: #801100;
 }
 
 /*window {
@@ -30,8 +33,9 @@
 mainbox {
         orientation: vertical;
         children: [ inputbar, message, listview ];
-        border: 1px 2px 2px 2px;
-        border-radius: 3px;
+        border: 2px;
+        border-radius: 8px;
+        padding: 15px;
 }
 
 message {
@@ -41,7 +45,7 @@ message {
 inputbar {
     orientation: horizontal;
     children: [ prompt, entry, num-filtered-rows];
-    border: 1px 0 1px 0;
+    border: 0px 0 1px 0;
     //padding: 15px;
     //border-color: #555252;
     cursor: text;
@@ -76,16 +80,17 @@ entry {
 
 element {
     padding: 7px 8px;
-    border: 0 0 1 dash 0;
+    //border: 0 0 1 dash 0;
     //border-color: #555252;
     spacing: 5px;
     orientation: horizontal;
-    childreb: [ element-text, element-icon ];
+    children: [ element-text ];
 }
 
 element.selected {
     background-color: @selected-normal-background;
     text-color:       @selected-normal-foreground;
+    border-radius: 5px;
 }
 
 element-text {
