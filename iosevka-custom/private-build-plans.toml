@@ -1,0 +1,51 @@
+[buildPlans.iosevka-custom]
+family = "Iosevka Custom"
+spacing = "normal"
+serifs = "sans"
+no-cv-ss = false
+export-glyph-names = false
+
+  [buildPlans.iosevka-custom.variants]
+  inherits = "ss05"
+
+    [buildPlans.iosevka-custom.variants.design]
+    a = "double-storey-serifless"
+    i = "tailed-serifed"
+    j = "serifed"
+    v = "straight"
+    x = "straight-serifless"
+    y = "straight-turn"
+    z = "straight-serifless"
+    lower-delta = "rounded"
+    lower-lambda = "straight-turn"
+    lower-mu = "tailed"
+    lower-xi = "rounded"
+    cyrl-capital-zhe = "symmetric-connected"
+    cyrl-zhe = "symmetric-connected"
+    cyrl-capital-ka = "curly-serifless"
+    cyrl-ka = "curly-serifless"
+    zero = "slashed-split-oval"
+    five = "oblique-upper-left-bar"
+    seven = "straight-serifless"
+    punctuation-dot = "round"
+    asterisk = "penta-low"
+    underscore = "low"
+    paren = "normal"
+    brace = "straight"
+    ampersand = "et-toothless-corner"
+    dollar = "through"
+    bar = "natural-slope"
+    partial-derivative = "straight-bar"
+    micro-sign = "tailed"
+    lig-ltgteq = "slanted"
+    lig-equal-chain = "without-notch"
+    lig-hyphen-chain = "without-notch"
+    lig-single-arrow-bar = "without-notch"
+
+  [buildPlans.iosevka-custom.ligations]
+  inherits = "dlig"
+
+[buildPlans.iosevka-custom.widths.normal]
+shape = 600
+menu = 5
+css = "normal"
