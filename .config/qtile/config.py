@@ -16,6 +16,29 @@ import hooks
 mod = "mod4"
 terminal = "alacritty"
 
+layouts = [
+        layout.Columns(
+	        border_focus=BORDER_COLOR,
+	        border_width=2,
+	        border_normal=BACKGROUND_COLOR,
+	        margin=5,
+	        border_on_single=False,	
+	        margin_on_single=0,
+        ),
+        layout.Max(),
+    # Try more layouts by unleashing below layouts.
+    # layout.Stack(num_stacks=2),
+    # layout.Bsp(),
+    # layout.Matrix(),
+    # layout.MonadTall(),
+    # layout.MonadWide(),
+    # layout.RatioTile(),
+    # layout.Tile(),
+    # layout.TreeTab(),
+    # layout.VerticalTile(),
+    # layout.Zoomy(),
+]
+
 # Key bindings
 keys = [
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -57,14 +80,16 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
     Key([mod], "e", lazy.spawn("emacsclient -c -a ''"), desc="Launch emacs with a daemon"),
-    Key([], "XF86MonBrightnessUp", lazy.spawn("brillo -A 5 -u 100000"), desc="Increase monitor brightness"),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("brillo -U 5 -u 100000"), desc="Decrease monitor brightness"),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brillo -A 5"), desc="Increase monitor brightness"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brillo -U 5"), desc="Decrease monitor brightness"),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%+"), desc="Increase master volume"),
     Key([], "XF86AudioLowerVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%-"), desc="Decrease master volume"),
     Key([], "XF86AudioMute", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh toggle"), desc="Mute/unmute master"),
     Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard()),
     Key([mod], "f", lazy.window.toggle_floating()),
     Key([mod], "g", lazy.window.toggle_minimize()),
+    Key([mod], "o", lazy.group.setlayout('columns')),
+    Key([mod], "i", lazy.group.setlayout('max')),
 
     # Key([mod, "shift"], "Return", lazy.spawn("aplay /home/mrghastien/dev/boom.wav")),
     # Key([mod, "shift"], "Tab", lazy.spawn("aplay /home/mrghastien/dev/helikopter.wav")),
@@ -76,28 +101,6 @@ keys = [
 
 groups = groups.getGroups(keys, mod)
 
-layouts = [
-        layout.Columns(
-	        border_focus=BORDER_COLOR,
-	        border_width=2,
-	        border_normal=BACKGROUND_COLOR,
-	        margin=5,
-	        border_on_single=False,	
-	        margin_on_single=0,
-        ),
-        layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-]
 
 widget_defaults = dict(
     font="Input Mono Bold",
@@ -138,6 +141,7 @@ def create_bar():
 	        other_current_screen_border="#605050",
 	        other_screen_border="#605050",
 	        inactive="#4a4742",
+                disable_drag=True,
 	    ),
 	    default_sep,
             widget.Prompt(),
@@ -158,7 +162,7 @@ def create_bar():
             kbwidget,
             widget.Clock(format=clock_format),
         ],
-        35,
+        30,
         #border_width=[2, 0, 0, 0],  # Draw top and bottom borders
         #border_color=BAR_BORDER_COLOR,
 	background=BACKGROUND_COLOR,
