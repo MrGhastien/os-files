@@ -1,0 +1,6 @@
+*
+!.gitignore
+
+!*.el
+!themes
+comment_header.py
