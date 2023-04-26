@@ -45,4 +45,4 @@
   )
 
 ;(add-hook 'c-mode-hook #'add-custom-highlight)
-(add-hook 'c++-mode-hook #'hack-c-not-decl-init-keywords)
+;(add-hook 'c++-mode-hook #'hack-c-not-decl-init-keywords)

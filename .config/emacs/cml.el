@@ -1,10 +1,12 @@
 (require 'svg-lib)
+(require 'all-the-icons)
 
 (defvar-local cml-major-mode nil)
 (defvar-local cml-major-mode-txt nil)
 (defvar-local cml-evil-mode-str nil)
 (defvar-local cml-evil-mode-fg nil)
 (defvar-local cml-evil-mode-bg nil)
+(defvar cml-right-txt "")
 
 (defvar cml-normal-name-color nil)
 (defvar cml-modified-name-color "#de4f32")
@@ -23,6 +25,7 @@
 (defvar cml-emacs-mode-fg "#ffffff")
 
 (defvar cml-selwin nil)
+(defvar-local cml-mode-icon "")
 
 (defun cml-set-selwin (win)
 	(when (not (minibuffer-window-active-p (frame-selected-window)))
@@ -33,20 +36,23 @@
 (add-function :before pre-redisplay-function #'cml-set-selwin)
 
 (defun cml-is-selwin-active ()
-	(eq cml-selwin (get-buffer-window)))
+  "Check if the selected window is active."
+  (eq cml-selwin (get-buffer-window))
+  )
 
 (add-hook 'window-configuration-change-hook #'cml-is-selwin-active)
-(add-hook 'focus-in-hook #'cml-is-selwin-active)
-(add-hook 'focus-out-hook #'cml-is-selwin-active)
 
-(put 'cml-right-txt 'risky-local-variable t)
-(put 'cml-major-mode 'risky-local-variable t)
-(put 'cml-major-mode-txt 'risky-local-variable t)
-(put 'cml-evil-mode 'risky-local-variable t)
-;(put 'cml-buf-name 'risky-local-variable t)
-;(put 'cml-buf-icon 'risky-local-variable t)
+(add-function :before after-focus-change-function #'cml-is-selwin-active)
+
+;;(put 'cml-right-txt 'risky-local-variable t)
+;;(put 'cml-major-mode 'risky-local-variable t)
+;;(put 'cml-major-mode-txt 'risky-local-variable t)
+;;(put 'cml-evil-mode 'risky-local-variable t)
+;;(put 'cml-buf-name 'risky-local-variable t)
+;;(put 'cml-buf-icon 'risky-local-variable t)
 
 (defun cml-eol-format ()
+  "Return a string representing the current line break encoding."
   (pcase (coding-system-eol-type buffer-file-coding-system)
     (0 "LF ")
     (1 "CRLF ")
@@ -96,6 +102,10 @@
 		        'display `(space :align-to (- (+ right right-margin right-fringe) ,(* (- r-length 1.0) (cml-get-face-factor 'mode-line))))
                 'face 'mode-line)))
 
+(defun cml-icon-for-buffer ()
+
+  )
+
 (defun cml-update-major (&rest _)
   (let ((icon (all-the-icons-icon-for-buffer)))
     (unless (symbolp icon)
@@ -107,7 +117,6 @@
   )
 
 (defun cml-update-major-txt (&rest _)
-  ;;(setq cml-major-mode-txt (propertize "<Mode>" 'face '(:weight bold)))
   (setq cml-major-mode-txt
         (propertize
          (format-mode-line mode-name)
@@ -137,12 +146,12 @@
 ;; ==== ICONS ====
 
 (defun cml-propertize-icon (icon collection face &optional text &rest props)
-  "Creates an icon from the svg image ICON from collection COLLECTION
-with the properties PROPS, using svg-lib.
-The resulting icon is actually TEXT with a display property specifying the icon, with the face FACE.
+  "Create an icon from svg ICON using svg-lib.
+The resulting icon is actually TEXT with a display property specifying the icon,
+with the face FACE.
 
-If TEXT is nil, it is replaced with a single white space (\" \"). PROPS is a plist, used by svg-lib to create the icon
-"
+If TEXT is nil, it is replaced with a single white space (\" \").
+PROPS is a plist, used by svg-lib to create the icon."
   (let ((txt (if text text " "))
          (properties
           (map-merge 'plist
@@ -164,7 +173,7 @@ If TEXT is nil, it is replaced with a single white space (\" \"). PROPS is a pli
 (defvar cml-ro-icon-inactive nil)
 
 (defvar after-theme-load-hook nil
-  "Hook run when loading a theme"
+  "Hook run when loading a theme."
   )
 
 
@@ -173,11 +182,11 @@ If TEXT is nil, it is replaced with a single white space (\" \"). PROPS is a pli
   (run-hooks 'after-theme-load-hook)
   )
 
-                                        ; We regenerate the icons each time we load a theme (colors might change).
-                                        ; This is better than using 'propertize' with ':eval' keys, the latter causing incredible amounts of lag.
+;; We regenerate the icons each time we load a theme (colors might change).
+;; This is better than using 'propertize' with ':eval' keys, the latter causing incredible amounts of lag.
 
 (defun cml-on-theme-change ()
-  "Rebuilds all cml icons, mainly to update colors"
+  "Rebuilds all cml icons, mainly to update colors."
   (setq cml-modif-icon
         (cml-propertize-icon "content-save" "material"
                              `(:foreground ,cml-modified-name-color :background ,(face-attribute 'mode-line :background nil 'default))
@@ -225,7 +234,6 @@ If TEXT is nil, it is replaced with a single white space (\" \"). PROPS is a pli
 
 (add-hook 'after-theme-load-hook #'cml-on-theme-change)
 
-
 (defun cml-get-buf-icon ()
   (cond
    (buffer-read-only (if (cml-is-selwin-active) cml-ro-icon cml-ro-icon-inactive))
@@ -241,13 +249,20 @@ If TEXT is nil, it is replaced with a single white space (\" \"). PROPS is a pli
   )
 
 (defun cml-get-evil-mode ()
-  (propertize cml-evil-mode-str 'face
-	      `(:box (:line-width (2 . -1)
-				  :color ,(cml-bg-color cml-evil-mode-bg)
-				  :style "flat-button")
-		     :background ,(cml-bg-color cml-evil-mode-bg)
-		     :foreground ,(cml-fg-color cml-evil-mode-fg)
-		     :weight bold))
+  (propertize
+   cml-evil-mode-str
+   'face
+   `(:box
+     (:line-width
+      (2 . -1)
+	  :color ,(cml-bg-color cml-evil-mode-bg)
+	  :style "flat-button"
+      )
+	 :background ,(cml-bg-color cml-evil-mode-bg)
+	 :foreground ,(cml-fg-color cml-evil-mode-fg)
+	 :weight bold
+     )
+   )
   )
 
 (defun cml-evil-normal ()
@@ -287,8 +302,10 @@ If TEXT is nil, it is replaced with a single white space (\" \"). PROPS is a pli
    )
   )
 
-(cml-on-theme-change)
 
 (message "Setting mode line format.")
 (setq mode-line-format cml-format)
 (setq-default mode-line-format cml-format)
+(cml-on-theme-change)
+
+(provide 'cml)

@@ -1,36 +1,58 @@
+;; ========================================================================== ;;
+;;                                 THE PACKAGE                                ;;
+;; ========================================================================== ;;
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
-(use-package evil)
-(evil-mode 1)
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package)
+  )
 
-(use-package tex
-  :ensure auctex)
+
+
+;; ========================================================================== ;;
+;;                                 Keybindings                                ;;
+;; ========================================================================== ;;
+
+(use-package which-key
+  :ensure t
+  :config (which-key-mode 1)
+  )
+
+(use-package general
+:ensure t)
+
+(use-package hydra
+:ensure t)
+
+(use-package evil
+  :ensure t
+  :config (evil-mode 1)
+  )
+
+;; ========================================================================== ;;
+;;                             Programming related                            ;;
+;; ========================================================================== ;;
 
 (defun launch-lsp ()
   (lsp)
   (company-mode 1)
-  (yas-minor-mode)
+  (yas-minor-mode 1)
+  (tree-sitter-hl-mode)
   )
   
 (use-package lsp-mode
   :init (setq lsp-keymap-prefix "s-m")
   :commands lsp
-  :config (setq lsp-eldoc-render-all t)
-  :config (setq lsp-lens-enable nil)
-  :config (lsp-enable-which-key-integration t)
-  :hook ((css-mode web-mode java-mode) . launch-lsp)
+  :config
+  (setq lsp-eldoc-render-all t)
+  (setq lsp-lens-enable nil)
+  (lsp-enable-which-key-integration t)
+  :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode) . launch-lsp)
   :ensure t)
 
-(use-package lsp-ui
-  :ensure t
-  :custom
-  (lsp-ui-doc-header t)
-  (lsp-ui-doc-position 'at-point)
-  (lsp-ui-doc-show-cursor t)
-  (lsp-ui-doc-include-signature t)
-  )
 
 (use-package company
   :ensure t
@@ -41,6 +63,9 @@
          ("M-k" . company-select-previous)
          ("<escape>" . company-abort)
          )
+  :config
+  (setq company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0)))
+  (setq company-minimum-prefix-length 1)
   :custom
   (company-tooltip-align-annotations t)
   (company-tooltip-margin 2)
@@ -50,130 +75,20 @@
   (company-tooltip-maximum-width 80)
   )
 
-(use-package company-box
+(use-package flycheck
   :ensure t
-  :hook (company-mode . company-box-mode)
-  :custom
-  (company-box-frame-behavior 'point)
-  )
+  :init (global-flycheck-mode))
 
-(use-package ccls
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-lsp)))
-  :ensure t)
-
-(use-package pdf-tools
-  :ensure t)
-
-(use-package dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :custom ((dired-listing-switches "-agho --group-directories-first"))
-  )
-
-(use-package dired-single
-  :ensure t)
-
-(defun on-treemacs ()
-  (setq line-spacing 0)
-  )
-
-(use-package treemacs
-  :hook (treemacs-mode . on-treemacs)
-  )
-
-(require 'treemacs-all-the-icons)
-(treemacs-load-theme "all-the-icons")
-
-(setq company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0)))
-(setq company-minimum-prefix-length 1)
-
-(defun on-org-mode ()
-  (text-scale-increase 1)
-
-  (org-indent-mode 1)
-  (variable-pitch-mode 1)
-  (visual-line-mode 1)
-  )
-
-(use-package org
-  :hook (org-mode . on-org-mode)
-  :config (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
-  :config (setq org-agenda-files
-                '(
-                  "~/agenda/Dorset.org"
-                  "~/agenda/Perso.org"
-                  ))
-  :config (setq org-log-done 'time)
-  :config (setq org-todo-keyword-faces
-                '(("BUG" . mg/org-bug)
-                  ("CRASH" . mg/org-crash)
-                  )
-                )
-  )
-
-
-(use-package org-bullets
-    :after org
-    :hook (org-mode . org-bullets-mode)
-    :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
-;(set-face-attribute 'org-block nil :inherit 'fixed-pitch :foreground nil :background "#191b1c")
-
-(defun org-mode-visual-fill ()
-  (setq visual-fill-column-width 120
-        visual-fill-column-center-text t)
-  (visual-fill-column-mode 1)
-  )
-
-(use-package visual-fill-column
-  :hook (org-mode . org-mode-visual-fill))
-
-
-  (ligature-set-ligatures 'c-mode '("->" "<-" "<=" ">=" "==" "!="))
-  
-(use-package all-the-icons
-    :if (display-graphic-p)
-    :ensure t)
-  (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
-  (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
-
-(use-package svg-lib
-  :ensure t)
-
-(use-package which-key)
-(which-key-mode 1)
-
-(use-package general)
-
-(use-package ivy
+(use-package yasnippet
   :ensure t
-  :bind (:map ivy-minibuffer-map
-              ("C-j" . ivy-next-line)
-              ("C-k" . ivy-previous-line)
-              )
- )
+  )
 
-(ivy-mode 1)
+(use-package emmet-mode
+  :ensure t
+  :hook ((mhtml-mode css-mode) . emmet-mode)
+  )
 
-(use-package ivy-rich
-  :ensure t)
-
-(use-package counsel
-  :bind (
-         ("M-x" . counsel-M-x)
-         ("C-x C-f"  . counsel-find-file)
-         )
-  :ensure t)
-
-(ivy-rich-mode 1)
-
-(use-package hydra)
-
-(window-divider-mode 1)
+;; ==== Web Developpement ====
 
 (defun on-web-mode ()
   (yas-minor-mode 1)
@@ -190,6 +105,205 @@
   :hook (web-mode . on-web-mode)
   )
 
-(use-package yasnippet
+(use-package js2-mode
   :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  )
+
+;; ==== Style & UI ====
+
+(use-package company-box
+  :ensure t
+  :hook (company-mode . company-box-mode)
+  :custom
+  (company-box-frame-behavior 'point)
+  )
+
+(use-package lsp-ui
+  :ensure t
+  :custom
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-position 'at-point)
+  (lsp-ui-doc-show-cursor t)
+  (lsp-ui-doc-include-signature t)
+  )
+
+(use-package ligature
+  :ensure t
+  :config
+  (ligature-set-ligatures '(c-mode c++-mode java-mode python-mode) '("->" "<-" "<=" ">=" "==" "!="))
+  )
+
+(use-package tree-sitter
+  :ensure t)
+
+(use-package tree-sitter-langs
+  :ensure t)
+
+;; ==== Language server front-ends ====
+
+(use-package ccls
+  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-lsp)))
+  :ensure t
+  )
+
+(use-package lsp-java
+  :ensure t
+  )
+
+;; ========================================================================== ;;
+;;                                File managers                               ;;
+;; ========================================================================== ;;
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  )
+
+(use-package dired-single
+  :ensure t)
+
+(defun on-treemacs ()
+  (setq line-spacing 0)
+  )
+
+(use-package treemacs
+  :ensure t
+  :hook (treemacs-mode . on-treemacs)
+  )
+
+
+
+;; ========================================================================== ;;
+;;                             Navigation & Search                            ;;
+;; ========================================================================== ;;
+
+(use-package ivy
+  :ensure t
+  :bind (:map ivy-minibuffer-map
+              ("C-j" . ivy-next-line)
+              ("C-k" . ivy-previous-line)
+              )
+  :config (ivy-mode 1)
+ )
+
+
+(use-package ivy-rich
+  :ensure t
+  :config (ivy-rich-mode 1)
+  )
+
+(use-package counsel
+  :bind (
+         ("M-x" . counsel-M-x)
+         ("C-x C-f"  . counsel-find-file)
+         )
+  :ensure t)
+
+;; ========================================================================== ;;
+;;                               Org Mode & co.                               ;;
+;; ========================================================================== ;;
+
+(defun on-org-mode ()
+  (text-scale-increase 1)
+
+  (org-indent-mode 1)
+  (variable-pitch-mode 1)
+  (visual-line-mode 1)
+  )
+
+(use-package org
+  :ensure t
+  :hook (org-mode . on-org-mode)
+  :config
+  (setq org-agenda-files
+	'(
+          "~/agenda/Dorset.org"
+          "~/agenda/Perso.org"
+          ))
+  (setq org-log-done 'time)
+  (setq org-todo-keyword-faces
+        '(("BUG" . mg/org-bug)
+          ("CRASH" . mg/org-crash)
+          )
+        )
+  )
+
+(defun org-mode-visual-fill ()
+  (setq visual-fill-column-width 120
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1)
+  )
+
+(use-package visual-fill-column
+  :ensure t
+  :hook (org-mode . org-mode-visual-fill))
+
+;; ========================================================================== ;;
+;;                                    Icons                                   ;;
+;; ========================================================================== ;;
+  
+
+(use-package svg-lib
+  :ensure t)
+
+(window-divider-mode 1)
+
+;; ========================================================================== ;;
+;;                                Miscellaneous                               ;;
+;; ========================================================================== ;;
+
+(use-package tex
+  :ensure auctex)
+
+(use-package pdf-tools
+  :ensure t)
+
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-center-content t)
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-set-navigator t)
+  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  )
+
+
+
+(defun on-make-frame ()
+  
+  (use-package org-bullets
+    :after org
+    :hook (org-mode . org-bullets-mode)
+    :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+  
+  (use-package all-the-icons
+    :config
+    (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
+    (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
+    (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
+    (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
+    (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
+    (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
+
+    (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
+    :ensure t)
+
+  (use-package treemacs-all-the-icons
+    :ensure t
+    :config
+    (treemacs-load-theme "all-the-icons")
+    )
+  
+  ;; Mode line config
+  (load "~/.config/emacs/cml.el")
+  )
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions (lambda (frame) (with-selected-frame frame (on-make-frame))))
+  (on-make-frame)
   )

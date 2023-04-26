@@ -37,7 +37,7 @@
  'test2
  ; General ; :background "#1d2021"
  '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Iosevka Custom"))))
- '(variable-pitch ((t (:inherit default :family "Cantarell" :width normal :weight regular :slant normal :height 140))))
+ '(variable-pitch ((t (:inherit default :family "Inter" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
@@ -46,12 +46,12 @@
  '(line-number-current-line ((t (:background "#504945" :foreground "#fe8019"))))
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#bdae93" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :foreground "#928374" :weight bold))))
- '(mode-line ((t (:box (:line-width (-1 . 6) :color "#303030") :height 140 :foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
+ '(mode-line ((t (:box (:line-width (-1 . 6) :color "#303030") :height 120 :foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#928374"))))
  ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#282828") :foreground "gray30" :background "#282828"))))
  '(highlight ((t (:background "#83a598" :foreground "gray10"))))
  '(hl-line ((t (:background "#323335" :inherit nil))))
- '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold))))
+ '(minibuffer-prompt ((t (:foreground "#fe8019" :weight bold))))
  '(region ((t (:background "#4a4742" :extend t))))
 
  '(window-divider ((t (:foreground "#504b48"))))
@@ -65,7 +65,7 @@
  '(dired-broken-symlink ((t (:foreground "turquoise" :strike-through t :inherit ff-dired))))
 
  ; Treemacs
- '(ff-treemacs ((t (:family "Cantarell" :weight medium :height 130))))
+ '(ff-treemacs ((t (:family "Cascadia Code" :weight medium :height 130))))
  '(treemacs-directory-face ((t (:inherit ff-treemacs))))
  '(treemacs-file-face ((t (:inherit ff-treemacs))))
  '(treemacs-git-ignored-face ((t (:inherit (treemacs-file-face font-lock-comment-face)))))
@@ -120,7 +120,7 @@
  '(org-table ((t (:inherit (fixed-pitch)))))
  '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch) :background "#1d2021" :extend t))))
  '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
- '(org-special-keyword ((t (:inherit fixed-pitch :foreground "#689d6a" :slant italic :weight bold :height 0.75)))) 
+ '(org-special-keyword ((t (:inherit fixed-pitch :foreground "#689d6a" :slant italic :weight bold :height 0.75))))
  '(org-todo ((t (:weight extrabold :foreground "#fabd2f"))))
  '(org-done ((t (:weight extrabold :foreground "#6eeb42"))))
  '(org-headline-done ((t (:foreground "#a89984"))))
@@ -128,12 +128,19 @@
  '(org-agenda-date ((t (:foreground "#fbf1c0" :family "Cantarell"))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :underline t))))
  '(org-agenda-structure ((t (:family "Cantarell" :height 160 :weight ultrabold :foreground "#fb4934"))))
+ '(org-upcoming-deadline ((t (:inherit fixed-pitch :slant italic :foreground "#fe8019"))))
+ '(org-upcoming-distant-deadline ((t (:inherit org-upcoming-deadline :slant normal :foreground "#fbf1c0"))))
  '(org-agenda-done ((t (:foreground "#96eb42"))))
  '(org-time-grid ((t (:foreground "#7c6f64"))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :weight extrabold))))
  '(org-link ((t (:foreground "aquamarine" :underline t))))
  '(mg/org-bug ((t (:inherit org-todo :foreground "#d3869b"))))
  '(mg/org-crash ((t (:inherit org-todo :foreground "#fb4934"))))
+
+ ;; Tree Sitter
+ '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
+ '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
+ '(tree-sitter-hl-face:operator ((t (:foreground "#bee4a5"))))
  )
 
 (provide-theme 'test2)

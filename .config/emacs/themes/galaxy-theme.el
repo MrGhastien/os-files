@@ -1,8 +1,8 @@
-(deftheme Galaxy
+(deftheme galaxy
   "Created 2022-05-07.")
 
 (custom-theme-set-variables
- 'Galaxy
+ 'galaxy
  '(evil-normal-state-cursor '(hbar "#ff8e31"))
  '(evil-insert-state-cursor '(bar "#22ff22"))
  '(evil-replace-state-cursor '(hollow "#b732de"))
@@ -11,7 +11,7 @@
 )
 
 (custom-theme-set-faces
- 'Galaxy
+ 'galaxy
  '(cursor ((t (:background "green"))))
  '(error ((t (:underline (:color "red" :style wave)))))
  '(mode-line ((t (:box (:line-width (-1 . 8) :color "#24242f") :height 120 :foreground "white smoke" :background "#24242f" :family "Fira Code"))))
@@ -32,4 +32,4 @@
  '(font-latex-sectioning-5-face ((t (:weight extra-bold :underline t :inherit font-lock-function-name-face))))
  '(default ((t (:background "#101016" :foreground "#c2c0c4" :weight normal :width normal :height 120 :family "Fira Code")))))
 
-(provide-theme 'Galaxy)
+(provide-theme 'galaxy)

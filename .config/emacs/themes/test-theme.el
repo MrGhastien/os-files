@@ -26,7 +26,7 @@
  'test
  ; General ; :background "#1d2021"
  '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Iosevka Custom"))))
- '(variable-pitch ((t (:inherit default :family "Cantarell" :width normal :weight regular :slant normal :height 140))))
+ '(variable-pitch ((t (:inherit default :family "Inter" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
@@ -44,7 +44,7 @@
  '(region ((t (:background "#4a4742" :extend t))))
 
  ; Dired
- '(ff-dired ((t (:inherit default :family "Cantarell" :height 130 :weight bold))))
+ '(ff-dired ((t (:inherit default :family "Iosevka Custom Extended" :height 130 :weight regular))))
  '(dired-directory ((t (:inherit ff-dired))))
  '(dired-marked ((t (:foreground "#f25c54" :weight bold :inherit ff-dired))))
  '(dired-flagged ((t (:background "#f25c54" :foreground "gray10" :weight ultrabold :inherit ff-dired))))
@@ -52,7 +52,7 @@
  '(dired-broken-symlink ((t (:foreground "turquoise" :strike-through t :inherit ff-dired))))
 
  ; Treemacs
- '(ff-treemacs ((t (:family "Cantarell" :weight medium :height 130))))
+ '(ff-treemacs ((t (:family "Iosevka Custom Extended" :weight medium :height 130))))
  '(treemacs-directory-face ((t (:inherit ff-treemacs))))
  '(treemacs-file-face ((t (:inherit ff-treemacs))))
  '(treemacs-git-ignored-face ((t (:inherit (treemacs-file-face font-lock-comment-face)))))
@@ -65,7 +65,7 @@
  '(treemacs-all-the-icons-root-face ((t (:height 130 :foreground "#fe8019"))))
 
  ; Font lock
- '(font-lock-builtin-face ((t (:foreground "#fb4934"))))
+ '(font-lock-builtin-face ((t (:foreground "#fe8019"))))
  '(font-lock-function-name-face ((t (:foreground "#b8bb26"))))
  '(font-lock-keyword-face ((t (:foreground "#fe8019"))))
  '(font-lock-type-face ((t (:foreground "#fabd2f"))))
@@ -101,7 +101,7 @@
  '(org-table ((t (:inherit (fixed-pitch)))))
  '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch) :background "#1d2021" :extend t))))
  '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
- '(org-special-keyword ((t (:inherit fixed-pitch :foreground "#689d6a" :slant italic :weight bold :height 0.75)))) 
+ '(org-special-keyword ((t (:inherit fixed-pitch :foreground "#689d6a" :slant italic :weight bold :height 0.75))))
  '(org-todo ((t (:weight extrabold :foreground "#fabd2f"))))
  '(org-done ((t (:weight extrabold :foreground "#6eeb42"))))
  '(org-headline-done ((t (:foreground "#a89984"))))
@@ -115,6 +115,13 @@
  '(org-link ((t (:foreground "aquamarine" :underline t))))
  '(mg/org-bug ((t (:inherit org-todo :foreground "#d3869b"))))
  '(mg/org-crash ((t (:inherit org-todo :foreground "#fb4934"))))
+
+ ;; Tree sitter
+ '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
+ '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
+ '(tree-sitter-hl-face:operator ((t (:foreground "#bee4a5"))))
+ '(tree-sitter-hl-face:function.call ((t (:inherit tree-sitter-hl-face:function))))
+ '(tree-sitter-hl-face:method.call ((t (:inherit tree-sitter-hl-face:method))))
  )
 
 (provide-theme 'test)

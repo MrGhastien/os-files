@@ -35,7 +35,7 @@
  ; General ; :background "#f9f5d7"
  '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight regular :width expanded :height 110 :family "Iosevka Custom"))))
  '(variable-pitch ((t (:inherit default :family "Cantarell" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended"))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended" :weight regular))))
  '(error ((t (:foreground "#dd0006" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "RoyalBlue2" :underline t))))
  '(fringe ((t (:background "#f2efe5"))))
@@ -49,6 +49,8 @@
  '(hl-line ((t (:background "#fffff7" :inherit nil))))
  '(minibuffer-prompt ((t (:foreground "#af3a0a" :weight bold))))
  '(region ((t (:background "#a4d6e0" :extend t))))
+
+ '(ivy-current-match ((t (:foreground "#d65d0e" :underline t))))
 
  '(window-divider ((t (:foreground "#504b48"))))
 
@@ -77,7 +79,7 @@
  '(font-lock-builtin-face ((t (:foreground "#d65d0e"))))
  '(font-lock-function-name-face ((t (:foreground "#d65d0e"))))
  '(font-lock-keyword-face ((t (:foreground "#cc241d"))))
- '(font-lock-type-face ((t (:foreground "#d79921"))))
+ '(font-lock-type-face ((t (:foreground "#b57614"))))
  '(font-lock-variable-name-face ((t (:foreground "#458588"))))
  '(font-lock-string-face ((t (:foreground "#98971a")))) ;8ec07c
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#b16286"))))
@@ -124,11 +126,18 @@
  '(org-agenda-date ((t (:foreground "#d65d0e"))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :underline t))))
  '(org-agenda-structure ((t (:height 160 :weight ultrabold :foreground "#076678"))))
+ '(org-upcoming-deadline ((t (:inherit fixed-pitch :slant italic :foreground "#d65d0e"))))
+ '(org-upcoming-distant-deadline ((t (:inherit org-upcoming-deadline :slant normal :foreground "#3c3836"))))
  '(org-time-grid ((t (:foreground "#928374"))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :weight extrabold))))
  '(org-link ((t (:inherit link :foreground nil :underline nil))))
  '(mg/org-bug ((t (:inherit org-todo :foreground "#d3869b"))))
  '(mg/org-crash ((t (:inherit org-todo :foreground "#fb4934"))))
+
+ ;; Tree Sitter
+ '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
+ '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
+ '(tree-sitter-hl-face:operator ((t (:foreground "#427b58"))))
  )
 
 (provide-theme 'test-light)
