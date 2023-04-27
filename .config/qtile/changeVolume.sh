@@ -2,7 +2,7 @@
 
 msgTag="volume-indic"
 
-amixer set Master "$@" > /dev/null
+wpctl set-volume @DEFAULT_AUDIO_SINK@ "$@"
 
 mixerOutput="$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | tail -1)"
 volume="$(echo ${mixerOutput} | awk '{print $2}')"
