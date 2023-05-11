@@ -1,6 +1,6 @@
 pkgname='iosevka-custom'
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 arch=(any)
 
 provides=('ttf-font')
