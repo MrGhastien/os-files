@@ -44,7 +44,7 @@
  '(region ((t (:background "#4a4742" :extend t))))
 
  ; Dired
- '(ff-dired ((t (:inherit default :family "Iosevka Custom Extended" :height 130 :weight regular))))
+ '(ff-dired ((t (:inherit default :family "Iosevka Custom" :weight regular))))
  '(dired-directory ((t (:inherit ff-dired))))
  '(dired-marked ((t (:foreground "#f25c54" :weight bold :inherit ff-dired))))
  '(dired-flagged ((t (:background "#f25c54" :foreground "gray10" :weight ultrabold :inherit ff-dired))))
@@ -52,7 +52,7 @@
  '(dired-broken-symlink ((t (:foreground "turquoise" :strike-through t :inherit ff-dired))))
 
  ; Treemacs
- '(ff-treemacs ((t (:family "Iosevka Custom Extended" :weight medium :height 130))))
+ '(ff-treemacs ((t (:family "Iosevka Custom" :weight medium))))
  '(treemacs-directory-face ((t (:inherit ff-treemacs))))
  '(treemacs-file-face ((t (:inherit ff-treemacs))))
  '(treemacs-git-ignored-face ((t (:inherit (treemacs-file-face font-lock-comment-face)))))
