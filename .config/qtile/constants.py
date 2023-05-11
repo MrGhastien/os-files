@@ -1,6 +1,6 @@
-KEYBOARD_LAYOUTS = ["fr", "us"]
+KEYBOARD_LAYOUTS = ["us", 'us intl']
 
-WALLPAPER = "~/images/collision.png"
+WALLPAPER = "~/dev/perso/os-files/wallpapers/collision.png"
 
 # COLORS
 BACKGROUND_COLOR = "#232323"
