@@ -7,11 +7,19 @@ from libqtile import hook, bar, layout, qtile
 from libqtile.config import Screen, Group
 from libqtile.backend.base import Window
 from libqtile.log_utils import logger
+from libqtile.lazy import lazy
 
 @hook.subscribe.startup_once
 def onStartupOnce():
     startupShellScript = os.path.expanduser('~/.config/qtile/startup_once.sh')
     subprocess.Popen([startupShellScript])
+
+@hook.subscribe.startup
+def onStartup():
+    script = os.path.expanduser('~/.config/qtile/startup.sh')
+    subprocess.Popen([script])
+
+hook.subscribe.screen_change(lazy.reconfigure_screens)
 
 #This is too slow !
 #@hook.subscribe.setgroup

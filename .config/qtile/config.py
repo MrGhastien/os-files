@@ -78,8 +78,10 @@ keys = [
     Key([mod, "shift"], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
+    Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Spawn Rofi to run a program."),
+    Key([mod], "w", lazy.spawn("rofi -show window"), desc="Spawn Rofi to navigate between windows."),
     Key([mod], "e", lazy.spawn("emacsclient -c -a ''"), desc="Launch emacs with a daemon"),
+    Key([mod], "p", lazy.spawn("autorandr --change"), desc="Reload the randr screen configuration"),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brillo -A 5"), desc="Increase monitor brightness"),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brillo -U 5"), desc="Decrease monitor brightness"),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%+"), desc="Increase master volume"),
@@ -104,8 +106,8 @@ groups = groups.getGroups(keys, mod)
 
 
 widget_defaults = dict(
-    font="Input Mono Medium",
-    fontsize=12,
+    font="Inter Medium",
+    fontsize=14,
     #padding=2,
     foreground="#cccccc",
 	
@@ -253,7 +255,7 @@ floating_layout = layout.Floating(
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-reconfigure_screens = True
+reconfigure_screens = False
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?

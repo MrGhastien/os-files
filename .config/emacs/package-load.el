@@ -50,7 +50,7 @@
   (setq lsp-eldoc-render-all t)
   (setq lsp-lens-enable nil)
   (lsp-enable-which-key-integration t)
-  :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode) . launch-lsp)
+  :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-lsp)
   :ensure t)
 
 
@@ -274,33 +274,37 @@
 
 
 (defun on-make-frame ()
-  
-  (use-package org-bullets
-    :after org
-    :hook (org-mode . org-bullets-mode)
-    :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+  (when (= (length (frames-on-display-list)) 1)
+    (use-package org-bullets
+      :after org
+      :hook (org-mode . org-bullets-mode)
+      :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-  
-  (use-package all-the-icons
-    :config
-    (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
+    
+    (use-package all-the-icons
+      :config
+      (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
 
-    (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
-    :ensure t)
+      (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
+      :ensure t)
 
-  (use-package treemacs-all-the-icons
-    :ensure t
-    :config
-    (treemacs-load-theme "all-the-icons")
+    (use-package treemacs-all-the-icons
+      :ensure t
+      :config
+      (treemacs-load-theme "all-the-icons")
+      )
+
+    (set-frame-font "Cascadia Code 12" nil t)
+    
+    ;; Mode line config
+    (load "~/.config/emacs/cml.el")
+    (load-theme 'test2)
     )
-  
-  ;; Mode line config
-  (load "~/.config/emacs/cml.el")
   )
 
 (if (daemonp)
