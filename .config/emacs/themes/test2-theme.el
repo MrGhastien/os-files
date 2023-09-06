@@ -36,9 +36,9 @@
 (custom-theme-set-faces
  'test2
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :height 120 :family "Iosevka Custom Medium"))))
- '(variable-pitch ((t (:inherit default :family "Inter" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Medium"))))
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight medium :height 120 :family "Iosevka Custom"))))
+ '(variable-pitch ((t (:inherit default :family "Iosevka Custom Medium" :width normal :weight medium :slant normal :height 140))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka Custom"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
@@ -113,7 +113,7 @@
  '(org-level-2 ((t (:foreground "#fe8019" :weight bold))))
  '(org-level-3 ((t (:foreground "#b8bb26" :weight normal))))
  '(org-hide ((t (:foreground "#282828"))))
- '(org-block ((t (:inherit fixed-pitch :foreground nil :background "#1d2021" :extend t)))) ;171919
+ '(org-block ((t (:inherit fixed-pitch :foreground unspecified :background "#1d2021" :extend t)))) ;171919
  '(org-code ((t (:inherit (fixed-pitch) :background "#1d2021"))))
  '(org-verbatim ((t (:inherit (fixed-pitch)))))
  '(org-checkbox ((t (:inherit fixed-pitch :foreground "#689d6a" :weight bold))))
@@ -124,7 +124,7 @@
  '(org-todo ((t (:weight extrabold :foreground "#fabd2f"))))
  '(org-done ((t (:weight extrabold :foreground "#6eeb42"))))
  '(org-headline-done ((t (:foreground "#a89984"))))
- '(org-date ((t (:inherit (link org-special-keyword) :underline nil :foreground nil :height unspecified))))
+ '(org-date ((t (:inherit (link org-special-keyword) :underline nil :foreground unspecified :height unspecified))))
  '(org-agenda-date ((t (:foreground "#fbf1c0" :family "Cantarell"))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :underline t))))
  '(org-agenda-structure ((t (:family "Cantarell" :height 160 :weight ultrabold :foreground "#fb4934"))))
