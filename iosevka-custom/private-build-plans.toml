@@ -9,10 +9,11 @@ export-glyph-names = false
   inherits = "ss05"
 
     [buildPlans.iosevka-custom.variants.design]
+    capital-v = "straight-serifless"
     a = "double-storey-serifless"
     i = "tailed-serifed"
     j = "serifed"
-    v = "straight"
+    v = "straight-serifless"
     x = "straight-serifless"
     y = "straight-turn"
     z = "straight-serifless"
@@ -41,6 +42,17 @@ export-glyph-names = false
     lig-equal-chain = "without-notch"
     lig-hyphen-chain = "without-notch"
     lig-single-arrow-bar = "without-notch"
+
+    [buildPlans.iosevka-custom.variants.italic]
+    capital-f = "serifless"
+    capital-i = "serifed"
+    capital-k = "curly-top-left-and-bottom-right-serifed"
+    a = "single-storey-serifless"
+    e = "rounded"
+    f = "tailed"
+    g = "single-storey-earless-corner"
+    l = "tailed-serifed"
+    v = "curly-motion-serifed"
 
   [buildPlans.iosevka-custom.ligations]
   inherits = "dlig"
