@@ -106,7 +106,7 @@ groups = groups.getGroups(keys, mod)
 
 
 widget_defaults = dict(
-    font="Inter Medium",
+    font="Input Bold",
     fontsize=14,
     #padding=2,
     foreground="#cccccc",
@@ -161,7 +161,7 @@ def create_main_bar():
             #widget.Backlight(
             #    backlight_name="intel_backlight"
             #),
-            #widget.Battery(),
+            widget.Battery(),
             kbwidget,
             widget.Clock(format=clock_format),
         ],
@@ -236,7 +236,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(
         border_focus="#fe8019",

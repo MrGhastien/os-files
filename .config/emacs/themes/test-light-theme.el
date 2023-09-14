@@ -79,7 +79,7 @@
  '(font-lock-builtin-face ((t (:foreground "#d65d0e"))))
  '(font-lock-function-name-face ((t (:foreground "#d65d0e"))))
  '(font-lock-keyword-face ((t (:foreground "#cc241d"))))
- '(font-lock-type-face ((t (:foreground "#b57614"))))
+ '(font-lock-type-face ((t (:foreground "#d79921"))))
  '(font-lock-variable-name-face ((t (:foreground "#458588"))))
  '(font-lock-string-face ((t (:foreground "#98971a")))) ;8ec07c
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#b16286"))))
