@@ -6,7 +6,7 @@
 (defvar-local cml-evil-mode-str nil)
 (defvar-local cml-evil-mode-fg nil)
 (defvar-local cml-evil-mode-bg nil)
-(defvar cml-right-txt "")
+(defvar-local cml-right-txt "")
 
 (defvar cml-normal-name-color nil)
 (defvar cml-modified-name-color "#de4f32")
@@ -304,8 +304,8 @@ PROPS is a plist, used by svg-lib to create the icon."
 
 
 (message "Setting mode line format.")
+(cml-on-theme-change)
 (setq mode-line-format cml-format)
 (setq-default mode-line-format cml-format)
-(cml-on-theme-change)
 
 (provide 'cml)

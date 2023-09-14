@@ -36,8 +36,8 @@
 (custom-theme-set-faces
  'test2
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight medium :height 120 :family "Iosevka Custom"))))
- '(variable-pitch ((t (:inherit default :family "Iosevka Custom Medium" :width normal :weight medium :slant normal :height 140))))
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight medium :height 120 :family "Cascadia Code"))))
+ '(variable-pitch ((t (:inherit default :family "Cascadia Code" :width normal :weight medium :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka Custom"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
@@ -81,7 +81,7 @@
  '(font-lock-builtin-face ((t (:foreground "#fe8019"))))
  '(font-lock-function-name-face ((t (:foreground "#fe8019"))))
  '(font-lock-keyword-face ((t (:foreground "#fb4934" :weight extrabold))))
- '(font-lock-type-face ((t (:foreground "#fabd2f"))))
+ '(font-lock-type-face ((t (:foreground "#ffb030"))))
  '(font-lock-variable-name-face ((t (:foreground "#83a598"))))
  '(font-lock-string-face ((t (:foreground "#b8bb26")))) ;8ec07c
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#d3869b"))))
@@ -141,6 +141,9 @@
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:operator ((t (:foreground "#bee4a5"))))
+ '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
+ '(tree-sitter-hl-face:property ((t (:inherit font-lock-variable-name-face :slant italic))))
+ '(tree-sitter-hl-face:label ((t (:inherit font-lock-variable-name-face :foreground "#f1a881"))));blue : b3ccba 
  )
 
 (provide-theme 'test2)

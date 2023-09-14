@@ -78,15 +78,18 @@ keys = [
     Key([mod, "shift"], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
+    Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Spawn Rofi to run a program."),
+    Key([mod], "w", lazy.spawn("rofi -show window"), desc="Spawn Rofi to navigate between windows."),
     Key([mod], "e", lazy.spawn("emacsclient -c -a ''"), desc="Launch emacs with a daemon"),
+    Key([mod], "p", lazy.spawn("autorandr --change"), desc="Reload the randr screen configuration"),
     Key([], "XF86MonBrightnessUp", lazy.spawn("brillo -A 5"), desc="Increase monitor brightness"),
     Key([], "XF86MonBrightnessDown", lazy.spawn("brillo -U 5"), desc="Decrease monitor brightness"),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%+"), desc="Increase master volume"),
     Key([], "XF86AudioLowerVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%-"), desc="Decrease master volume"),
-    Key([], "XF86AudioMute", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh toggle"), desc="Mute/unmute master"),
+    Key([], "XF86AudioMute", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh mute"), desc="Mute/unmute master"),
     Key([mod], "space", lazy.widget["keyboardlayout"].next_keyboard()),
     Key([mod], "f", lazy.window.toggle_floating()),
+    Key([mod], "y", lazy.window.toggle_fullscreen()),
     Key([mod], "g", lazy.window.toggle_minimize()),
     Key([mod], "o", lazy.group.setlayout('columns')),
     Key([mod], "i", lazy.group.setlayout('max')),
@@ -103,10 +106,10 @@ groups = groups.getGroups(keys, mod)
 
 
 widget_defaults = dict(
-    font="Input Mono Bold",
+    font="Input Bold",
     fontsize=14,
     #padding=2,
-	foreground="#cccccc",
+    foreground="#cccccc",
 	
 )
 extension_defaults = widget_defaults.copy()
@@ -126,7 +129,7 @@ kbwidget = widget.KeyboardLayout(
 )
 
 
-def create_bar():
+def create_main_bar():
     return bar.Bar(
         [
             widget.QuickExit(),
@@ -155,14 +158,14 @@ def create_bar():
             systray,
 	    widget.Net(),
 	    default_sep,
-            widget.Backlight(
-                backlight_name="intel_backlight"
-            ),
+            #widget.Backlight(
+            #    backlight_name="intel_backlight"
+            #),
             widget.Battery(),
             kbwidget,
             widget.Clock(format=clock_format),
         ],
-        30,
+        25,
         #border_width=[2, 0, 0, 0],  # Draw top and bottom borders
         #border_color=BAR_BORDER_COLOR,
 	background=BACKGROUND_COLOR,
@@ -170,7 +173,52 @@ def create_bar():
         margin=0,
     )
 
+def create_bar():
+    return bar.Bar(
+        [
+            widget.CurrentLayout(),
+            widget.GroupBox(
+	        highlight_method='line',
+                highlight_color=[SEL_WS_BG_COLOR, SEL_WS_BG_COLOR],
+                #highlight_color=[SEL_WS_BG_COLOR, "#6f2e0f"],
+	        this_current_screen_border="#d54010",
+	        this_screen_border="#d54010",
+	        other_current_screen_border="#605050",
+	        other_screen_border="#605050",
+	        inactive="#4a4742",
+                disable_drag=True,
+	    ),
+	    default_sep,
+            widget.WindowName(),
+            widget.Chord(
+                chords_colors={
+                    "launch": ("#ff0000", "#ffffff"),
+                },
+                name_transform=lambda name: name.upper(),
+            ),
+	    default_sep,
+            #widget.Backlight(
+            #    backlight_name="intel_backlight"
+            #),
+            #widget.Battery(),
+            kbwidget,
+            widget.Clock(format=clock_format),
+        ],
+        25,
+        #border_width=[2, 0, 0, 0],  # Draw top and bottom borders
+        #border_color=BAR_BORDER_COLOR,
+	background=BACKGROUND_COLOR,
+        #margin=[5, 5, 5, 5],
+        margin=0,
+    )
+    
+
 screens = [
+	Screen(
+		bottom=create_main_bar(),
+		wallpaper=WALLPAPER,
+                wallpaper_mode="fill",
+	),
 	Screen(
 		bottom=create_bar(),
 		wallpaper=WALLPAPER,
@@ -188,7 +236,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
-bring_front_click = False
+bring_front_click = True
 cursor_warp = False
 floating_layout = layout.Floating(
         border_focus="#fe8019",
@@ -207,11 +255,11 @@ floating_layout = layout.Floating(
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-reconfigure_screens = True
+reconfigure_screens = False
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
-auto_minimize = True
+auto_minimize = False
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the

@@ -42,6 +42,7 @@
   (yas-minor-mode 1)
   (tree-sitter-hl-mode)
   )
+
   
 (use-package lsp-mode
   :init (setq lsp-keymap-prefix "s-m")
@@ -50,9 +51,21 @@
   (setq lsp-eldoc-render-all t)
   (setq lsp-lens-enable nil)
   (lsp-enable-which-key-integration t)
-  :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode) . launch-lsp)
+  ;:hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-lsp)
   :ensure t)
 
+(defun launch-eglot ()
+  "Start Eglot along with other useful minor modes."
+  (eglot-ensure)
+  (company-mode 1)
+  (yas-minor-mode 1)
+  (tree-sitter-hl-mode)
+  )
+
+(use-package eglot
+  :ensure t
+  :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+  )
 
 (use-package company
   :ensure t
@@ -214,6 +227,7 @@
   (visual-line-mode 1)
   )
 
+
 (use-package org
   :ensure t
   :hook (org-mode . on-org-mode)
@@ -229,6 +243,9 @@
           ("CRASH" . mg/org-crash)
           )
         )
+  (plist-put org-format-latex-options :scale 2.0)
+  (add-to-list 'org-latex-packages-alist '("" "tikz" t))
+  (setq org-preview-latex-default-process 'imagemagick)
   )
 
 (defun org-mode-visual-fill ()
@@ -240,6 +257,10 @@
 (use-package visual-fill-column
   :ensure t
   :hook (org-mode . org-mode-visual-fill))
+;; specify the justification you want
+
+
+
 
 ;; ========================================================================== ;;
 ;;                                    Icons                                   ;;
@@ -274,33 +295,38 @@
 
 
 (defun on-make-frame ()
-  
-  (use-package org-bullets
-    :after org
-    :hook (org-mode . org-bullets-mode)
-    :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+  ;(set-frame-parameter nil 'alpha-background 100)
+  (when (= (length (frames-on-display-list)) 1)
+    (use-package org-bullets
+      :after org
+      :hook (org-mode . org-bullets-mode)
+      :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
-  
-  (use-package all-the-icons
-    :config
-    (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
-    (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
+    
+    (use-package all-the-icons
+      :config
+      (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
+      (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
 
-    (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
-    :ensure t)
+      (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
+      :ensure t)
 
-  (use-package treemacs-all-the-icons
-    :ensure t
-    :config
-    (treemacs-load-theme "all-the-icons")
+    (use-package treemacs-all-the-icons
+      :ensure t
+      :config
+      (treemacs-load-theme "all-the-icons")
+      )
+
+    (set-frame-font "Cascadia Code 12" nil t)
+    
+    ;; Mode line config
+    (load "~/.config/emacs/cml.el")
+    (load-theme 'test2)
     )
-  
-  ;; Mode line config
-  (load "~/.config/emacs/cml.el")
   )
 
 (if (daemonp)
