@@ -106,7 +106,7 @@ groups = groups.getGroups(keys, mod)
 
 
 widget_defaults = dict(
-    font="Input Bold",
+    font="Ubuntu Bold",
     fontsize=14,
     #padding=2,
     foreground="#cccccc",
@@ -118,14 +118,15 @@ clock_format="%A %d/%m/%Y - %H:%M:%S"
 
 default_sep=widget.Sep(
 	padding=15,
-	size_percent=75,
+	size_percent=50,
 	linewidth=1,
-	foreground="#3b3131",
+	foreground="#ebdbb2",
 )
 
 systray = widget.Systray()
 kbwidget = widget.KeyboardLayout(
-    configured_keyboards=KEYBOARD_LAYOUTS
+    configured_keyboards=KEYBOARD_LAYOUTS,
+    foreground='8ec07c',
 )
 
 
@@ -145,10 +146,17 @@ def create_main_bar():
 	        other_screen_border="#605050",
 	        inactive="#4a4742",
                 disable_drag=True,
+                margin_y=6,
+                padding_x=5,
+                active='fe8019',
+                #block_highlight_text_color='fabd2f',
+                urgent_text='fb4934'
 	    ),
 	    default_sep,
             widget.Prompt(),
-            widget.WindowName(),
+            widget.WindowName(
+                #foreground='fe8019'
+            ),
             widget.Chord(
                 chords_colors={
                     "launch": ("#ff0000", "#ffffff"),
@@ -156,16 +164,32 @@ def create_main_bar():
                 name_transform=lambda name: name.upper(),
             ),
             systray,
-	    widget.Net(),
+	    widget.Net(
+                format='{down}  ↓↑ {up} ({total})',
+                #foreground='fe8019'
+            ),
 	    default_sep,
-            #widget.Backlight(
-            #    backlight_name="intel_backlight"
-            #),
-            widget.Battery(),
+            widget.Backlight(
+                backlight_name="intel_backlight"
+            ),
+            # widget.BatteryIcon(
+            #     theme_path='~/.config/qtile/battery-icons',
+            #     foreground='ffffff',
+            #     #scale=1.1,
+            #     margin_y=20,
+            # ),
+            widget.Battery(
+                charge_char='↑',
+                discharge_char='↓',
+                low_foreground='fb4934',
+            ),
             kbwidget,
-            widget.Clock(format=clock_format),
+            widget.Clock(
+                format=clock_format,
+                foreground='83a598'
+            ),
         ],
-        25,
+        30,
         #border_width=[2, 0, 0, 0],  # Draw top and bottom borders
         #border_color=BAR_BORDER_COLOR,
 	background=BACKGROUND_COLOR,
@@ -189,7 +213,8 @@ def create_bar():
                 disable_drag=True,
 	    ),
 	    default_sep,
-            widget.WindowName(),
+            widget.WindowName(
+            ),
             widget.Chord(
                 chords_colors={
                     "launch": ("#ff0000", "#ffffff"),
@@ -219,11 +244,11 @@ screens = [
 		wallpaper=WALLPAPER,
                 wallpaper_mode="fill",
 	),
-	Screen(
+	"""Screen(
 		bottom=create_bar(),
 		wallpaper=WALLPAPER,
                 wallpaper_mode="fill",
-	)
+	)"""
 ]
 
 # Drag floating layouts.

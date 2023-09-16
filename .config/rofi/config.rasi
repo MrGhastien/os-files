@@ -10,4 +10,5 @@ configuration {
 	combi-modi: "window,drun,ssh";
     show-icons: false;
 }
-@theme "~/.config/rofi/themes/centered.rasi"
+@theme "~/.config/rofi/themes/centered-translucent.rasi"
+//@theme "~/.config/rofi/themes/centered.rasi"
