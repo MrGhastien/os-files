@@ -106,8 +106,8 @@ groups = groups.getGroups(keys, mod)
 
 
 widget_defaults = dict(
-    font="Input Bold",
-    fontsize=14,
+    font="Ubuntu Bold",
+    fontsize=13,
     #padding=2,
     foreground="#cccccc",
 	
@@ -118,14 +118,15 @@ clock_format="%A %d/%m/%Y - %H:%M:%S"
 
 default_sep=widget.Sep(
 	padding=15,
-	size_percent=75,
+	size_percent=50,
 	linewidth=1,
-	foreground="#3b3131",
+	foreground="#ebdbb2",
 )
 
 systray = widget.Systray()
 kbwidget = widget.KeyboardLayout(
-    configured_keyboards=KEYBOARD_LAYOUTS
+    configured_keyboards=KEYBOARD_LAYOUTS,
+    foreground='#8ec07c'
 )
 
 
@@ -144,10 +145,14 @@ def create_main_bar():
 	        other_current_screen_border="#605050",
 	        other_screen_border="#605050",
 	        inactive="#4a4742",
+                active='#fe8019',
                 disable_drag=True,
+                #margin_y=6,
+                padding_x=5,
+                urgent_text='#fb4934',
+                font='Iosevka Custom Extrabold'
 	    ),
 	    default_sep,
-            widget.Prompt(),
             widget.WindowName(),
             widget.Chord(
                 chords_colors={
@@ -155,15 +160,16 @@ def create_main_bar():
                 },
                 name_transform=lambda name: name.upper(),
             ),
-            systray,
-	    widget.Net(),
 	    default_sep,
-            #widget.Backlight(
-            #    backlight_name="intel_backlight"
-            #),
-            widget.Battery(),
+            systray,
+	    widget.Net(
+                format='{down}  ↓↑ {up}  ({total})',
+            ),
             kbwidget,
-            widget.Clock(format=clock_format),
+            widget.Clock(
+                format=clock_format,
+                foreground='#83a598'
+            ),
         ],
         25,
         #border_width=[2, 0, 0, 0],  # Draw top and bottom borders
@@ -176,6 +182,8 @@ def create_main_bar():
 def create_bar():
     return bar.Bar(
         [
+            widget.QuickExit(),
+	    default_sep,
             widget.CurrentLayout(),
             widget.GroupBox(
 	        highlight_method='line',
@@ -186,7 +194,12 @@ def create_bar():
 	        other_current_screen_border="#605050",
 	        other_screen_border="#605050",
 	        inactive="#4a4742",
+                active='#fe8019',
                 disable_drag=True,
+                #margin_y=6,
+                padding_x=5,
+                urgent_text='#fb4934',
+                font='Iosevka Custom Extrabold',
 	    ),
 	    default_sep,
             widget.WindowName(),
@@ -197,12 +210,11 @@ def create_bar():
                 name_transform=lambda name: name.upper(),
             ),
 	    default_sep,
-            #widget.Backlight(
-            #    backlight_name="intel_backlight"
-            #),
-            #widget.Battery(),
             kbwidget,
-            widget.Clock(format=clock_format),
+            widget.Clock(
+                format=clock_format,
+                foreground='#83a598'
+            ),
         ],
         25,
         #border_width=[2, 0, 0, 0],  # Draw top and bottom borders

@@ -1,4 +1,4 @@
-KEYBOARD_LAYOUTS = ["fr", 'us']
+KEYBOARD_LAYOUTS = ["us", 'us intl', 'fr']
 
 WALLPAPER = "~/dev/perso/os-files/wallpapers/collision.png"
 

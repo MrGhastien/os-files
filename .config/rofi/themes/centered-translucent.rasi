@@ -7,7 +7,7 @@
 
 
 * {
-    background-color:           #282828;
+    background-color:           #28282880;
     //border-color:               #31322f;
     border-color:               #504945;
     text-color:                 #fbf1c0;
@@ -33,6 +33,7 @@
 
 mainbox {
         orientation: vertical;
+        background-color: @background-color;
         children: [ inputbar, message, listview ];
         border: 0px;
         border-radius: 8px;
@@ -49,6 +50,7 @@ inputbar {
     border: 0px 0 1px 0;
     //padding: 15px;
     //border-color: #555252;
+    background-color: rgba(0, 0, 0, 0);
     cursor: text;
 }
 
@@ -59,7 +61,7 @@ num-filtered-rows {
 
 prompt {
     padding:          @prompt-padding;
-    background-color: @prompt-background;
+    background-color: inherit;
     text-color:       @prompt-foreground;
     font:             @prompt-font;
 }
@@ -68,15 +70,17 @@ listview {
     layout: vertical;
     lines: 10;
     children: [ scrollbar ];
+    background-color: rgba(0, 0, 0, 0);
 }
 
 entry {
     padding: 2px;
-    placeholder-color: #727272;
+    placeholder-color: #424242;
     vertical-align: 0.5;
     expand: true;
     width: 20em;
     placeholder: "Search symbol / command...";
+    background-color: inherit;
 }
 
 element {
@@ -86,6 +90,7 @@ element {
     spacing: 5px;
     orientation: horizontal;
     children: [ element-text ];
+    background-color: rgba(0, 0, 0, 0);
 }
 
 element.selected {
