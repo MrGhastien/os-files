@@ -7,7 +7,8 @@
 
 
 * {
-    background-color:           #28282880;
+    background-color:           #28282850;
+    //background-color:           #ffffff20;
     //border-color:               #31322f;
     border-color:               #504945;
     text-color:                 #fbf1c0;
@@ -57,6 +58,7 @@ inputbar {
 num-filtered-rows {
     vertical-align: 0.5;
     text-color: #727272;
+    background-color: inherit;
 }
 
 prompt {
