@@ -232,11 +232,6 @@
   :ensure t
   :hook (org-mode . on-org-mode)
   :config
-  (setq org-agenda-files
-	'(
-          "~/agenda/Dorset.org"
-          "~/agenda/Perso.org"
-          ))
   (setq org-log-done 'time)
   (setq org-todo-keyword-faces
         '(("BUG" . mg/org-bug)

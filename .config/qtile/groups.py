@@ -6,7 +6,7 @@ azerty_group_names = ['ampersand', 'eacute', 'quotedbl', 'apostrophe', 'parenlef
 group_names = [c for c in "1234567890"]
 
 def getGroups(keys, modKey):
-    groups = []p
+    groups = []
     for i in range(len(group_names)):
         groups.append(
 	    Group(
