@@ -29,17 +29,19 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+import groups
+
 mod = "mod4"
 terminal = guess_terminal()
 
-WALLPAPER1 = "~/Images/wallpapers/dog.jpg"
-WALLPAPER2 = "~/Images/wallpapers/loading-screen.jpg"
-WALLPAPER3 = "~/Images/wallpapers/dog.jpg"
+WALLPAPER1 = "~/.config/qtile/galaxy_wp.png"
+WALLPAPER2 = "~/.config/qtile/galaxy_wp.png"
+WALLPAPER3 = "~/.config/qtile/galaxy_wp.png"
 
 # COLORS
-BACKGROUND_COLOR = "#322b29"
-BAR_BORDER_COLOR = "#7f6d68"
-BORDER_COLOR="#d25710"
+BACKGROUND_COLOR = "#24242f"
+BAR_BORDER_COLOR = "#373e48"
+BORDER_COLOR="#7071af"
 
 keys = [
     # at https://docs.qtile.org/en/latest/manual/config/lazy.html
@@ -62,6 +64,11 @@ keys = [
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brillo -A 5"), desc="Increase monitor brightness"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brillo -U 5"), desc="Decrease monitor brightness"),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%+"), desc="Increase master volume"),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh 2%-"), desc="Decrease master volume"),
+    Key([], "XF86AudioMute", lazy.spawn("/home/mrghastien/.config/qtile/changeVolume.sh mute"), desc="Mute/unmute master"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -77,50 +84,13 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "a", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+        Key([mod], "f", lazy.window.toggle_floating()),
+        Key([mod], "g", lazy.window.toggle_minimize()),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Spawn a command using a prompt widget"),
 ]
 
-group_labels = [c for c in "1234567890"]
-group_names = ['ampersand', 'eacute', 'quotedbl', 'apostrophe', 'parenleft', 'section', 'egrave', 'exclam', 'ccedilla', 'agrave']
-groups = []
-
-for i in range(len(group_names)):
-	groups.append(
-		Group(
-			name=group_names[i],
-			label=group_labels[i]
-		)
-	)
-
-for g in groups:
-	keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [mod],
-                g.name,
-                lazy.group[g.name].toscreen(),
-                desc="Switch to group {}".format(g.name),
-            ),
-            # mod1 + shift + letter of group = switch to & move focused window to group
-            #Key(
-            #    [mod, "shift"],
-            #    k,
-            #    lazy.window.togroup(g.name, switch_group=True),
-            #    desc="Switch to & move focused window to group {}".format(i.name),
-            #),
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            Key(
-                [mod, "shift"],
-                g.name,
-                lazy.window.togroup(g.name),
-                desc="move focused window to group {}".format(g.name),
-            ),
-        ]
-    )
-
+groups = groups.getGroups(keys, mod)
 
 layouts = [
     layout.Columns(
@@ -146,10 +116,10 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="source code pro bold",
+    font="Fira Code Bold",
     fontsize=14,
     #padding=2,
-	foreground="#cccccc",
+	foreground="#c8dedf",
 	
 )
 extension_defaults = widget_defaults.copy()
@@ -158,92 +128,51 @@ clock_format="%A %d/%m/%Y - %H:%M:%S"
 
 default_sep=widget.Sep(
 				padding=15,
-				size_percent=65,
-				linewidth=2,
+				size_percent=55,
+				linewidth=1,
 				foreground=BORDER_COLOR,
 			)
 
-def create_bar():
-	return bar.Bar(
-		[
-            widget.QuickExit(),
-			default_sep,
-            widget.CurrentLayout(),
-            widget.GroupBox(
-				highlight_method='block',
-				this_current_screen_border="#d54010",
-				this_screen_border="#d54010",
-				other_current_screen_border="#605050",
-				other_screen_border="#605050",
-				inactive="8f4d24",
-			),
-			default_sep,
-            widget.Prompt(),
-            widget.WindowName(),
-            widget.Chord(
-                chords_colors={
-                    "launch": ("#ff0000", "#ffffff"),
-                },
-                name_transform=lambda name: name.upper(),
-            ),
-			widget.Net(),
-			default_sep,
-            widget.Clock(format=clock_format),
-        ],
-        35,
-        border_width=[2, 0, 0, 0],  # Draw top and bottom borders
-        border_color=BAR_BORDER_COLOR,
-		background=BACKGROUND_COLOR,
-		# opacity=0.9,
-		margin=[3, 0, 0, 0],
-    )
-
+kbwidget = widget.KeyboardLayout(
+    configured_keyboards=['fr', 'us', 'us intl'],
+    foreground='#8ec07c'
+)
 
 screens = [
-    Screen(
-        bottom=create_bar(),
-		wallpaper=WALLPAPER1,
-    ),
 	Screen(
         bottom=bar.Bar(
-		[
-            widget.QuickExit(),
-			default_sep,
-            widget.CurrentLayout(),
-            widget.GroupBox(
-				highlight_method='block',
-				this_current_screen_border="#d54010",
-				this_screen_border="#d54010",
-				other_current_screen_border="#605050",
-				other_screen_border="#605050",
-				inactive="8f4d24",
-			),
-			default_sep,
-            widget.Prompt(),
-            widget.WindowName(),
-            widget.Chord(
-                chords_colors={
-                    "launch": ("#ff0000", "#ffffff"),
-                },
-                name_transform=lambda name: name.upper(),
-            ),
-            widget.Systray(),
-			widget.Net(),
-			default_sep,
-            widget.Clock(format=clock_format),
-        ],
-        35,
-        border_width=[2, 0, 0, 0],  # Draw top and bottom borders
-        border_color=BAR_BORDER_COLOR,
-		background=BACKGROUND_COLOR,
-		# opacity=0.9,
-		margin=[3, 0, 0, 0],
-    ),
-		wallpaper=WALLPAPER2,
-    ),
-	Screen(
-        bottom=create_bar(),
-		wallpaper=WALLPAPER3,
+                [
+                        widget.QuickExit(),
+		        default_sep,
+                        widget.CurrentLayout(),
+                        widget.GroupBox(
+			        highlight_method='line',
+                                highlight_color = [BACKGROUND_COLOR, "#4e6b72"],
+			        this_current_screen_border="#26c3f6",
+			        inactive=BORDER_COLOR,
+		        ),
+		        default_sep,
+                        widget.Prompt(),
+                        widget.WindowName(),
+                        widget.Chord(
+                                chords_colors={
+                                        "launch": ("#ff0000", "#ffffff"),
+                                },
+                                name_transform=lambda name: name.upper(),
+                        ),
+                        widget.Systray(),
+		        widget.Net(),
+		        default_sep,
+                        widget.Clock(format=clock_format),
+                ],
+                35,
+                border_width=[2, 0, 0, 0],  # Draw top and bottom borders
+                border_color=BAR_BORDER_COLOR,
+                background=BACKGROUND_COLOR,
+	        # opacity=0.9,
+	        margin=[3, 0, 0, 0],
+        ),
+        wallpaper=WALLPAPER2,
     )
 ]
 
@@ -277,7 +206,7 @@ reconfigure_screens = True
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
-auto_minimize = True
+auto_minimize = False
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
