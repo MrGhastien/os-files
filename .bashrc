@@ -59,5 +59,6 @@ function set_prompt() {
 PROMPT_COMMAND=set_prompt
 
 alias ls="ls --color"
+alias tree="tree -C"
 
-neofetch
+#neofetch

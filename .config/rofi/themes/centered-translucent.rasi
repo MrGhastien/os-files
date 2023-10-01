@@ -23,13 +23,14 @@
     selected-normal-foreground: #801100;
 }
 
-/*window {
+window {
     anchor: center;
     location: center;
-    width: 40%;
+    width: 25%;
+    height: 60%;
     padding: 0px;
     children: [ overlay, mainbox ];
-}*/
+}
 
 mainbox {
         orientation: vertical;
@@ -57,6 +58,7 @@ inputbar {
 num-filtered-rows {
     vertical-align: 0.5;
     text-color: #727272;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 prompt {

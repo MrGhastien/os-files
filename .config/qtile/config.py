@@ -146,7 +146,7 @@ def create_main_bar():
 	        other_screen_border="#605050",
 	        inactive="#4a4742",
                 disable_drag=True,
-                margin_y=6,
+                #margin_y=6,
                 padding_x=5,
                 active='fe8019',
                 #block_highlight_text_color='fabd2f',
@@ -244,11 +244,11 @@ screens = [
 		wallpaper=WALLPAPER,
                 wallpaper_mode="fill",
 	),
-	"""Screen(
+	Screen(
 		bottom=create_bar(),
 		wallpaper=WALLPAPER,
                 wallpaper_mode="fill",
-	)"""
+	)
 ]
 
 # Drag floating layouts.

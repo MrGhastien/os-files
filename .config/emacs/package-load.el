@@ -243,7 +243,7 @@
           ("CRASH" . mg/org-crash)
           )
         )
-  (plist-put org-format-latex-options :scale 2.0)
+  (plist-put org-format-latex-options :scale 10.0)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
   )
