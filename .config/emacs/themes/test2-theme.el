@@ -53,8 +53,10 @@
  '(hl-line ((t (:background "#323335" :inherit nil))))
  '(minibuffer-prompt ((t (:foreground "#fe8019" :weight bold))))
  '(region ((t (:background "#4a4742" :extend t))))
+ '(tooltip ((t (:inherit variable-pitch :background "#3c3836" :foreground "#fbf1c0" :height 100 :box nil))))
 
  '(window-divider ((t (:foreground "#504b48"))))
+ '(fill-column-indicator ((t (:foreground "#504b48"))))
 
  ; Dired
  '(ff-dired ((t (:inherit default))))

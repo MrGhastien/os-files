@@ -41,7 +41,10 @@
   (company-mode 1)
   (yas-minor-mode 1)
   (tree-sitter-hl-mode)
-  )
+  (display-fill-column-indicator-mode)
+  (whitespace-mode)
+  (setq fill-column 80)
+)
 
   
 (use-package lsp-mode
@@ -232,11 +235,6 @@
   :ensure t
   :hook (org-mode . on-org-mode)
   :config
-  (setq org-agenda-files
-	'(
-          "~/agenda/Dorset.org"
-          "~/agenda/Perso.org"
-          ))
   (setq org-log-done 'time)
   (setq org-todo-keyword-faces
         '(("BUG" . mg/org-bug)
@@ -292,6 +290,11 @@
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
   )
 
+(use-package whitespace
+  :config
+  (setq whitespace-style '(face empty tabs lines-tail trailing))
+  ;(global-whitespace-mode t)
+)
 
 
 (defun on-make-frame ()
