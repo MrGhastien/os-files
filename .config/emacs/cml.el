@@ -250,7 +250,7 @@ PROPS is a plist, used by svg-lib to create the icon."
 
 (defun cml-get-evil-mode ()
   (propertize
-   cml-evil-mode-str
+   (concat cml-evil-mode-str "")
    'face
    `(:box
      (:line-width

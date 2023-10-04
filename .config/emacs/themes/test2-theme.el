@@ -53,6 +53,7 @@
  '(hl-line ((t (:background "#323335" :inherit nil))))
  '(minibuffer-prompt ((t (:foreground "#fe8019" :weight bold))))
  '(region ((t (:background "#4a4742" :extend t))))
+ '(ivy-current-match ((t (:background "#65a7e2" :foreground "black" :extend t))))
 
  '(window-divider ((t (:foreground "#504b48"))))
 
@@ -144,6 +145,13 @@
  '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
  '(tree-sitter-hl-face:property ((t (:inherit font-lock-variable-name-face :slant italic))))
  '(tree-sitter-hl-face:label ((t (:inherit font-lock-variable-name-face :foreground "#f1a881"))));blue : b3ccba 
+
+ ;; which key
+ '(help-key-binding ((t (:inherit fixed-pitch :foreground "#8ec07c" :background "#3c3836" :box (:line-width (-1 . -1) :color "#504b48")))))
+ '(which-key-key-face ((t (:foreground "#fe8019" :weight bold))))
+ '(which-key-command-description-face ((t (:inherit default ))))
+ '(which-key-group-description-face ((t (:foreground "#b8bb26" ))))
+ '(which-key-separator-face ((t (:slant normal :foreground "#8ec07c"))))
  )
 
 (provide-theme 'test2)
