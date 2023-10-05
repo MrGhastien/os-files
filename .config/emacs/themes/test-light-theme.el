@@ -47,12 +47,14 @@
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#99938c"))))
  '(highlight ((t (:background "#83a598" :foreground "gray10"))))
  '(hl-line ((t (:background "#fffff7" :inherit nil))))
- '(minibuffer-prompt ((t (:foreground "#af3a0a" :weight bold))))
+ '(minibuffer-prompt ((t (:foreground "#d65d0e" :weight bold))))
  '(region ((t (:background "#a4d6e0" :extend t))))
 
- '(ivy-current-match ((t (:foreground "#d65d0e" :underline t))))
+ '(ivy-current-match ((t (:background "#65a7e2" :foreground "#fbf1c7" :underline nil))))
+ '(ivy-minibuffer-match-face-2 ((t (:background "#b8bb26" :foreground "#3c3836" :underline nil))))
 
  '(window-divider ((t (:foreground "#504b48"))))
+ '(fill-column-indicator ((t (:foreground "#d5c4a1"))))
 
  ; Dired
  '(ff-dired ((t (:inherit fixed-pitch))))
@@ -93,7 +95,9 @@
 
  '(lsp-ui-doc-background ((t (:background "#fffbdc"))))
  '(lsp-ui-doc-header ((t (:background "#282828" :foreground "#3c3836"))))
- 
+
+ '(show-paren-match ((t (:inherit default :underline t :foreground "#65a7e2" :weight extrabold))))
+
  '(company-tooltip ((t (:background "#fffbdc" :extend t))))
  '(company-tooltip-annotation ((t (:foreground "#d65d0e" :slant italic))))
  '(company-box-scrollbar ((t (:background "#d65d0e"))))
@@ -138,6 +142,17 @@
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:operator ((t (:foreground "#427b58"))))
+
+ ;;which key
+ '(which-key-key-face ((t (:foreground "#d65d0e" :weight bold))))
+ '(which-key-separator-face ((t (:foreground "#427b56" :weight normal))))
+ '(which-key-command-description-face ((t (:inherit default))))
+ '(which-key-group-description-face ((t (:foreground "#076678"))))
+
+ ;;whitespace mode
+ '(whitespace-line ((t (:foreground "hot pink" :background "#ebdbb2"))))
+
+ '(highlight-indent-guides-character-face ((t (:foreground "#00ff00"))))
  )
 
 (provide-theme 'test-light)

@@ -13,8 +13,8 @@
     border-color:               #504945;
     text-color:                 #fbf1c0;
     //font:                       "Fira Code Semibold 11";
-    font:                       "Iosevka Custom 11";
-    prompt-font:                "Iosevka Custom Extrabold 12";
+    font:                       "Iosevka Extended 11";
+    prompt-font:                "Iosevka Extrabold Extended 12";
     prompt-background:          @background-color;
     //prompt-foreground:          #fb4934;
     prompt-foreground:          #fe8019;

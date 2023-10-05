@@ -10,6 +10,9 @@
   (package-install 'use-package)
   )
 
+(use-package quelpa
+  :ensure t
+  )
 
 
 ;; ========================================================================== ;;
@@ -44,6 +47,7 @@
   (display-fill-column-indicator-mode)
   (whitespace-mode)
   (setq fill-column 80)
+  (auto-insert)
 )
 
   
@@ -69,6 +73,21 @@
   :ensure t
   :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
   )
+
+(defadvice company-abort (after propagate-escape activate)
+  (evil-normal-state)
+  )
+
+(use-package quelpa-use-package
+  :ensure t)
+
+(use-package gdb-mi :quelpa (gdb-mi :fetcher git
+                                    :url "https://github.com/weirdNox/emacs-gdb.git"
+                                    :files ("*.el" "*.c" "*.h" "Makefile"))
+  :init
+  (fmakunbound 'gdb)
+  (fmakunbound 'gdb-enable-debug)
+)
 
 (use-package company
   :ensure t
@@ -97,6 +116,12 @@
 
 (use-package yasnippet
   :ensure t
+  )
+
+(use-package autoinsert
+  :config
+  (setq auto-insert-query nil)
+  (auto-insert-mode 1)
   )
 
 (use-package emmet-mode
@@ -156,6 +181,12 @@
 
 (use-package tree-sitter-langs
   :ensure t)
+
+(use-package highlight-indent-guides
+  :ensure t
+  :config
+  (setq highlight-indent-guides-method 'character)
+  )
 
 ;; ==== Language server front-ends ====
 
@@ -321,6 +352,7 @@
     (use-package treemacs-all-the-icons
       :ensure t
       :config
+      (all-the-icons-install-fonts t)
       (treemacs-load-theme "all-the-icons")
       )
 
