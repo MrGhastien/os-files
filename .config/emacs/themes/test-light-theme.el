@@ -119,7 +119,7 @@
  '(org-table ((t (:inherit (fixed-pitch)))))
  '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch) :background "#fbf1c7" :extend t))))
  '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
- '(org-special-keyword ((t (:inherit fixed-pitch :foreground "#689d6a" :slant italic :weight bold :height 0.75)))) 
+ '(org-special-keyword ((t (:inherit fixed-pitch :foreground "#689d6a" :slant italic :weight bold :height 0.75))))
  '(org-todo ((t (:weight extrabold :foreground "#d79921"))))
  '(org-headline-done ((t (:foreground "#a89984"))))
  '(org-date ((t (:inherit org-special-keyword :foreground "RoyalBlue2" :underline t))))
@@ -138,6 +138,8 @@
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:operator ((t (:foreground "#427b58"))))
+ '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
+ '(tree-sitter-hl-face:property ((t (:inherit font-lock-variable-name-face :slant italic))))
  )
 
 (provide-theme 'test-light)

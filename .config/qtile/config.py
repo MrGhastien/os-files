@@ -163,7 +163,7 @@ def create_main_bar():
 	    default_sep,
             systray,
 	    widget.Net(
-                format='{down}  ↓↑ {up}  ({total})',
+                format='{down}{down_suffix}  ↓↑ {up}{up_suffix}  ({total}{total_suffix})',
             ),
             kbwidget,
             widget.Clock(

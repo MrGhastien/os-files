@@ -7,7 +7,7 @@ font:
   normal:
     family: Cascadia Code
     style: Regular
-  size: 13.0
+  size: 11.0
 
 # Colors (Gruvbox Material Dark Medium)
 colors:
