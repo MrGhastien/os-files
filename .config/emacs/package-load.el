@@ -157,7 +157,7 @@
 ;; ==== Language server front-ends ====
 
 (use-package ccls
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-lsp)))
+  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-eglot)))
   :ensure t
   )
 
