@@ -36,7 +36,7 @@
 (custom-theme-set-faces
  'test2
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight medium :height 120 :family "Cascadia Code"))))
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight medium :height 110 :family "Cascadia Code"))))
  '(variable-pitch ((t (:inherit default :family "Cascadia Code" :width normal :weight medium :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka Custom"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
@@ -53,8 +53,12 @@
  '(hl-line ((t (:background "#323335" :inherit nil))))
  '(minibuffer-prompt ((t (:foreground "#fe8019" :weight bold))))
  '(region ((t (:background "#4a4742" :extend t))))
+ '(tooltip ((t (:inherit variable-pitch :background "#3c3836" :foreground "#fbf1c0" :height 100 :box nil))))
+
+ '(ivy-current-match ((t (:foreground "black" :background "#65a7e2" :extend t :underline nil))))
 
  '(window-divider ((t (:foreground "#504b48"))))
+ '(fill-column-indicator ((t (:foreground "#504b48"))))
 
  ; Dired
  '(ff-dired ((t (:inherit default))))
@@ -91,6 +95,8 @@
  '(ccls-sem-member-face ((t (:slant normal :foreground "#83a598"))))
  '(ccls-sem-static-face ((t (:weight bold))))
  '(chl-number-face ((t (:weight normal :foreground "#d3869b"))))
+
+ '(show-paren-match ((t (:inherit default :underline t :foreground "#65a7e2" :weight bold))))
 
  '(lsp-ui-doc-background ((t (:background "#32302f"))))
  '(lsp-ui-doc-header ((t (:background "#fb4934" :foreground "#282828"))))
@@ -144,6 +150,12 @@
  '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
  '(tree-sitter-hl-face:property ((t (:inherit font-lock-variable-name-face :slant italic))))
  '(tree-sitter-hl-face:label ((t (:inherit font-lock-variable-name-face :foreground "#f1a881"))));blue : b3ccba 
+
+ ;;which key
+ '(which-key-key-face ((t (:foreground "#fe8019" :weight bold))))
+ '(which-key-separator-face ((t (:foreground "#8ec07c" :weight normal))))
+ '(which-key-command-description-face ((t (:inherit default))))
+ '(which-key-group-description-face ((t (:foreground "#83a598"))))
  )
 
 (provide-theme 'test2)

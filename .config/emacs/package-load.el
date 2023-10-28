@@ -60,6 +60,7 @@
   (company-mode 1)
   (yas-minor-mode 1)
   (tree-sitter-hl-mode)
+  (auto-insert)
   )
 
 (use-package eglot
@@ -86,6 +87,22 @@
   (company-tooltip-flip-when-above t)
   (company-tooltip-width-grow-only t)
   (company-tooltip-maximum-width 80)
+  )
+
+(use-package autoinsert
+  :config
+  (setq auto-insert-query nil)
+  (auto-insert-mode 1)
+  (add-to-list 'auto-insert-alist '(("\\.\\([Hh]\\|hh\\|hpp\\|hxx\\|h\\+\\+\\)\\'" . "C / C++ header")
+  (replace-regexp-in-string "[^A-Z0-9]" "_"
+                            (string-replace "+" "P"
+                                            (upcase
+                                             (file-name-nondirectory buffer-file-name))))
+  "#ifndef " str n "#define " str "
+
+" _ "
+
+#endif /* ! " str "*/"))
   )
 
 (use-package flycheck
@@ -157,7 +174,7 @@
 ;; ==== Language server front-ends ====
 
 (use-package ccls
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-lsp)))
+  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-eglot)))
   :ensure t
   )
 
@@ -232,11 +249,6 @@
   :ensure t
   :hook (org-mode . on-org-mode)
   :config
-  (setq org-agenda-files
-	'(
-          "~/agenda/Dorset.org"
-          "~/agenda/Perso.org"
-          ))
   (setq org-log-done 'time)
   (setq org-todo-keyword-faces
         '(("BUG" . mg/org-bug)
