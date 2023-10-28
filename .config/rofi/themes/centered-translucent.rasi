@@ -91,8 +91,14 @@ element {
     //border-color: #555252;
     spacing: 5px;
     orientation: horizontal;
-    children: [ element-text ];
+    children: [ element-icon, element-text ];
     background-color: rgba(0, 0, 0, 0);
+}
+
+element-icon {
+    padding: 0px 10px 0px 0px;
+    size: 30px;
+    background-color: inherit;
 }
 
 element.selected {
@@ -103,5 +109,6 @@ element.selected {
 
 element-text {
     background-color: inherit;
+    vertical-align: 0.5;
     text-color:       inherit;
 }

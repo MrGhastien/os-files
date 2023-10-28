@@ -8,7 +8,7 @@ configuration {
 	modi: "window,drun,ssh,combi";
 	font: "Inter 10";
 	combi-modi: "window,drun,ssh";
-    show-icons: false;
+    show-icons: true;
 }
 @theme "~/.config/rofi/themes/centered-translucent.rasi"
 //@theme "~/.config/rofi/themes/centered.rasi"
