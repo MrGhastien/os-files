@@ -7,8 +7,7 @@
 
 
 * {
-    background-color:           #28282850;
-    //background-color:           #ffffff20;
+    background-color:           #28282860;
     //border-color:               #31322f;
     border-color:               #504945;
     text-color:                 #fbf1c0;
@@ -24,13 +23,14 @@
     selected-normal-foreground: #801100;
 }
 
-/*window {
+window {
     anchor: center;
     location: center;
-    width: 40%;
+    width: 25%;
+    height: 60%;
     padding: 0px;
     children: [ overlay, mainbox ];
-}*/
+}
 
 mainbox {
         orientation: vertical;
@@ -58,7 +58,7 @@ inputbar {
 num-filtered-rows {
     vertical-align: 0.5;
     text-color: #727272;
-    background-color: inherit;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 prompt {
@@ -77,7 +77,7 @@ listview {
 
 entry {
     padding: 2px;
-    placeholder-color: #424242;
+    placeholder-color: #727272;
     vertical-align: 0.5;
     expand: true;
     width: 20em;
@@ -91,8 +91,14 @@ element {
     //border-color: #555252;
     spacing: 5px;
     orientation: horizontal;
-    children: [ element-text ];
+    children: [ element-icon, element-text ];
     background-color: rgba(0, 0, 0, 0);
+}
+
+element-icon {
+    padding: 0px 10px 0px 0px;
+    size: 30px;
+    background-color: inherit;
 }
 
 element.selected {
@@ -103,5 +109,6 @@ element.selected {
 
 element-text {
     background-color: inherit;
+    vertical-align: 0.5;
     text-color:       inherit;
 }

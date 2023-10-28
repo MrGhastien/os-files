@@ -106,10 +106,10 @@ groups = groups.getGroups(keys, mod)
 
 
 widget_defaults = dict(
-    font="Ubuntu Bold",
+    font="Inter SemiBold",
     fontsize=13,
     #padding=2,
-    foreground="#cccccc",
+    foreground="#e0e0e0",
 	
 )
 extension_defaults = widget_defaults.copy()
