@@ -26,8 +26,8 @@
 window {
     anchor: center;
     location: center;
-    width: 25%;
-    height: 60%;
+    //width: 25%;
+    //height: 60%;
     padding: 0px;
     children: [ overlay, mainbox ];
 }

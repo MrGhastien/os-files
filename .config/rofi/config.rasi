@@ -5,10 +5,12 @@ configuration {
     ssh {
         display-name: "SSH Hosts :";
     }
+
 	modi: "window,drun,ssh,combi";
 	font: "Inter 10";
 	combi-modi: "window,drun,ssh";
     show-icons: true;
+    icon-theme: "Papirus";
 }
 @theme "~/.config/rofi/themes/centered-translucent.rasi"
 //@theme "~/.config/rofi/themes/centered.rasi"

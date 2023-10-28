@@ -21,6 +21,14 @@ def onStartup():
 
 hook.subscribe.screen_change(lazy.reconfigure_screens)
 
+@hook.subscribe.client_new
+def onNewClient(client: Window):
+    classes = client.get_wm_class()
+    if 'easyeffects' in classes:
+        client.togroup('0')
+    elif 'discord' in classes:
+        client.togroup('0')
+
 #This is too slow !
 #@hook.subscribe.setgroup
 def onSetGroup():
