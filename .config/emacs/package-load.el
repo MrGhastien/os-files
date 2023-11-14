@@ -107,7 +107,7 @@
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
+  )
 
 (use-package yasnippet
   :ensure t
@@ -258,6 +258,7 @@
   (plist-put org-format-latex-options :scale 2.0)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
+  (add-to-list 'org-publish-project-alist '("epita-lessons" :base-directory "~/epita/ing1/lessons" :publishing-directory "~/epita/ing1/lessons/out" :html-preamble "<div class=\"gaming\">TEST</div>"))
   )
 
 (defun org-mode-visual-fill ()
@@ -270,8 +271,6 @@
   :ensure t
   :hook (org-mode . org-mode-visual-fill))
 ;; specify the justification you want
-
-
 
 
 ;; ========================================================================== ;;

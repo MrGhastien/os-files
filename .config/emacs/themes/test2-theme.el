@@ -37,7 +37,7 @@
  'test2
  ; General ; :background "#1d2021"
  '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight medium :height 110 :family "Cascadia Code"))))
- '(variable-pitch ((t (:inherit default :family "Cascadia Code" :width normal :weight medium :slant normal :height 140))))
+ '(variable-pitch ((t (:inherit default :family "Source Sans Pro" :width normal :weight medium :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka Custom"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
