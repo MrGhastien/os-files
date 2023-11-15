@@ -4,11 +4,19 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("b79ccccd808a46be09cc407b8a16a27098b603d06c99ae6b84af518d06d30608" "6349b974af340f5837dea169c364b028ae4070fdb8db3071dbc979989c2f2b40" "8c47615cdc353244003a0b596fb0b41a62346b039862ac250620dd8f883172b3" default))
+   '("8c47615cdc353244003a0b596fb0b41a62346b039862ac250620dd8f883172b3" default))
  '(display-line-numbers-major-tick 10)
  '(display-line-numbers-minor-tick 5)
  '(display-line-numbers-type t)
- '(lsp-java-bundles '("/usr/lib/jvm/java-20-openjdk/lib/src.zip"))
+ '(org-emphasis-alist
+   '(("!" italic)
+     ("*" bold)
+     ("/" italic)
+     ("_" underline)
+     ("=" org-verbatim verbatim)
+     ("~" org-code verbatim)
+     ("+"
+      (:strike-through t))))
  '(org-format-latex-options
    '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\[")))

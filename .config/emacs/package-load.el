@@ -88,9 +88,21 @@
   (company-tooltip-maximum-width 80)
   )
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
+(use-package autoinsert
+  :config
+  (setq auto-insert-query nil)
+  (auto-insert-mode 1)
+  (add-to-list 'auto-insert-alist '(("\\.\\([Hh]\\|hh\\|hpp\\|hxx\\|h\\+\\+\\)\\'" . "C / C++ header")
+  (replace-regexp-in-string "[^A-Z0-9]" "_"
+                            (string-replace "+" "P"
+                                            (upcase
+                                             (file-name-nondirectory buffer-file-name))))
+  "#ifndef " str n "#define " str "
+
+" _ "
+
+#endif /* ! " str " */"))
+  )
 
 (use-package yasnippet
   :ensure t
@@ -232,11 +244,6 @@
   :ensure t
   :hook (org-mode . on-org-mode)
   :config
-  (setq org-agenda-files
-	'(
-          "~/agenda/Dorset.org"
-          "~/agenda/Perso.org"
-          ))
   (setq org-log-done 'time)
   (setq org-todo-keyword-faces
         '(("BUG" . mg/org-bug)
@@ -246,7 +253,8 @@
   (plist-put org-format-latex-options :scale 2.0)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
-  )
+)
+  
 
 (defun org-mode-visual-fill ()
   (setq visual-fill-column-width 120
