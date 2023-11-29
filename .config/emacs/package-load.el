@@ -258,7 +258,14 @@
   (plist-put org-format-latex-options :scale 2.0)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
-  (add-to-list 'org-publish-project-alist '("epita-lessons" :base-directory "~/epita/ing1/lessons" :publishing-directory "~/epita/ing1/lessons/out" :html-preamble "<div class=\"gaming\">TEST</div>"))
+  (setq org-publish-project-alist '(("epita-lessons"
+                                     :base-directory "~/epita/ing1/lessons"
+                                     :publishing-directory "~/epita/ing1/lessons/out"
+                                     :html-preamble "<div class=\"gaming\">TEST</div>"
+                                     :html-head "<link rel=\"stylesheet\" href=\"/home/mrghastien/epita/ing1/lessons/style1.css\" />"
+                                     :body-only t)
+                                    )
+        )
   )
 
 (defun org-mode-visual-fill ()
