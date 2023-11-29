@@ -51,7 +51,7 @@ function parse_git_branch {
 
 function set_prompt() {
 
-	prompt="${DPC}[\u@\h ${COLOR_NONE}${CYAN}\w${COLOR_NONE}${DPC}] ${COLOR_NONE}$(parse_git_branch)${DPC}\$>${COLOR_NONE}"
+	prompt="${DPC}[\u@\h ${COLOR_NONE}${CYAN}\W${COLOR_NONE}${DPC}] ${COLOR_NONE}$(parse_git_branch)${DPC}\$>${COLOR_NONE}"
 	PS1="${prompt} "
 
 }

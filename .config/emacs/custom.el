@@ -4,24 +4,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("8c47615cdc353244003a0b596fb0b41a62346b039862ac250620dd8f883172b3" default))
- '(display-line-numbers-major-tick 10)
- '(display-line-numbers-minor-tick 5)
- '(display-line-numbers-type t)
- '(org-emphasis-alist
-   '(("!" italic)
-     ("*" bold)
-     ("/" italic)
-     ("_" underline)
-     ("=" org-verbatim verbatim)
-     ("~" org-code verbatim)
-     ("+"
-      (:strike-through t))))
- '(org-format-latex-options
-   '(:foreground default :background default :scale 2.0 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
-                 ("begin" "$1" "$" "$$" "\\(" "\\[")))
+   '("60170b73a1792aaa271f1c5fc81f2fa44f97597b9ffff98732b918251c352cd3" "b79ccccd808a46be09cc407b8a16a27098b603d06c99ae6b84af518d06d30608" "cc699e25a4aaa2db284fdf4a353bf21fc3efa3df0b6932bb3cd51a0dd65bc17a" "63fa90306f27963ef0f8da797af4c61716994ec3838cc24d455a53d938d32335" default))
  '(package-selected-packages
-   '(lua-mode pyvenv treemacs-all-the-icons all-the-icons dired-single dashboard tree-sitter-langs tree-sitter rust-mode flycheck emmet-mode yasnippet-snippets yasnippet web-mode js2-mode company-box counsel ivy-rich general which-key ivy svg-lib org-modern visual-fill-column visual-fill lsp-ui lsp-java treemacs-evil treemacs glsl-mode gruvbox-theme haskell-mode ligature ccls company lsp-mode pdf-tools tablist auctex org-bullets use-package evil)))
+   '(good-scroll yasnippet-snippets which-key web-mode visual-fill-column treemacs-all-the-icons tree-sitter-langs svg-lib rust-mode pyvenv pdf-tools org-bullets lsp-ui lsp-java ligature js2-mode ivy-rich general flycheck emmet-mode dired-single dashboard counsel company-box cdlatex ccls bind-key auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -15,6 +15,8 @@
  '(cml-insert-mode-bg "#aff212")
  '(cml-insert-mode-fg "#005200")
  '(cml-replace-mode-fg "#29005e")
+ '(cml-modified-name-color "#fb4934")
+ '(cml-read-only-name-color "#fe8019")
 
  '(ccls-sem-highlight-method 'overlay)
  '(ccls-sem-type-faces [font-lock-type-face])

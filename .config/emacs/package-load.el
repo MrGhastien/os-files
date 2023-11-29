@@ -27,10 +27,9 @@
 (use-package hydra
 :ensure t)
 
-(use-package evil
-  :ensure t
-  :config (evil-mode 1)
-  )
+(add-to-list 'load-path "~/.config/emacs/evil")
+(require 'evil)
+(evil-mode 1)
 
 ;; ========================================================================== ;;
 ;;                             Programming related                            ;;
@@ -253,6 +252,22 @@
   (plist-put org-format-latex-options :scale 2.0)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
+  (setq org-publish-project-alist
+        '(
+          ("epita-lessons"
+           :publishing-directory "~/epita/ing1/lessons/out"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+           :html-preamble "<div class=\"gaming\">TEST</div>"
+           :components ("epita-droit" "epita-thl"))
+          ("epita-droit"
+           :base-directory "~/epita/ing1/lessons/droit"
+           :publishing-directory "~/epita/ing1/lessons/out")
+          ("epita-thl"
+           :base-directory "~/epita/ing1/lessons/thl"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+           :publishing-directory "~/epita/ing1/lessons/out")
+          )
+	)
 )
   
 
@@ -300,7 +315,13 @@
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
   )
 
-
+(use-package pixel-scroll
+  :config
+  (setq pixel-scroll-precision-interpolate-mice nil)
+  (setq pixel-scroll-precision-interpolate-page t)
+  (setq pixel-scroll-precision-use-momentum nil)
+  (pixel-scroll-precision-mode t)
+  )
 
 (defun on-make-frame ()
   ;(set-frame-parameter nil 'alpha-background 100)
@@ -333,7 +354,7 @@
     
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
-    (load-theme 'test2)
+    (load-theme 'test)
     )
   )
 
