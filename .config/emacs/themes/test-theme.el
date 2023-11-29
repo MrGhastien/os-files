@@ -15,6 +15,8 @@
  '(cml-insert-mode-bg "#aff212")
  '(cml-insert-mode-fg "#005200")
  '(cml-replace-mode-fg "#29005e")
+ '(cml-modified-name-color "#fb4934")
+ '(cml-read-only-name-color "#fe8019")
 
  '(ccls-sem-highlight-method 'overlay)
  '(ccls-sem-type-faces [font-lock-type-face])
@@ -44,7 +46,7 @@
  '(region ((t (:background "#4a4742" :extend t))))
 
  ; Dired
- '(ff-dired ((t (:inherit default :family "Iosevka Custom" :weight regular))))
+ '(ff-dired ((t (:inherit default :weight regular))))
  '(dired-directory ((t (:inherit ff-dired))))
  '(dired-marked ((t (:foreground "#f25c54" :weight bold :inherit ff-dired))))
  '(dired-flagged ((t (:background "#f25c54" :foreground "gray10" :weight ultrabold :inherit ff-dired))))
