@@ -102,11 +102,7 @@
 
 " _ "
 
-#endif /* ! " str "*/"))
-  )
-
-(use-package flycheck
-  :ensure t
+#endif /* ! " str " */"))
   )
 
 (use-package yasnippet
@@ -258,15 +254,24 @@
   (plist-put org-format-latex-options :scale 2.0)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
-  (setq org-publish-project-alist '(("epita-lessons"
-                                     :base-directory "~/epita/ing1/lessons"
-                                     :publishing-directory "~/epita/ing1/lessons/out"
-                                     :html-preamble "<div class=\"gaming\">TEST</div>"
-                                     :html-head "<link rel=\"stylesheet\" href=\"/home/mrghastien/epita/ing1/lessons/style1.css\" />"
-                                     :body-only t)
-                                    )
-        )
-  )
+  (setq org-publish-project-alist
+        '(
+          ("epita-lessons"
+           :publishing-directory "~/epita/ing1/lessons/out"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+           :html-preamble "<div class=\"gaming\">TEST</div>"
+           :components ("epita-droit" "epita-thl"))
+          ("epita-droit"
+           :base-directory "~/epita/ing1/lessons/droit"
+           :publishing-directory "~/epita/ing1/lessons/out")
+          ("epita-thl"
+           :base-directory "~/epita/ing1/lessons/thl"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+           :publishing-directory "~/epita/ing1/lessons/out")
+          )
+	)
+)
+  
 
 (defun org-mode-visual-fill ()
   (setq visual-fill-column-width 120
@@ -343,7 +348,7 @@
     
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
-    (load-theme 'test2)
+    (load-theme 'test)
     )
   )
 
