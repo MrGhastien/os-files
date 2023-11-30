@@ -29,6 +29,7 @@
 ;; Keybindings
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "M-D") 'compile)
+(global-set-key (kbd "C-c C-m") 'recompile)
 (global-set-key (kbd "C-M-y") 'load-theme)
 
 
