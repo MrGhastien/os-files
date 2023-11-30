@@ -110,18 +110,24 @@
   (company-tooltip-maximum-width 80)
   )
 
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
-
-(use-package yasnippet
-  :ensure t
-  )
-
 (use-package autoinsert
   :config
   (setq auto-insert-query nil)
   (auto-insert-mode 1)
+  (add-to-list 'auto-insert-alist '(("\\.\\([Hh]\\|hh\\|hpp\\|hxx\\|h\\+\\+\\)\\'" . "C / C++ header")
+  (replace-regexp-in-string "[^A-Z0-9]" "_"
+                            (string-replace "+" "P"
+                                            (upcase
+                                             (file-name-nondirectory buffer-file-name))))
+  "#ifndef " str n "#define " str "
+
+" _ "
+
+#endif /* ! " str " */"))
+  )
+
+(use-package yasnippet
+  :ensure t
   )
 
 (use-package emmet-mode
@@ -182,16 +188,10 @@
 (use-package tree-sitter-langs
   :ensure t)
 
-(use-package highlight-indent-guides
-  :ensure t
-  :config
-  (setq highlight-indent-guides-method 'character)
-  )
-
 ;; ==== Language server front-ends ====
 
 (use-package ccls
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-lsp)))
+  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-eglot)))
   :ensure t
   )
 
@@ -275,7 +275,24 @@
   (plist-put org-format-latex-options :scale 2.0)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
-  )
+  (setq org-publish-project-alist
+        '(
+          ("epita-lessons"
+           :publishing-directory "~/epita/ing1/lessons/out"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+           :html-preamble "<div class=\"gaming\">TEST</div>"
+           :components ("epita-droit" "epita-thl"))
+          ("epita-droit"
+           :base-directory "~/epita/ing1/lessons/droit"
+           :publishing-directory "~/epita/ing1/lessons/out")
+          ("epita-thl"
+           :base-directory "~/epita/ing1/lessons/thl"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+           :publishing-directory "~/epita/ing1/lessons/out")
+          )
+	)
+)
+  
 
 (defun org-mode-visual-fill ()
   (setq visual-fill-column-width 120
@@ -360,7 +377,7 @@
     
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
-    (load-theme 'test2)
+    (load-theme 'test)
     )
   )
 

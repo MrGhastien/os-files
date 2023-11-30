@@ -15,6 +15,8 @@
  '(cml-insert-mode-bg "#aff212")
  '(cml-insert-mode-fg "#005200")
  '(cml-replace-mode-fg "#29005e")
+ '(cml-modified-name-color "#fb4934")
+ '(cml-read-only-name-color "#fe8019")
 
  '(ccls-sem-highlight-method 'overlay)
  '(ccls-sem-type-faces [font-lock-type-face])
@@ -26,7 +28,7 @@
  'test
  ; General ; :background "#1d2021"
  '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Iosevka Custom"))))
- '(variable-pitch ((t (:inherit default :family "Inter" :width normal :weight regular :slant normal :height 140))))
+ '(variable-pitch ((t (:inherit default :family "Source Sans Pro" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
@@ -44,7 +46,7 @@
  '(region ((t (:background "#4a4742" :extend t))))
 
  ; Dired
- '(ff-dired ((t (:inherit default :family "Iosevka Custom" :weight regular))))
+ '(ff-dired ((t (:inherit default :weight regular))))
  '(dired-directory ((t (:inherit ff-dired))))
  '(dired-marked ((t (:foreground "#f25c54" :weight bold :inherit ff-dired))))
  '(dired-flagged ((t (:background "#f25c54" :foreground "gray10" :weight ultrabold :inherit ff-dired))))
@@ -70,7 +72,7 @@
  '(font-lock-keyword-face ((t (:foreground "#fe8019"))))
  '(font-lock-type-face ((t (:foreground "#fabd2f"))))
  '(font-lock-variable-name-face ((t (:foreground "#83a598"))))
- '(font-lock-string-face ((t (:foreground "#8ec07c")))) ;8ec07c
+ '(font-lock-string-face ((t (:foreground "#b8bb26" :slant italic)))) ;8ec07c
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#d3869b"))))
  '(font-lock-comment-face ((t (:foreground "gray50" :width expanded :slant italic))))
  '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-keyword-face))))

@@ -36,9 +36,9 @@
 (custom-theme-set-faces
  'test2
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight medium :height 110 :family "Cascadia Code"))))
- '(variable-pitch ((t (:inherit default :family "Cascadia Code" :width normal :weight medium :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom"))))
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight medium :height 120 :family "Cascadia Code"))))
+ '(variable-pitch ((t (:inherit default :family "Source Sans Pro" :width normal :weight medium :slant normal :height 140))))
+ '(fixed-pitch ((t (:inherit default :family "Cascadia Code"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
@@ -120,7 +120,7 @@
  '(org-level-3 ((t (:foreground "#b8bb26" :weight normal))))
  '(org-hide ((t (:foreground "#282828"))))
  '(org-block ((t (:inherit fixed-pitch :foreground unspecified :background "#1d2021" :extend t)))) ;171919
- '(org-code ((t (:inherit (fixed-pitch) :background "#1d2021"))))
+ '(org-code ((t (:inherit (fixed-pitch) :height 130 :background "#1d2021"))))
  '(org-verbatim ((t (:inherit (fixed-pitch)))))
  '(org-checkbox ((t (:inherit fixed-pitch :foreground "#689d6a" :weight bold))))
  '(org-table ((t (:inherit (fixed-pitch)))))
@@ -151,11 +151,12 @@
  '(tree-sitter-hl-face:property ((t (:inherit font-lock-variable-name-face :slant italic))))
  '(tree-sitter-hl-face:label ((t (:inherit font-lock-variable-name-face :foreground "#f1a881"))));blue : b3ccba 
 
- ;;which key
+ ;; which key
+ '(help-key-binding ((t (:inherit fixed-pitch :foreground "#8ec07c" :background "#3c3836" :box (:line-width (-1 . -1) :color "#504b48")))))
  '(which-key-key-face ((t (:foreground "#fe8019" :weight bold))))
- '(which-key-separator-face ((t (:foreground "#8ec07c" :weight normal))))
- '(which-key-command-description-face ((t (:inherit default))))
- '(which-key-group-description-face ((t (:foreground "#83a598"))))
+ '(which-key-command-description-face ((t (:inherit default ))))
+ '(which-key-group-description-face ((t (:foreground "#b8bb26" ))))
+ '(which-key-separator-face ((t (:slant normal :foreground "#8ec07c"))))
  )
 
 (provide-theme 'test2)
