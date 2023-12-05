@@ -22,14 +22,18 @@
  '(ccls-sem-type-faces [font-lock-type-face])
  '(ccls-sem-variable-faces [default])
  '(ccls-sem-macro-faces [chl-macro-face])
-)
+
+ '(window-divider-default-places 'right-only)
+ '(window-divider-default-right-width 2)
+ '(window-divider-default-bottom-width 1)
+ )
 
 (custom-theme-set-faces
  'test
- ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Iosevka Custom"))))
+                                        ; General ; :background "#1d2021"
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Cascadia Code"))))
  '(variable-pitch ((t (:inherit default :family "Source Sans Pro" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended"))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka Extended"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
@@ -37,15 +41,17 @@
  '(line-number-current-line ((t (:background "#504945" :foreground "#fe8019"))))
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#bdae93" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :foreground "#928374" :weight bold))))
- '(mode-line ((t (:box (:line-width (-1 . 6) :color "#303030") :foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
+ '(mode-line ((t (:box (:line-width (-1 . 2) :color "#303030"):foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#928374"))))
- ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#282828") :foreground "gray30" :background "#282828"))))
+                                        ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#282828") :foreground "gray30" :background "#282828"))))
  '(highlight ((t (:background "#83a598" :foreground "gray10"))))
  '(hl-line ((t (:background "#323335" :inherit nil))))
  '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold))))
  '(region ((t (:background "#4a4742" :extend t))))
 
- ; Dired
+ '(window-divider ((t (:foreground "#504b48"))))
+ '(fill-column-indicator ((t (:foreground "#504b48"))))
+                                        ; Dired
  '(ff-dired ((t (:inherit default :weight regular))))
  '(dired-directory ((t (:inherit ff-dired))))
  '(dired-marked ((t (:foreground "#f25c54" :weight bold :inherit ff-dired))))
@@ -53,7 +59,7 @@
  '(dired-symlink ((t (:foreground "turquoise" :inherit ff-dired))))
  '(dired-broken-symlink ((t (:foreground "turquoise" :strike-through t :inherit ff-dired))))
 
- ; Treemacs
+                                        ; Treemacs
  '(ff-treemacs ((t (:family "Iosevka Custom" :weight medium))))
  '(treemacs-directory-face ((t (:inherit ff-treemacs))))
  '(treemacs-file-face ((t (:inherit ff-treemacs))))
@@ -66,7 +72,7 @@
  '(treemacs-all-the-icons-file-face ((t (:height 130 :foreground "#928374"))))
  '(treemacs-all-the-icons-root-face ((t (:height 130 :foreground "#fe8019"))))
 
- ; Font lock
+                                        ; Font lock
  '(font-lock-builtin-face ((t (:foreground "#fe8019"))))
  '(font-lock-function-name-face ((t (:foreground "#b8bb26"))))
  '(font-lock-keyword-face ((t (:foreground "#fe8019"))))
@@ -84,14 +90,14 @@
  '(lsp-ui-doc-background ((t (:background "#32302f"))))
  '(lsp-ui-doc-header ((t (:background "#fb4934" :foreground "#282828"))))
 
- ; Latex
+                                        ; Latex
  '(font-latex-math-face ((t (:weight normal :foreground "#c1ffc8"))))
  '(font-latex-italic-face ((t (:inherit italic :foreground "misty rose"))))
  '(font-latex-script-char-face ((t (:foreground "cyan"))))
  '(italic ((t (:slant italic))))
  '(font-latex-sectioning-5-face ((t (:weight extra-bold :underline t :inherit font-lock-function-name-face))))
 
- ; Org mode
+                                        ; Org mode
  '(org-level-1 ((t (:foreground "#fb4934" :weight extrabold))))
  '(org-level-2 ((t (:foreground "#fe8019" :weight bold))))
  '(org-level-3 ((t (:foreground "#b8bb26" :weight normal))))
@@ -124,6 +130,18 @@
  '(tree-sitter-hl-face:operator ((t (:foreground "#bee4a5"))))
  '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
  '(tree-sitter-hl-face:label ((t (:foreground "#83a598"))))
+
+ ;; Term
+ '(term ((t (:inherit default :height 110))))
+ '(ansi-color-bold    ((t (:inherit term :weight bold))))
+ '(ansi-color-black   ((t (:inherit term :foreground "#665c54"))))
+ '(ansi-color-red     ((t (:inherit term :foreground "#ea6962"))))
+ '(ansi-color-green   ((t (:inherit term :foreground "#a9b665"))))
+ '(ansi-color-yellow  ((t (:inherit term :foreground "#e78a4e"))))
+ '(ansi-color-blue    ((t (:inherit term :foreground "#7daea3"))))
+ '(ansi-color-magenta ((t (:inherit term :foreground "#d3869b"))))
+ '(ansi-color-cyan    ((t (:inherit term :foreground "#89b482"))))
+ '(ansi-color-white   ((t (:inherit term :foreground "#dfbf8e"))))
  )
 
 (provide-theme 'test)

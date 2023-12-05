@@ -249,6 +249,12 @@
          )
   :ensure t)
 
+(use-package move-text
+  :ensure t
+  :bind (("M-j" . move-text-down)
+         ("M-k" . move-text-up))
+  )
+
 ;; ========================================================================== ;;
 ;;                               Org Mode & co.                               ;;
 ;; ========================================================================== ;;
@@ -278,17 +284,21 @@
   (setq org-publish-project-alist
         '(
           ("epita-lessons"
-           :publishing-directory "~/epita/ing1/lessons/out"
-           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
+           :publishing-directory "~lessons/out"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/light.css\" />"
            :html-preamble "<div class=\"gaming\">TEST</div>"
-           :components ("epita-droit" "epita-thl"))
+           :components ("epita-droit" "epita-thl" "epita-masi"))
           ("epita-droit"
-           :base-directory "~/epita/ing1/lessons/droit"
-           :publishing-directory "~/epita/ing1/lessons/out")
+           :base-directory "~/lessons/droit"
+           :publishing-directory "~/lessons/out")
           ("epita-thl"
-           :base-directory "~/epita/ing1/lessons/thl"
-           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
-           :publishing-directory "~/epita/ing1/lessons/out")
+           :base-directory "~/lessons/thl"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/light.css\" />"
+           :publishing-directory "~/lessons/out")
+          ("epita-masi"
+           :base-directory "~/lessons/masi"
+           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style/light.css\" />"
+           :publishing-directory "~/lessons/out")
           )
 	)
 )
@@ -304,9 +314,6 @@
   :ensure t
   :hook (org-mode . org-mode-visual-fill))
 ;; specify the justification you want
-
-
-
 
 ;; ========================================================================== ;;
 ;;                                    Icons                                   ;;
@@ -369,7 +376,6 @@
     (use-package treemacs-all-the-icons
       :ensure t
       :config
-      (all-the-icons-install-fonts t)
       (treemacs-load-theme "all-the-icons")
       )
 

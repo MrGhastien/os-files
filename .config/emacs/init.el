@@ -37,6 +37,7 @@
                 org-mode-hook
                 org-agenda-mode-hook
                 help-mode-hook
+                vterm-mode-hook
                 ))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
@@ -78,4 +79,4 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 
-(load-theme 'test2)
+(load-theme 'test)
