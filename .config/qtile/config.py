@@ -94,12 +94,12 @@ keys = [
     Key([mod], "o", lazy.group.setlayout('columns')),
     Key([mod], "i", lazy.group.setlayout('max')),
 
-    # Key([mod, "shift"], "Return", lazy.spawn("aplay /home/mrghastien/dev/boom.wav")),
-    # Key([mod, "shift"], "Tab", lazy.spawn("aplay /home/mrghastien/dev/helikopter.wav")),
-    # Key([mod, "shift"], "b", lazy.spawn("aplay /home/mrghastien/dev/boom-disto.wav")),
-    # Key([mod, "shift"], "c", lazy.spawn("aplay /home/mrghastien/dev/OMG.wav")),
-    # Key([mod, "shift"], "n", lazy.spawn("aplay /home/mrghastien/dev/omg-bruh.wav")),
-    # Key([mod, "shift"], "v", lazy.spawn("aplay /home/mrghastien/dev/augh.wav")),
+   # Key([mod, "shift"], "Return", lazy.spawn("aplay /home/mrghastien/dev/boom.wav")),
+   # Key([mod, "shift"], "Tab", lazy.spawn("aplay /home/mrghastien/dev/helikopter.wav")),
+   # Key([mod, "shift"], "b", lazy.spawn("aplay /home/mrghastien/dev/boom-disto.wav")),
+   # Key([mod, "shift"], "c", lazy.spawn("aplay /home/mrghastien/dev/OMG.wav")),
+   # Key([mod, "shift"], "n", lazy.spawn("aplay /home/mrghastien/dev/omg-bruh.wav")),
+   # Key([mod, "shift"], "v", lazy.spawn("aplay /home/mrghastien/dev/augh.wav")),
 ]
 
 groups = groups.getGroups(keys, mod)

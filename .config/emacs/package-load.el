@@ -239,6 +239,7 @@
   )
 
 
+(load-file "~/epita/ing1/lessons/publication.el")
 (use-package org
   :ensure t
   :hook (org-mode . on-org-mode)
@@ -252,22 +253,7 @@
   (plist-put org-format-latex-options :scale 2.0)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
-  (setq org-publish-project-alist
-        '(
-          ("epita-lessons"
-           :publishing-directory "~/epita/ing1/lessons/out"
-           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
-           :html-preamble "<div class=\"gaming\">TEST</div>"
-           :components ("epita-droit" "epita-thl"))
-          ("epita-droit"
-           :base-directory "~/epita/ing1/lessons/droit"
-           :publishing-directory "~/epita/ing1/lessons/out")
-          ("epita-thl"
-           :base-directory "~/epita/ing1/lessons/thl"
-           :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
-           :publishing-directory "~/epita/ing1/lessons/out")
-          )
-	)
+  (epipub-setup)
 )
   
 
