@@ -1,4 +1,8 @@
 #!/bin/bash
+if [[ $- != *i* ]] ; then
+        # Shell is non-interactive.  Be done now!
+        return
+fi
 
 #source ~/.git-prompt.sh
 
@@ -16,7 +20,7 @@ LIGHT_GREEN="\[\033[1;32m\]"
    DIM_CYAN="\[\033[2;36m\]"
  COLOR_NONE="\[\e[0m\]"
 #DPC : Default Prompt Color
-DPC=${YELLOW}
+DPC="\[\033[1m\]${YELLOW}"
 
 function parse_git_branch {
 	git rev-parse --git-dir &> /dev/null
@@ -51,7 +55,7 @@ function parse_git_branch {
 
 function set_prompt() {
 
-	prompt="${DPC}[\u@\h ${COLOR_NONE}${CYAN}\W${COLOR_NONE}${DPC}] ${COLOR_NONE}$(parse_git_branch)${DPC}\$>${COLOR_NONE}"
+	prompt="${DPC}\u@\h ${COLOR_NONE}${CYAN}\W${COLOR_NONE}${DPC} ${COLOR_NONE}$(parse_git_branch)${DPC}\$ >${COLOR_NONE}"
 	PS1="${prompt} "
 
 }

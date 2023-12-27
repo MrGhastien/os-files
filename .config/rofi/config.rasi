@@ -1,13 +1,15 @@
 configuration {
 	drun {
 		display-name: "Run : ";
+        parse-user: true;
+        parse-system: true;
 	}
     ssh {
         display-name: "SSH Hosts :";
     }
-	modi: "window,drun,ssh,combi";
+	modes: "drun,run,ssh,combi";
 	font: "Inter 10";
-	combi-modi: "window,drun,ssh";
+	combi-modi: "drun,ssh";
     show-icons: true;
 }
 @theme "~/.config/rofi/themes/centered-translucent.rasi"

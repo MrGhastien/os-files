@@ -27,9 +27,11 @@
 (use-package hydra
 :ensure t)
 
-(add-to-list 'load-path "~/.config/emacs/evil")
-(require 'evil)
-(evil-mode 1)
+(use-package evil
+	:ensure t
+	:config
+	(evil-mode 1)
+)
 
 ;; ========================================================================== ;;
 ;;                             Programming related                            ;;
@@ -56,7 +58,8 @@
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
   (eglot-ensure)
-  (company-mode 1)
+  ;(company-mode 1)
+  (corfu-mode 1)
   (yas-minor-mode 1)
   (tree-sitter-hl-mode)
   )
@@ -85,6 +88,13 @@
   (company-tooltip-flip-when-above t)
   (company-tooltip-width-grow-only t)
   (company-tooltip-maximum-width 80)
+  )
+
+(use-package corfu
+  :ensure t
+  :config
+  (setq corfu-auto t)
+  (setq corfu-auto-delay 0)
   )
 
 (use-package autoinsert
@@ -336,7 +346,7 @@
       (treemacs-load-theme "all-the-icons")
       )
 
-    (set-frame-font "Cascadia Code 12" nil t)
+    ;;(set-frame-font "Cascadia Code 12" nil t)
     
     ;; Mode line config
     (load "~/.config/emacs/cml.el")

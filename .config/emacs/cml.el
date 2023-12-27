@@ -255,10 +255,10 @@ PROPS is a plist, used by svg-lib to create the icon."
    `(:box
      (:line-width
       (2 . -1)
-	  :color ,(cml-bg-color cml-evil-mode-bg)
-	  :style "flat-button"
-      )
-	 :background ,(cml-bg-color cml-evil-mode-bg)
+         :color ,(cml-bg-color cml-evil-mode-bg)
+         :style "flat-button"
+         )
+      :background ,(cml-bg-color cml-evil-mode-bg)
 	 :foreground ,(cml-fg-color cml-evil-mode-fg)
 	 :weight bold
      )

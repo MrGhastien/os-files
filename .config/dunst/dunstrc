@@ -30,7 +30,7 @@
     height = 300
 
     # Position the notification in the top right corner
-    origin = top-right
+    origin = bottom-right
 
     # Offset from the origin
     offset = 30x20
@@ -72,7 +72,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.). (X11 only)
-    transparency = 0
+    transparency = 50
 
     # Draw a line of "separator_height" pixel height between two
     # notifications.
@@ -124,7 +124,7 @@
 
     ### Text ###
 
-    font = Cantarell 10
+    font = Inter 10
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -314,21 +314,21 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#23232350"
+    background = "#23232310"
     foreground = "#888888"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#23232350"
+    background = "#23232310"
     foreground = "#ffffff"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_critical]
-    background = "#23232350"
+    background = "#23232310"
     foreground = "#ffffff"
     frame_color = "#ff0000"
     timeout = 0
@@ -465,6 +465,7 @@
     summary = "Volume : [0-9]*% (Muted)"
     urgency = low
     highlight = "#3c3836"
+    origin = bottom-center
 
 [volumeIndic]
     appname = "changeVolume"
@@ -473,3 +474,4 @@
 
     history_ignore = yes
     highlight = "#fb4934"
+    origin = bottom-center

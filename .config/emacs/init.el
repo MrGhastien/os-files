@@ -15,6 +15,8 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode 1)
 (global-display-line-numbers-mode 1)
+(setq display-line-numbers-grow-only t)
+;(add-to-list 'default-frame-alist '(alpha-background . 65))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -25,6 +27,8 @@
 (setq backup-directory-alist '(("." . "~/emacs-backups")))
 
 (setq lsp-java-completion-overwrite nil)
+
+(setq native-comp-async-report-warnings-errors 'silent)
 
 ;; Keybindings
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
