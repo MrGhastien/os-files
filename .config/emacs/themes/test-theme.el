@@ -21,29 +21,39 @@
  '(ccls-sem-highlight-method 'overlay)
  '(ccls-sem-type-faces [font-lock-type-face])
  '(ccls-sem-variable-faces [default])
+ '(ccls-sem-parameter-faces ['default])
  '(ccls-sem-macro-faces [chl-macro-face])
+
+ '(window-divider-default-places 'right-only)
+ '(window-divider-default-right-width 2)
+ '(window-divider-default-bottom-width 1)
+
+ '(lsp-ui-doc-border "#504b48")
 )
 
 (custom-theme-set-faces
  'test
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Iosevka Custom"))))
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Cascadia Code"))))
  '(variable-pitch ((t (:inherit default :family "Source Sans Pro" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended"))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka Extended"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
- '(line-number ((t (:background "#3c3836" :foreground "#7c6f64"))))
+ '(line-number ((t (:background "#3a3432" :foreground "#7c6f64"))))
  '(line-number-current-line ((t (:background "#504945" :foreground "#fe8019"))))
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#bdae93" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :foreground "#928374" :weight bold))))
- '(mode-line ((t (:box (:line-width (-1 . 6) :color "#303030") :foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
+ '(mode-line ((t (:box nil :foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#928374"))))
- ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#282828") :foreground "gray30" :background "#282828"))))
+ ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#333") :foreground "gray30" :background "#282828"))))
  '(highlight ((t (:background "#83a598" :foreground "gray10"))))
  '(hl-line ((t (:background "#323335" :inherit nil))))
  '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold))))
  '(region ((t (:background "#4a4742" :extend t))))
+ '(ivy-current-match ((t (:background "#65a7e2" :foreground "black" :extend t))))
+
+ '(window-divider ((t (:foreground "#504b48"))))
 
  ; Dired
  '(ff-dired ((t (:inherit default :weight regular))))
@@ -68,8 +78,8 @@
 
  ; Font lock
  '(font-lock-builtin-face ((t (:foreground "#fe8019"))))
- '(font-lock-function-name-face ((t (:foreground "#b8bb26"))))
- '(font-lock-keyword-face ((t (:foreground "#fe8019"))))
+ '(font-lock-function-name-face ((t (:foreground "#b8bb26" :weight bold))))
+ '(font-lock-keyword-face ((t (:foreground "#fb4934"))))
  '(font-lock-type-face ((t (:foreground "#fabd2f"))))
  '(font-lock-variable-name-face ((t (:foreground "#83a598"))))
  '(font-lock-string-face ((t (:foreground "#b8bb26" :slant italic)))) ;8ec07c
@@ -83,6 +93,12 @@
 
  '(lsp-ui-doc-background ((t (:background "#32302f"))))
  '(lsp-ui-doc-header ((t (:background "#fb4934" :foreground "#282828"))))
+
+ '(company-tooltip ((t (:background "#32302f" :extend t))))
+ '(company-tooltip-annotation ((t (:foreground "#fe8019" :slant italic))))
+ '(company-box-scrollbar ((t (:background "#fe8019"))))
+ '(company-tooltip-selection ((t (:background "#504945"))))
+ '(company-tooltip-common ((t (:foreground "#fe8019" :weight bold))))
 
  ; Latex
  '(font-latex-math-face ((t (:weight normal :foreground "#c1ffc8"))))
@@ -121,9 +137,17 @@
  ;; Tree sitter
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
- '(tree-sitter-hl-face:operator ((t (:foreground "#bee4a5"))))
+ '(tree-sitter-hl-face:operator ((t (:foreground "#fe8019"))))
+ '(tree-sitter-hl-face:punctuation ((t (:foreground "#fe8019"))))
  '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
  '(tree-sitter-hl-face:label ((t (:foreground "#83a598"))))
+
+ ;; which key
+ '(help-key-binding ((t (:inherit fixed-pitch :foreground "#8ec07c" :background "#3c3836" :box (:line-width (-1 . -1) :color "#504b48")))))
+ '(which-key-key-face ((t (:foreground "#fe8019" :weight bold))))
+ '(which-key-command-description-face ((t (:inherit default ))))
+ '(which-key-group-description-face ((t (:foreground "#b8bb26" ))))
+ '(which-key-separator-face ((t (:slant normal :foreground "#8ec07c"))))
  )
 
 (provide-theme 'test)
