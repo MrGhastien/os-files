@@ -22,14 +22,25 @@
   )
 
 (use-package general
-:ensure t)
+  :ensure t
+  )
 
 (use-package hydra
-:ensure t)
+  :ensure t
+  )
 
 (use-package evil
   :ensure t
+  :bind (
+         :map evil-motion-state-map
+              ("SPC" . nil)
+              )
   :config (evil-mode 1)
+  )
+  
+
+(use-package helpful
+  :ensure t
   )
 
 ;; ========================================================================== ;;
@@ -65,6 +76,11 @@
 
 (use-package eglot
   :ensure t
+  :config
+  (evil-define-key '(normal visual) eglot-mode-map
+    (kbd "SPC f") 'eglot-format
+    (kbd "SPC r") 'eglot-rename
+    )
   :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
   )
 
@@ -330,8 +346,6 @@
       (treemacs-load-theme "all-the-icons")
       )
 
-    (set-frame-font "Cascadia Code 12" nil t)
-    
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
     (load-theme 'test)

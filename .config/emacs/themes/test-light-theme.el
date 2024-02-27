@@ -33,9 +33,9 @@
 (custom-theme-set-faces
  'test-light
  ; General ; :background "#f9f5d7"
- '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight regular :width expanded :height 110 :family "Iosevka Custom"))))
+ '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight medium :width normal :height 110 :family "Iosevka Custom"))))
  '(variable-pitch ((t (:inherit default :family "Cantarell" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended" :weight regular))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka Custom" :weight regular))))
  '(error ((t (:foreground "#dd0006" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "RoyalBlue2" :underline t))))
  '(fringe ((t (:background "#f2efe5"))))
@@ -79,11 +79,11 @@
 
  ; Font lock
  '(font-lock-builtin-face ((t (:foreground "#d65d0e"))))
- '(font-lock-function-name-face ((t (:foreground "#d65d0e"))))
+ '(font-lock-function-name-face ((t (:foreground "#98971a" :weight bold))))
  '(font-lock-keyword-face ((t (:foreground "#cc241d"))))
  '(font-lock-type-face ((t (:foreground "#d79921"))))
  '(font-lock-variable-name-face ((t (:foreground "#458588"))))
- '(font-lock-string-face ((t (:foreground "#98971a")))) ;8ec07c
+ '(font-lock-string-face ((t (:foreground "#98971a" :slant italic)))) ;8ec07c
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#b16286"))))
  '(font-lock-comment-face ((t (:foreground "gray50" :width expanded :slant italic))))
  '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-keyword-face))))

@@ -1,7 +1,9 @@
 [bell]
 animation = "EaseOutExpo"
-args = ["--login"]
+
+[shell]
 program = "/bin/bash"
+args = ["-l"]
 
 [colors.bright]
 black = "0x928374"

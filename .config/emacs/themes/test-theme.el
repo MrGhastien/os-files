@@ -34,9 +34,9 @@
 (custom-theme-set-faces
  'test
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Cascadia Code"))))
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 120 :family "Iosevka Custom"))))
  '(variable-pitch ((t (:inherit default :family "Source Sans Pro" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Extended"))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka Custom"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
