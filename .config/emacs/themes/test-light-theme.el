@@ -77,7 +77,7 @@
 
  ; Font lock
  '(font-lock-builtin-face ((t (:foreground "#d65d0e"))))
- '(font-lock-function-name-face ((t (:foreground "#d65d0e"))))
+ '(font-lock-function-name-face ((t (:foreground "#98971a" :weight bold))))
  '(font-lock-keyword-face ((t (:foreground "#cc241d"))))
  '(font-lock-type-face ((t (:foreground "#d79921"))))
  '(font-lock-variable-name-face ((t (:foreground "#458588"))))

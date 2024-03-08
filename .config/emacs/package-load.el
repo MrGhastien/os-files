@@ -66,6 +66,11 @@
 
 (use-package eglot
   :ensure t
+  :config
+  (evil-define-key 'normal eglot-mode-map
+    (kbd "SPC f") 'eglot-format
+    (kbd "SPC r") 'eglot-rename
+    )
   :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
   )
 

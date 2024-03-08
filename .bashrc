@@ -22,23 +22,23 @@ LIGHT_GREEN="\[\033[1;32m\]"
 #DPC : Default Prompt Color
 DPC="\[\033[1m\]${YELLOW}"
 
-function parse_git_branch {
+parse_git_branch (){
 	git rev-parse --git-dir &> /dev/null
 	git_status="$(git status 2> /dev/null)"
-	branch_pattern="^On branch ([^${IFS}]*)"
-	remote_pattern="# Your branch is (.*) of"
-	diverge_pattern="# Your branch and (.*) have diverged"
+	branch_pattern="^Sur la branche ([^${IFS}]*)"
+	remote_pattern="# Votre branche est (.*) of"
+	diverge_pattern="# Votre branche est (.*) ont divergé"
 	special_token=0
 	if [[ ! ${git_status} =~ "working tree clean" ]]; then
-		if [[ ${git_status} =~ "Changes not staged for commit" ]]; then
+		if [[ ${git_status} =~ "Modifications qui ne seront pas validées" ]]; then
 			not_indexed="${RED}*"
 			special_token=1
 		fi
-		if [[ ${git_status} =~ "Changes to be committed" ]]; then
+		if [[ ${git_status} =~ "Modifications qui seront validées" ]]; then
 			indexed="${YELLOW}+"
 			special_token=1
 		fi
-		if [[ ${git_status} =~ "Untracked files" ]]; then
+		if [[ ${git_status} =~ "Fichiers non suivis" ]]; then
 			untracked="${RED}!"
 			special_token=1
 		fi
@@ -53,7 +53,7 @@ function parse_git_branch {
 	fi
 }
 
-function set_prompt() {
+set_prompt() {
 
 	prompt="${DPC}\u@\h ${COLOR_NONE}${CYAN}\W${COLOR_NONE}${DPC} ${COLOR_NONE}$(parse_git_branch)${DPC}\$ >${COLOR_NONE}"
 	PS1="${prompt} "
@@ -64,5 +64,8 @@ PROMPT_COMMAND=set_prompt
 
 alias ls="ls --color"
 alias tree="tree -C"
+
+export LESS_TERMCAP_us=$'\e[3;4;32m'
+export LESS_TERMCAP_md=$'\e[33;1m'
 
 #neofetch
