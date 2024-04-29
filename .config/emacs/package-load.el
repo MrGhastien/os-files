@@ -10,11 +10,6 @@
   (package-install 'use-package)
   )
 
-(use-package quelpa
-  :ensure t
-  )
-
-
 ;; ========================================================================== ;;
 ;;                                 Keybindings                                ;;
 ;; ========================================================================== ;;
@@ -64,30 +59,79 @@
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
   (eglot-ensure)
-  (company-mode 1)
+  ;(company-mode 1)
+  (corfu-mode 1)
   (yas-minor-mode 1)
   (tree-sitter-hl-mode)
   )
 
 (use-package eglot
   :ensure t
-  :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+  :config
+  (evil-define-key 'normal eglot-mode-map
+    (kbd "SPC f")` eglot-format
+    (kbd "SPC r")` eglot-rename
+    (kbd "SPC a")` eglot-code-actions
+    )
+  :config
+(setq eglot-server-programs
+  (cl-substitute-if
+    (cons
+      '(js-mode js-ts-mode
+         tsx-ts-mode typescript-ts-mode typescript-mode)
+      '("typescript-language-server" "--stdio" :initializationOptions
+         (:preferences
+           (
+             ;; https://github.com/microsoft/TypeScript/blob/main/src/server/protocol.ts#L3410-L3539
+             :disableSuggestions                                    :json-false     ;; boolean
+             :quotePreference                                       "double"        ;; "auto" | "double" | "single"
+             :includeCompletionsForModuleExports                    t               ;; boolean
+             :includeCompletionsForImportStatements                 t               ;; boolean
+             :includeCompletionsWithSnippetText                     t               ;; boolean
+             :includeCompletionsWithInsertText                      t               ;; boolean
+             :includeAutomaticOptionalChainCompletions              t               ;; boolean
+             :includeCompletionsWithClassMemberSnippets             t               ;; boolean
+             :includeCompletionsWithObjectLiteralMethodSnippets     t               ;; boolean
+             :useLabelDetailsInCompletionEntries                    t               ;; boolean
+             :allowIncompleteCompletions                            t               ;; boolean
+             :importModuleSpecifierPreference                       "shortest"      ;; "shortest" | "project-relative" | "relative" | "non-relative"
+             :importModuleSpecifierEnding                           "minimal"       ;; "auto" | "minimal" | "index" | "js"
+             :allowTextChangesInNewFiles                            t               ;; boolean
+             ;; :lazyConfiguredProjectsFromExternalProject                          ;; boolean
+             :providePrefixAndSuffixTextForRename                   t               ;; boolean
+             :provideRefactorNotApplicableReason                    :json-false     ;; boolean
+             :allowRenameOfImportPath                               t               ;; boolean
+             ;; :includePackageJsonAutoImports                                      ;; "auto" | "on" | "off"
+             :jsxAttributeCompletionStyle                           "auto"          ;; "auto" | "braces" | "none"
+             :displayPartsForJSDoc                                  t               ;; boolean
+             :generateReturnInDocTemplate                           t               ;; boolean
+             :includeInlayParameterNameHints                        "all"           ;; "none" | "literals" | "all"
+             :includeInlayParameterNameHintsWhenArgumentMatchesName t               ;; boolean
+             :includeInlayFunctionParameterTypeHints                t               ;; boolean,
+             :includeInlayVariableTypeHints                         t               ;; boolean
+             :includeInlayVariableTypeHintsWhenTypeMatchesName      t               ;; boolean
+             :includeInlayPropertyDeclarationTypeHints              t               ;; boolean
+             :includeInlayFunctionLikeReturnTypeHints               t               ;; boolean
+             :includeInlayEnumMemberValueHints                      t               ;; boolean
+             ;; :autoImportFileExcludePatterns                                      ;; string[]
+             ;; :organizeImportsIgnoreCase                                          ;; "auto" | boolean
+             ;; :organizeImportsCollation                                           ;; "ordinal" | "unicode"
+             ;; :organizeImportsCollationLocale                                     ;; string
+             ;; :organizeImportsNumericCollation                                    ;; boolean
+             ;; :organizeImportsAccentCollation                                     ;; boolean
+             ;; :organizeImportsCaseFirst                                           ;; "upper" | "lower" | false
+             :disableLineTextInReferences                           :json-false)))) ;; boolean
+    (lambda (server-program)
+      (and
+        (listp (car server-program))
+        (member 'tsx-ts-mode (car server-program))))
+    eglot-server-programs))
+:hook ((c-mode c++-mode css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
   )
 
 (defadvice company-abort (after propagate-escape activate)
   (evil-normal-state)
   )
-
-(use-package quelpa-use-package
-  :ensure t)
-
-(use-package gdb-mi :quelpa (gdb-mi :fetcher git
-                                    :url "https://github.com/weirdNox/emacs-gdb.git"
-                                    :files ("*.el" "*.c" "*.h" "Makefile"))
-  :init
-  (fmakunbound 'gdb)
-  (fmakunbound 'gdb-enable-debug)
-)
 
 (use-package company
   :ensure t
@@ -108,6 +152,13 @@
   (company-tooltip-flip-when-above t)
   (company-tooltip-width-grow-only t)
   (company-tooltip-maximum-width 80)
+  )
+
+(use-package corfu
+  :ensure t
+  :config
+  (setq corfu-auto t)
+  (setq corfu-auto-delay 0)
   )
 
 (use-package autoinsert
@@ -134,6 +185,15 @@
   :ensure t
   :hook ((mhtml-mode css-mode) . emmet-mode)
   )
+
+(defun my/advice-compilation-filter (f proc string)
+  (funcall f proc (xterm-color-filter string)))
+
+(use-package xterm-color 
+  :config
+  (setq compilation-environment '("TERM=xterm-256color"))
+  (advice-add 'compilation-filter :around #'my/advice-compilation-filter)
+)
 
 ;; ==== Web Developpement ====
 
@@ -191,13 +251,23 @@
 ;; ==== Language server front-ends ====
 
 (use-package ccls
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-eglot)))
   :ensure t
   )
 
 (use-package lsp-java
   :ensure t
   )
+
+;; SQL
+
+(defun on-sqlind-mode ()
+  (setq sqlind-indentation-offsets-alist (sqlind-setup-style-left))
+  (setq sqlind-basic-offset 4)
+  )
+
+(require 'sql-indent)
+(add-hook 'sql-mode-hook 'sqlind-minor-mode)
+(add-hook 'sqlind-minor-mode-hook 'on-sqlind-mode)
 
 ;; ========================================================================== ;;
 ;;                                File managers                               ;;
@@ -379,7 +449,7 @@
       (treemacs-load-theme "all-the-icons")
       )
 
-    (set-frame-font "Cascadia Code 12" nil t)
+    ;(set-frame-font "Cascadia Code 12" nil t)
     
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
@@ -389,5 +459,4 @@
 
 (if (daemonp)
     (add-hook 'after-make-frame-functions (lambda (frame) (with-selected-frame frame (on-make-frame))))
-  (on-make-frame)
-  )
+  (on-m
