@@ -258,17 +258,6 @@
   :ensure t
   )
 
-;; SQL
-
-(defun on-sqlind-mode ()
-  (setq sqlind-indentation-offsets-alist (sqlind-setup-style-left))
-  (setq sqlind-basic-offset 4)
-  )
-
-(require 'sql-indent)
-(add-hook 'sql-mode-hook 'sqlind-minor-mode)
-(add-hook 'sqlind-minor-mode-hook 'on-sqlind-mode)
-
 ;; ========================================================================== ;;
 ;;                                File managers                               ;;
 ;; ========================================================================== ;;
@@ -459,4 +448,5 @@
 
 (if (daemonp)
     (add-hook 'after-make-frame-functions (lambda (frame) (with-selected-frame frame (on-make-frame))))
-  (on-m
+  (on-make-frame)
+  )
