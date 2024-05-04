@@ -68,7 +68,8 @@
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
   (eglot-ensure)
-  (company-mode 1)
+  ;(company-mode 1)
+  (corfu-mode 1)
   (yas-minor-mode 1)
   (tree-sitter-hl-mode)
   (auto-insert)
@@ -103,6 +104,13 @@
   (company-tooltip-flip-when-above t)
   (company-tooltip-width-grow-only t)
   (company-tooltip-maximum-width 80)
+  )
+
+(use-package corfu
+  :ensure t
+  :config
+  (setq corfu-auto t)
+  (setq corfu-auto-delay 0)
   )
 
 (use-package autoinsert
@@ -151,6 +159,18 @@
   :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  )
+
+;; ==== Ocaml ====
+
+(use-package tuareg
+  :ensure t
+)
+
+(use-package merlin
+  :ensure t
+  :hook ((tuareg-mode) . merlin-mode)
+  :hook ((merlin-mode) . company-mode)
   )
 
 ;; ==== Style & UI ====
