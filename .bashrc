@@ -68,4 +68,6 @@ alias tree="tree -C"
 export LESS_TERMCAP_us=$'\e[3;4;32m'
 export LESS_TERMCAP_md=$'\e[33;1m'
 
+eval $(dircolors ~/lscolors)
+
 #neofetch
