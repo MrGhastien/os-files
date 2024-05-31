@@ -34,8 +34,8 @@
 (custom-theme-set-faces
  'test
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 110 :family "Iosevka"))))
- '(variable-pitch ((t (:inherit default :family "Source Sans Pro" :width normal :weight regular :slant normal :height 140))))
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 120 :family "Iosevka"))))
+ '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
@@ -133,6 +133,14 @@
  '(org-link ((t (:foreground "aquamarine" :underline t))))
  '(mg/org-bug ((t (:inherit org-todo :foreground "#d3869b"))))
  '(mg/org-crash ((t (:inherit org-todo :foreground "#fb4934"))))
+
+ ;; Dashboard
+ '(dashboard-heading ((t (:inherit variable-pitch :foreground "#fe8019" :weight semi-bold))))
+ '(dashboard-no-items-face ((t (:inherit variable-pitch :slant italic))))
+ '(dashboard-items-face ((t (:inherit fixed-pitch))))
+ '(dashboard-banner-logo-title ((t (:inherit variable-pitch))))
+ '(dashboard-footer-face ((t (:inherit (font-lock-comment-face variable-pitch)))))
+
 
  ;; Tree sitter
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
