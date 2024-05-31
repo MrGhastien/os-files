@@ -71,7 +71,22 @@
     (kbd "SPC f") 'eglot-format
     (kbd "SPC r") 'eglot-rename
     )
-  :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+
+  :config
+  (setq eglot-server-programs
+        (cl-substitute-if
+         (cons
+          '(kotlin-mode kotlin-ts-mode)
+          '("kotlin-language-server"))
+         (lambda (server-program)
+           (or (eq (car server-program) 'kotlin-mode)
+               (and
+                (listp (car server-program))
+                (member 'kotlin-mode (car server-program))))
+           )
+         eglot-server-programs))
+
+  :hook ((css-mode csharp-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
   )
 
 (use-package company
@@ -150,6 +165,25 @@
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   )
 
+;; ==== OCaml ====
+
+(defun on-ocaml-mode ()
+  (merlin-mode)
+  (corfu-mode 1)
+  )
+
+(use-package tuareg
+  :ensure t
+  :hook (tuareg-mode . on-ocaml-mode)
+  :hook (caml-mode . tuareg-mode)
+  :config
+  (setq max-lisp-eval-depth 3200)
+  )
+
+(use-package merlin
+  :ensure t
+  )
+
 ;; ==== Style & UI ====
 
 (use-package company-box
@@ -174,11 +208,11 @@
   (ligature-set-ligatures '(c-mode c++-mode java-mode python-mode) '("->" "<-" "<=" ">=" "==" "!="))
   )
 
-(use-package tree-sitter
-  :ensure t)
+;; (use-package tree-sitter
+;;   :ensure t)
 
-(use-package tree-sitter-langs
-  :ensure t)
+;; (use-package tree-sitter-langs
+;;   :ensure t)
 
 ;; ==== Language server front-ends ====
 
@@ -265,7 +299,7 @@
           ("CRASH" . mg/org-crash)
           )
         )
-  (plist-put org-format-latex-options :scale 2.0)
+  (plist-put org-format-latex-options :scale 1.5)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
   (epipub-setup)
@@ -311,9 +345,15 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content nil)
+  (setq dashboard-icon-type 'all-the-icons)
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-set-navigator t)
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  ;; (dashboard-modify-heading-icons '((recents   . "file-text")
+  ;;                                 (bookmarks . "book")))
   )
 
 (use-package pixel-scroll
@@ -324,37 +364,36 @@
   (pixel-scroll-precision-mode t)
   )
 
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+
+(use-package all-the-icons
+  :config
+  (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'prepend)
+
+  (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
+  :ensure t)
+
+
+(use-package treemacs-all-the-icons
+  :ensure t
+  :config
+  (treemacs-load-theme "all-the-icons")
+  )
+
 (defun on-make-frame ()
-  ;(set-frame-parameter nil 'alpha-background 100)
   (when (= (length (frames-on-display-list)) 1)
-    (use-package org-bullets
-      :after org
-      :hook (org-mode . org-bullets-mode)
-      :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
-    
-    (use-package all-the-icons
-      :config
-      (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
-
-      (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
-      :ensure t)
-
-    (use-package treemacs-all-the-icons
-      :ensure t
-      :config
-      (treemacs-load-theme "all-the-icons")
-      )
-
-    ;;(set-frame-font "Cascadia Code 12" nil t)
-    
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
+
     (load-theme 'test)
     )
   )

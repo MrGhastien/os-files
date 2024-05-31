@@ -35,13 +35,17 @@
 (global-set-key (kbd "M-D") 'compile)
 (global-set-key (kbd "C-M-y") 'load-theme)
 
+(defun on-display-mode ()
+  (display-line-numbers-mode -1)
+  (hl-line-mode -1)
+  )
 
 (dolist (mode '(treemacs-mode-hook
                 org-mode-hook
                 org-agenda-mode-hook
                 help-mode-hook
                 ))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  (add-hook mode 'on-display-mode))
 
 (define-skeleton latex-insert-inline-math
   "Inserts \\( \\) to enable math mode in LaTeX."
@@ -80,5 +84,3 @@
 
 
 (put 'dired-find-alternate-file 'disabled nil)
-
-(load-theme 'test2)
