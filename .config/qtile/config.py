@@ -150,7 +150,7 @@ def create_main_bar():
                 #margin_y=6,
                 padding_x=5,
                 urgent_text='#fb4934',
-                font='Iosevka Custom Extrabold'
+                font='Iosevkb Extrabold'
 	    ),
 	    default_sep,
             widget.WindowName(),
@@ -199,7 +199,7 @@ def create_bar():
                 #margin_y=6,
                 padding_x=5,
                 urgent_text='#fb4934',
-                font='Iosevka Custom Extrabold',
+                font='Iosevkb Extrabold',
 	    ),
 	    default_sep,
             widget.WindowName(),

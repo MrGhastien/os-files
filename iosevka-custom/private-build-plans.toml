@@ -1,33 +1,32 @@
-[buildPlans.iosevka-custom]
-family = "Iosevka Custom"
+[buildPlans.Iosevkb]
+family = "Iosevkb"
 spacing = "normal"
 serifs = "sans"
-no-cv-ss = false
-export-glyph-names = false
+noCvSs = false
+exportGlyphNames = true
 
-  [buildPlans.iosevka-custom.variants]
+  [buildPlans.Iosevkb.variants]
   inherits = "ss05"
 
-    [buildPlans.iosevka-custom.variants.design]
+    [buildPlans.Iosevkb.variants.design]
     capital-v = "straight-serifless"
     a = "double-storey-serifless"
     i = "tailed-serifed"
     j = "serifed"
     v = "straight-serifless"
     x = "straight-serifless"
-    y = "straight-turn"
+    y = "straight-turn-serifless"
     z = "straight-serifless"
     lower-delta = "rounded"
     lower-lambda = "straight-turn"
-    lower-mu = "tailed"
+    lower-mu = "tailed-serifless"
     lower-xi = "rounded"
     cyrl-capital-zhe = "symmetric-connected"
     cyrl-zhe = "symmetric-connected"
     cyrl-capital-ka = "curly-serifless"
     cyrl-ka = "curly-serifless"
-    zero = "slashed-split-oval"
-    five = "oblique-upper-left-bar"
-    seven = "straight-serifless"
+    zero = "slashed-split"
+    five = "oblique-flat-serifless"
     punctuation-dot = "round"
     asterisk = "penta-low"
     underscore = "low"
@@ -37,13 +36,13 @@ export-glyph-names = false
     dollar = "through"
     bar = "natural-slope"
     partial-derivative = "straight-bar"
-    micro-sign = "tailed"
+    micro-sign = "tailed-serifless"
     lig-ltgteq = "slanted"
     lig-equal-chain = "without-notch"
     lig-hyphen-chain = "without-notch"
     lig-single-arrow-bar = "without-notch"
 
-    [buildPlans.iosevka-custom.variants.italic]
+    [buildPlans.Iosevkb.variants.italic]
     capital-f = "serifless"
     capital-i = "serifed"
     capital-k = "curly-top-left-and-bottom-right-serifed"
@@ -54,10 +53,20 @@ export-glyph-names = false
     l = "tailed-serifed"
     v = "curly-motion-serifed"
 
-  [buildPlans.iosevka-custom.ligations]
+  [buildPlans.Iosevkb.ligations]
   inherits = "dlig"
 
-[buildPlans.iosevka-custom.widths.normal]
+[buildPlans.Iosevkb.widths.Condensed]
+shape = 500
+menu = 3
+css = "condensed"
+
+[buildPlans.Iosevkb.widths.Normal]
 shape = 600
 menu = 5
 css = "normal"
+
+[buildPlans.Iosevkb.widths.Extended]
+shape = 720
+menu = 7
+css = "expanded"

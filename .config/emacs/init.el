@@ -15,29 +15,39 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode 1)
 (global-display-line-numbers-mode 1)
+(setq display-line-numbers-grow-only t)
+;(add-to-list 'default-frame-alist '(alpha-background . 65))
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq c-set-style "k&r")
+(setq c-ts-mode-indent-style 'k&r)
 (setq c-basic-offset 4)
+(setq c-ts-mode-indent-offset 4)
 
 
 (setq backup-directory-alist '(("." . "~/emacs-backups")))
 
 (setq lsp-java-completion-overwrite nil)
 
+(setq native-comp-async-report-warnings-errors 'silent)
+
 ;; Keybindings
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "M-D") 'compile)
 (global-set-key (kbd "C-M-y") 'load-theme)
 
+(defun on-display-mode ()
+  (display-line-numbers-mode -1)
+  (hl-line-mode -1)
+  )
 
 (dolist (mode '(treemacs-mode-hook
                 org-mode-hook
                 org-agenda-mode-hook
                 help-mode-hook
                 ))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  (add-hook mode 'on-display-mode))
 
 (define-skeleton latex-insert-inline-math
   "Inserts \\( \\) to enable math mode in LaTeX."
@@ -76,5 +86,3 @@
 
 
 (put 'dired-find-alternate-file 'disabled nil)
-
-(load-theme 'test2)

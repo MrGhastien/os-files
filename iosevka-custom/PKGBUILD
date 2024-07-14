@@ -1,5 +1,5 @@
-pkgname='iosevka-custom'
-pkgver=1.1.0
+pkgname='iosevkb'
+pkgver=1.2.1
 pkgrel=2
 arch=(any)
 
@@ -10,7 +10,7 @@ makedepends=('nodejs>=14.0.0')
 source=('private-build-plans.toml'
         "OFL.txt")
 
-b2sums=('6eaee47fc21724259e41cd7cb3c2a31e01c8111c224d5cdf25ed5ea734d908906ad0e5f31f01829910f9c8704c3aa0661116bce06b02e36d30ff9f6e5af3f623'
+b2sums=('0cfeb38030167ec0bad731f2a6cf7da6409a040e8a9a29262c06e1dd0146f271339799a321330cd0bf419f4bda831ea00638ee46a38a66648c72115a786fce2b'
         '7b4b0426b38d403dd0111971c71db6d6e7fa34a9176fa91578479790e6bdcaea68a91af08223e0124edf49432848cd844696ceda9b3647ab56ec546386a65d0c')
 
 prepare() {
@@ -24,12 +24,12 @@ prepare() {
 build() {
     pwd
     cd "${pkgname}"
-    npm run build -- contents::iosevka-custom --jCmd=8
+    npm run build -- contents::Iosevkb --jCmd=6
 }
 
 package() {
     pwd
-    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" ${pkgname}/dist/${pkgname}/ttf/*.ttf
+    install -Dm644 -t "${pkgdir}/usr/share/fonts/TTF" ${pkgname}/dist/Iosevkb/TTF/*.ttf
     fc-cache
     install -d "${pkgdir}/usr/share/licenses/${pkgname}"
     install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" "OFL.txt"

@@ -34,9 +34,9 @@
 (custom-theme-set-faces
  'test
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 120 :family "Iosevka Custom"))))
- '(variable-pitch ((t (:inherit default :family "Source Sans Pro" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom"))))
+ '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :height 110 :family "Iosevkb"))))
+ '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
@@ -76,20 +76,34 @@
  '(treemacs-all-the-icons-file-face ((t (:height 130 :foreground "#928374"))))
  '(treemacs-all-the-icons-root-face ((t (:height 130 :foreground "#fe8019"))))
 
+
  ; Font lock
  '(font-lock-builtin-face ((t (:foreground "#fe8019"))))
+ '(font-lock-preprocessor-face ((t (:foreground "#8ec07c"))))
+
  '(font-lock-function-name-face ((t (:foreground "#b8bb26" :weight bold))))
  '(font-lock-keyword-face ((t (:foreground "#fb4934"))))
  '(font-lock-type-face ((t (:foreground "#fabd2f"))))
  '(font-lock-variable-name-face ((t (:foreground "#83a598"))))
- '(font-lock-string-face ((t (:foreground "#b8bb26" :slant italic)))) ;8ec07c
+ '(font-lock-variable-use-face ((t (:foreground unspecified))))
+ '(font-lock-property-name-face ((t (:inherit font-lock-variable-name-face :slant italic))))
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#d3869b"))))
- '(font-lock-comment-face ((t (:foreground "gray50" :width expanded :slant italic))))
- '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-keyword-face))))
+ '(font-lock-number-face ((t (:weight regular :foreground "#d3869b"))))
+
+ '(font-lock-string-face ((t (:foreground "#b8bb26" :slant italic)))) ;8ec07c
+ '(font-lock-comment-face ((t (:foreground "gray50" :slant italic))))
+ '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :weight bold))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
+
+ '(font-lock-misc-punctuation-face ((t (:weight normal :foreground "#fe8019"))))
+ '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-misc-punctuation-face))))
+ '(font-lock-bracket-face ((t (:weight normal       :inherit font-lock-misc-punctuation-face))))
+ '(font-lock-delimiter-face ((t (:weight normal     :inherit font-lock-misc-punctuation-face))))
+ '(font-lock-operator-face ((t (:weight normal      :inherit font-lock-misc-punctuation-face))))
+
+
  '(ccls-sem-member-face ((t (:slant normal :foreground "#83a598"))))
  '(ccls-sem-static-face ((t (:weight bold))))
- '(chl-number-face ((t (:weight normal :foreground "#d3869b"))))
 
  '(lsp-ui-doc-background ((t (:background "#32302f"))))
  '(lsp-ui-doc-header ((t (:background "#fb4934" :foreground "#282828"))))
@@ -133,6 +147,14 @@
  '(org-link ((t (:foreground "aquamarine" :underline t))))
  '(mg/org-bug ((t (:inherit org-todo :foreground "#d3869b"))))
  '(mg/org-crash ((t (:inherit org-todo :foreground "#fb4934"))))
+
+ ;; Dashboard
+ '(dashboard-heading ((t (:inherit variable-pitch :foreground "#fe8019" :weight semi-bold))))
+ '(dashboard-no-items-face ((t (:inherit variable-pitch :slant italic))))
+ '(dashboard-items-face ((t (:inherit fixed-pitch))))
+ '(dashboard-banner-logo-title ((t (:inherit variable-pitch))))
+ '(dashboard-footer-face ((t (:inherit (font-lock-comment-face variable-pitch)))))
+
 
  ;; Tree sitter
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))

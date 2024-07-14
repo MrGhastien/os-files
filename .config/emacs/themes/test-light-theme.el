@@ -33,9 +33,9 @@
 (custom-theme-set-faces
  'test-light
  ; General ; :background "#f9f5d7"
- '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight medium :width normal :height 110 :family "Iosevka Custom"))))
+ '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight regular :width regular :height 110 :family "Iosevkb"))))
  '(variable-pitch ((t (:inherit default :family "Cantarell" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom" :weight regular))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevkb" :weight regular))))
  '(error ((t (:foreground "#dd0006" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "RoyalBlue2" :underline t))))
  '(fringe ((t (:background "#f2efe5"))))
@@ -43,18 +43,17 @@
  '(line-number-current-line ((t (:background "#f9f9ec" :foreground "#d65d0e"))))
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#665c54" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :weight bold))))
- '(mode-line ((t (:box (:line-width (-1 . 6) :color "#f0ece1") :height 120 :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
+ ;'(mode-line ((t (:box (:line-width (-1 . 6) :color "#f0ece1") :height 120 :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
+ '(mode-line ((t (:height 120 :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#99938c"))))
  '(highlight ((t (:background "#83a598" :foreground "gray10"))))
  '(hl-line ((t (:background "#fffff7" :inherit nil))))
- '(minibuffer-prompt ((t (:foreground "#d65d0e" :weight bold))))
+ '(minibuffer-prompt ((t (:foreground "#af3a0a" :weight bold))))
  '(region ((t (:background "#a4d6e0" :extend t))))
 
- '(ivy-current-match ((t (:background "#65a7e2" :foreground "#fbf1c7" :underline nil))))
- '(ivy-minibuffer-match-face-2 ((t (:background "#b8bb26" :foreground "#3c3836" :underline nil))))
+ '(ivy-current-match ((t (:foreground "#d65d0e" :underline t))))
 
  '(window-divider ((t (:foreground "#504b48"))))
- '(fill-column-indicator ((t (:foreground "#d5c4a1"))))
 
  ; Dired
  '(ff-dired ((t (:inherit fixed-pitch))))
@@ -78,16 +77,30 @@
  '(treemacs-all-the-icons-root-face ((t (:height 130 :foreground "#fe8019"))))
 
  ; Font lock
- '(font-lock-builtin-face ((t (:foreground "#d65d0e"))))
- '(font-lock-function-name-face ((t (:foreground "#98971a" :weight bold))))
+ '(font-lock-builtin-face ((t (:foreground "#af3a03"))))
+ '(font-lock-preprocessor-face ((t (:foreground "#427b58"))))
+
+ '(font-lock-function-name-face ((t (:foreground "#79740e" :weight bold))))
  '(font-lock-keyword-face ((t (:foreground "#cc241d"))))
- '(font-lock-type-face ((t (:foreground "#d79921"))))
- '(font-lock-variable-name-face ((t (:foreground "#458588"))))
- '(font-lock-string-face ((t (:foreground "#98971a" :slant italic)))) ;8ec07c
- '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#b16286"))))
- '(font-lock-comment-face ((t (:foreground "gray50" :width expanded :slant italic))))
- '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-keyword-face))))
- '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
+ '(font-lock-type-face ((t (:foreground "#b57614"))))
+ '(font-lock-variable-name-face ((t (:foreground "#076678"))))
+ '(font-lock-variable-use-face ((t (:foreground unspecified))))
+ '(font-lock-property-name-face ((t (:inherit font-lock-variable-name-face :slant italic))))
+ '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#8f3f71"))))
+ '(font-lock-number-face ((t (:weight regular :foreground "#8f3f71"))))
+
+ '(font-lock-string-face ((t (:foreground "#79740e")))) ;8ec07c
+ '(font-lock-comment-face ((t (:foreground "gray50" :width regular :slant italic))))
+ '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :weight bold))))
+ '(font-lock-doc-face ((t (:inherit font-lock-comment-face :slant normal))))
+
+ '(font-lock-misc-punctuation-face ((t (:weight normal :foreground "#af3a03"))))
+ '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-misc-punctuation-face))))
+ '(font-lock-bracket-face ((t (:weight normal       :inherit font-lock-misc-punctuation-face))))
+ '(font-lock-delimiter-face ((t (:weight normal     :inherit font-lock-misc-punctuation-face))))
+ '(font-lock-operator-face ((t (:weight normal      :inherit font-lock-misc-punctuation-face))))
+
+
  '(ccls-sem-member-face ((t (:slant normal :foreground "#076678"))))
  '(ccls-sem-static-face ((t (:weight bold))))
  '(chl-number-face ((t (:weight normal :foreground "#d3869b"))))
@@ -95,9 +108,7 @@
 
  '(lsp-ui-doc-background ((t (:background "#fffbdc"))))
  '(lsp-ui-doc-header ((t (:background "#282828" :foreground "#3c3836"))))
-
- '(show-paren-match ((t (:inherit default :underline t :foreground "#65a7e2" :weight extrabold))))
-
+ 
  '(company-tooltip ((t (:background "#fffbdc" :extend t))))
  '(company-tooltip-annotation ((t (:foreground "#d65d0e" :slant italic))))
  '(company-box-scrollbar ((t (:background "#d65d0e"))))
@@ -123,7 +134,7 @@
  '(org-table ((t (:inherit (fixed-pitch)))))
  '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch) :background "#fbf1c7" :extend t))))
  '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
- '(org-special-keyword ((t (:inherit fixed-pitch :foreground "#689d6a" :slant italic :weight bold :height 0.75))))
+ '(org-special-keyword ((t (:inherit fixed-pitch :foreground "#689d6a" :slant italic :weight bold :height 0.75)))) 
  '(org-todo ((t (:weight extrabold :foreground "#d79921"))))
  '(org-headline-done ((t (:foreground "#a89984"))))
  '(org-date ((t (:inherit org-special-keyword :foreground "RoyalBlue2" :underline t))))
@@ -141,20 +152,9 @@
  ;; Tree Sitter
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
- '(tree-sitter-hl-face:operator ((t (:foreground "#427b58"))))
- '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
  '(tree-sitter-hl-face:property ((t (:inherit font-lock-variable-name-face :slant italic))))
-
- ;;which key
- '(which-key-key-face ((t (:foreground "#d65d0e" :weight bold))))
- '(which-key-separator-face ((t (:foreground "#427b56" :weight normal))))
- '(which-key-command-description-face ((t (:inherit default))))
- '(which-key-group-description-face ((t (:foreground "#076678"))))
-
- ;;whitespace mode
- '(whitespace-line ((t (:foreground "hot pink" :background "#ebdbb2"))))
-
- '(highlight-indent-guides-character-face ((t (:foreground "#00ff00"))))
+ '(tree-sitter-hl-face:operator ((t (:foreground "#427b58"))))
+ '(tree-sitter-hl-face:punctuation ((t (:foreground "#af3a03"))))
  )
 
 (provide-theme 'test-light)

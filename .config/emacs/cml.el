@@ -91,15 +91,21 @@
       )
 
 (defun cml-get-face-factor (face)
-  (let ((h (face-attribute face ':height)) (ph (face-attribute 'default ':height)))
-    (+ (/ h (float ph)) 0.08)
+  (let ((h (face-attribute face ':height nil 'default)) (ph (face-attribute 'default ':height)))
+    (+
+     (/ h (float ph))
+     0.08)
     )
   )
 
 (defun cml-padding ()
   (let ((r-length (length (format-mode-line cml-right-txt))))
     (propertize " "
-		        'display `(space :align-to (- (+ right right-margin right-fringe) ,(* (- r-length 1.0) (cml-get-face-factor 'mode-line))))
+		        'display `(space :align-to (-
+                                            (+ right right-margin right-fringe)
+                                            ,(*
+                                              (- r-length 1.0)
+                                              (cml-get-face-factor 'mode-line))))
                 'face 'mode-line)))
 
 (defun cml-icon-for-buffer ()
@@ -250,15 +256,15 @@ PROPS is a plist, used by svg-lib to create the icon."
 
 (defun cml-get-evil-mode ()
   (propertize
-   cml-evil-mode-str
+   (concat cml-evil-mode-str "")
    'face
    `(:box
      (:line-width
       (2 . -1)
-	  :color ,(cml-bg-color cml-evil-mode-bg)
-	  :style "flat-button"
-      )
-	 :background ,(cml-bg-color cml-evil-mode-bg)
+         :color ,(cml-bg-color cml-evil-mode-bg)
+         :style "flat-button"
+         )
+      :background ,(cml-bg-color cml-evil-mode-bg)
 	 :foreground ,(cml-fg-color cml-evil-mode-fg)
 	 :weight bold
      )

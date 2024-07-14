@@ -22,26 +22,16 @@
   )
 
 (use-package general
-  :ensure t
-  )
+:ensure t)
 
 (use-package hydra
-  :ensure t
-  )
+:ensure t)
 
 (use-package evil
-  :ensure t
-  :bind (
-         :map evil-motion-state-map
-              ("SPC" . nil)
-              )
-  :config (evil-mode 1)
-  )
-  
-
-(use-package helpful
-  :ensure t
-  )
+	:ensure t
+	:config
+	(evil-mode 1)
+)
 
 ;; ========================================================================== ;;
 ;;                             Programming related                            ;;
@@ -68,21 +58,46 @@
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
   (eglot-ensure)
-  ;(company-mode 1)
-  (corfu-mode 1)
+  (company-mode 1)
+  ;(corfu-mode 1)
   (yas-minor-mode 1)
-  (tree-sitter-hl-mode)
-  (auto-insert)
+  ;(tree-sitter-hl-mode)
   )
 
 (use-package eglot
   :ensure t
   :config
-  (evil-define-key '(normal visual) eglot-mode-map
+  (evil-define-key 'normal eglot-mode-map
     (kbd "SPC f") 'eglot-format
     (kbd "SPC r") 'eglot-rename
+    (kbd "SPC a") 'eglot-code-actions
     )
-  :hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+
+
+  :config
+  (setq eglot-server-programs
+        (cl-substitute-if
+         (cons
+          '(kotlin-mode kotlin-ts-mode)
+          '("kotlin-language-server"))
+         (lambda (server-program)
+           (or (eq (car server-program) 'kotlin-mode)
+               (and
+                (listp (car server-program))
+                (member 'kotlin-mode (car server-program))))
+           )
+         eglot-server-programs))
+
+  :hook ((c-ts-mode css-mode csharp-ts-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+  )
+
+(use-package treesit
+  :config
+  (setq treesit-font-lock-level 4)
+  (setf
+   (alist-get "\\.c\\'" auto-mode-alist) 'c-ts-mode
+   (alist-get "\\.h\\'" auto-mode-alist) 'c-ts-mode
+   )
   )
 
 (use-package company
@@ -108,9 +123,10 @@
 
 (use-package corfu
   :ensure t
-  :config
-  (setq corfu-auto t)
-  (setq corfu-auto-delay 0)
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0)
+  (corfu-on-exact-match nil)
   )
 
 (use-package autoinsert
@@ -161,16 +177,23 @@
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   )
 
-;; ==== Ocaml ====
+;; ==== OCaml ====
+
+(defun on-ocaml-mode ()
+  (merlin-mode)
+  (corfu-mode 1)
+  )
 
 (use-package tuareg
   :ensure t
-)
+  :hook (tuareg-mode . on-ocaml-mode)
+  :hook (caml-mode . tuareg-mode)
+  :config
+  (setq max-lisp-eval-depth 3200)
+  )
 
 (use-package merlin
   :ensure t
-  :hook ((tuareg-mode) . merlin-mode)
-  :hook ((merlin-mode) . company-mode)
   )
 
 ;; ==== Style & UI ====
@@ -197,16 +220,15 @@
   (ligature-set-ligatures '(c-mode c++-mode java-mode python-mode) '("->" "<-" "<=" ">=" "==" "!="))
   )
 
-(use-package tree-sitter
-  :ensure t)
+;; (use-package tree-sitter
+;;   :ensure t)
 
-(use-package tree-sitter-langs
-  :ensure t)
+;; (use-package tree-sitter-langs
+;;   :ensure t)
 
 ;; ==== Language server front-ends ====
 
 (use-package ccls
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-eglot)))
   :ensure t
   )
 
@@ -288,9 +310,10 @@
           ("CRASH" . mg/org-crash)
           )
         )
-  (plist-put org-format-latex-options :scale 2.0)
+  (plist-put org-format-latex-options :scale 1.5)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
+  (setq org-agenda-files "/home/mrghastien/agenda/agendas.txt")
   (epipub-setup)
 )
   
@@ -305,6 +328,8 @@
   :ensure t
   :hook (org-mode . org-mode-visual-fill))
 ;; specify the justification you want
+
+
 
 
 ;; ========================================================================== ;;
@@ -332,42 +357,55 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content nil)
+  (setq dashboard-icon-type nil)
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-set-navigator t)
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  ;; (dashboard-modify-heading-icons '((recents   . "file-text")
+  ;;                                 (bookmarks . "book")))
   )
 
+;; (use-package pixel-scroll
+;;   :config
+;;   (setq pixel-scroll-precision-interpolate-mice nil)
+;;   (setq pixel-scroll-precision-interpolate-page t)
+;;   (setq pixel-scroll-precision-use-momentum nil)
+;;   (pixel-scroll-precision-mode t)
+;;   )
 
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+
+
+(use-package all-the-icons
+  :config
+  (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'prepend)
+  (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'prepend)
+
+  (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
+  :ensure t)
+
+
+(use-package treemacs-all-the-icons
+  :ensure t
+  :config
+  (treemacs-load-theme "all-the-icons")
+  )
 
 (defun on-make-frame ()
-  ;(set-frame-parameter nil 'alpha-background 100)
   (when (= (length (frames-on-display-list)) 1)
-    (use-package org-bullets
-      :after org
-      :hook (org-mode . org-bullets-mode)
-      :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
-    
-    (use-package all-the-icons
-      :config
-      (set-fontset-font t 'unicode (font-spec :family "all-the-icons") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "file-icons") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "Material Icons") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "github-octicons") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "FontAwesome") nil 'append)
-      (set-fontset-font t 'unicode (font-spec :family "Weather Icons") nil 'append)
-
-      (setq org-ellipsis (all-the-icons-material "arrow_drop_down"))
-      :ensure t)
-
-    (use-package treemacs-all-the-icons
-      :ensure t
-      :config
-      (treemacs-load-theme "all-the-icons")
-      )
-
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
+
     (load-theme 'test)
     )
   )
