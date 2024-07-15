@@ -299,7 +299,7 @@
   )
 
 
-(load-file "~/epita/ing1/lessons/publication.el")
+;(load-file "~/epita/ing1/lessons/publication.el")
 (use-package org
   :ensure t
   :hook (org-mode . on-org-mode)
