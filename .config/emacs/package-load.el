@@ -70,6 +70,7 @@
   (evil-define-key 'normal eglot-mode-map
     (kbd "SPC f") 'eglot-format
     (kbd "SPC r") 'eglot-rename
+    (kbd "SPC a") 'eglot-code-actions
     )
 
   :config

@@ -33,8 +33,8 @@
 
 (custom-theme-set-faces
  'test
- ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :width expanded :height 120 :family "Iosevka"))))
+ ; General ; :background "#1d2021" :foreground "#fbf1c0"
+ '(default ((t (:background "#282828" :foreground "#ebdbb2" :weight regular :width expanded :height 110 :family "Iosevka"))))
  '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
@@ -145,6 +145,7 @@
  ;; Tree sitter
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
+ '(tree-sitter-hl-face:property ((t (:inherit font-lock-variable-name-face :slant italic))))
  '(tree-sitter-hl-face:operator ((t (:foreground "#fe8019"))))
  '(tree-sitter-hl-face:punctuation ((t (:foreground "#fe8019"))))
  '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
