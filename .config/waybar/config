@@ -8,7 +8,7 @@
     // Choose the order of the modules
     "modules-left": ["hyprland/workspaces", "hyprland/mode", "hyprland/scratchpad", "custom/media"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["mpd", "tray", "wireplumber", "network", "cpu", "memory", "temperature", "backlight", "battery", "hyprland/language", "clock"],
+    "modules-right": ["mpd", "tray", "wireplumber", "network", "cpu", "memory", "temperature", "hyprland/language", "clock"],
     // Modules configuration
     // "hyprland/workspaces": {
     //     "disable-scroll": true,
