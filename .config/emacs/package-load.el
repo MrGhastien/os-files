@@ -362,7 +362,7 @@
   (setq pixel-scroll-precision-interpolate-mice nil)
   (setq pixel-scroll-precision-interpolate-page t)
   (setq pixel-scroll-precision-use-momentum nil)
-  (pixel-scroll-precision-mode t)
+  (pixel-scroll-precision-mode -1)
   )
 
 (use-package org-bullets
