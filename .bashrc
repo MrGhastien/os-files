@@ -4,9 +4,9 @@
 
 		RED="\[\033[0;31m\]"
      YELLOW="\[\033[0;33m\]"
-      GREEN="\[\033[0;32m\]"
+      GREEN="\[\033[1;32m\]"
        BLUE="\[\033[0;34m\]"
-       CYAN="\[\033[0;36m\]"
+       CYAN="\[\033[1;36m\]"
   LIGHT_RED="\[\033[1;31m\]"
 LIGHT_GREEN="\[\033[1;32m\]"
  LIGHT_BLUE="\[\033[1;34m\]"
@@ -15,10 +15,11 @@ LIGHT_GREEN="\[\033[1;32m\]"
  DIM_YELLOW="\[\033[2;33m\]"
    DIM_CYAN="\[\033[2;36m\]"
  COLOR_NONE="\[\e[0m\]"
+       BOLD="\[\e[1m\]"
 #DPC : Default Prompt Color
-DPC=${YELLOW}
+DPC=${GREEN}
 
-function parse_git_branch {
+parse_git_branch () {
 	git rev-parse --git-dir &> /dev/null
 	git_status="$(git status 2> /dev/null)"
 	branch_pattern="^On branch ([^${IFS}]*)"
@@ -49,7 +50,7 @@ function parse_git_branch {
 	fi
 }
 
-function set_prompt() {
+set_prompt() {
 
 	prompt="${DPC}[\u@\h ${COLOR_NONE}${CYAN}\w${COLOR_NONE}${DPC}] ${COLOR_NONE}$(parse_git_branch)${DPC}\$>${COLOR_NONE}"
 	PS1="${prompt} "
@@ -59,5 +60,3 @@ function set_prompt() {
 PROMPT_COMMAND=set_prompt
 
 alias ls="ls --color"
-
-neofetch

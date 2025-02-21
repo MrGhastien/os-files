@@ -34,7 +34,7 @@
 (custom-theme-set-faces
  'test
  ; General ; :background "#1d2021"
- '(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :height 110 :family "Iosevkb"))))
+'(default ((t (:background "#282828" :foreground "#fbf1c0" :weight regular :height 109 :family "Iosevka Extended"))))
  '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
@@ -163,6 +163,9 @@
  '(tree-sitter-hl-face:punctuation ((t (:foreground "#fe8019"))))
  '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
  '(tree-sitter-hl-face:label ((t (:foreground "#83a598"))))
+
+ '(lsp-face-semhl-static ((t (:inherit font-lock-keyword-face :slant italic))))
+ '(lsp-face-semhl-interface ((t (:foreground unspecified))))
 
  ;; which key
  '(help-key-binding ((t (:inherit fixed-pitch :foreground "#8ec07c" :background "#3c3836" :box (:line-width (-1 . -1) :color "#504b48")))))

@@ -39,33 +39,45 @@
 
 (defun launch-lsp ()
   (lsp)
-  (company-mode 1)
+  ; (corfu-mode 1)
   (yas-minor-mode 1)
-  (tree-sitter-hl-mode)
+  ;; (tree-sitter-hl-mode)
+  ; (lsp-semantic-tokens-mode 1)
+  (company-mode -1)
   )
 
   
 (use-package lsp-mode
-  :init (setq lsp-keymap-prefix "s-m")
+  :init (setq lsp-keymap-prefix "C-[")
+  (setq lsp-clients-clangd-args (list "--header-insertion-decorators=0" "--clang-tidy" "--enable-config" "--log=verbose"))
+  ;(setq lsp-clients-clangd-executable t)
+  (setq lsp-clangd-binary-path "/usr/lib/llvm/18/bin/clangd")
   :commands lsp
   :config
   (setq lsp-eldoc-render-all t)
   (setq lsp-lens-enable nil)
   (lsp-enable-which-key-integration t)
-  ;:hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-lsp)
+  (setq lsp-completion-provider :none)
+  (setq lsp-semantic-tokens-enable t)
+  (setq lsp-semantic-tokens-warn-on-missing-face t)
+  (setq lsp-completion-default-behaviour :insert)
+  ;; :hook ((c-mode css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-lsp)
   :ensure t)
 
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
   (eglot-ensure)
-  (company-mode 1)
-  ;(corfu-mode 1)
+  ;(company-mode 1)
+  (corfu-mode 1)
   (yas-minor-mode 1)
   ;(tree-sitter-hl-mode)
+  ;(eglot-semtok-font-lock-init)
   )
 
 (use-package eglot
   :ensure t
+  ;; :init
+  ;; (require 'eglot-semtok "/home/mrghastien/os-files/.config/emacs/manual/eglot-supplements/eglot-semtok.el")
   :config
   (evil-define-key 'normal eglot-mode-map
     (kbd "SPC f") 'eglot-format
@@ -87,8 +99,8 @@
                 (member 'kotlin-mode (car server-program))))
            )
          eglot-server-programs))
-
-  :hook ((c-ts-mode css-mode csharp-ts-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+  :hook ((c-mode c++-mode c-ts-mode css-mode csharp-ts-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+  ;; (eglot-connect . 'eglot-semtok-on-connected)
   )
 
 (use-package treesit
@@ -112,6 +124,7 @@
   :config
   (setq company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0)))
   (setq company-minimum-prefix-length 1)
+  (setq company-global-modes nil)
   :custom
   (company-tooltip-align-annotations t)
   (company-tooltip-margin 2)
@@ -123,10 +136,13 @@
 
 (use-package corfu
   :ensure t
+  :config
+  (global-corfu-mode 1)
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0)
   (corfu-on-exact-match nil)
+  (tab-always-indent 'complete)
   )
 
 (use-package autoinsert
@@ -200,7 +216,7 @@
 
 (use-package company-box
   :ensure t
-  :hook (company-mode . company-box-mode)
+  ; :hook (company-mode . company-box-mode)
   :custom
   (company-box-frame-behavior 'point)
   )
@@ -313,8 +329,8 @@
   (plist-put org-format-latex-options :scale 1.5)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
-  (setq org-agenda-files "/home/mrghastien/agenda/agendas.txt")
-  (epipub-setup)
+  ;(setq org-agenda-files "/home/mrghastien/agenda/agendas.txt")
+  ;(epipub-setup)
 )
   
 
