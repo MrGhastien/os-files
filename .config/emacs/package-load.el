@@ -37,9 +37,16 @@
 ;;                             Programming related                            ;;
 ;; ========================================================================== ;;
 
+(defun launch-completion ()
+  (if (display-graphic-p)
+      (corfu-mode 1)
+    (company-mode 1)
+  )
+  )
+
 (defun launch-lsp ()
   (lsp)
-  (company-mode 1)
+  (launch-completion)
   (yas-minor-mode 1)
   (tree-sitter-hl-mode)
   )
@@ -58,8 +65,7 @@
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
   (eglot-ensure)
-  ;(company-mode 1)
-  (corfu-mode 1)
+  (launch-completion)
   (yas-minor-mode 1)
   (tree-sitter-hl-mode)
   )
@@ -87,7 +93,14 @@
            )
          eglot-server-programs))
 
+  (add-to-list 'eglot-server-programs
+               '((java-ts-mode java-mode) . ("/home/mrghastien/.builds/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/jdtls")))
+
   :hook ((css-mode csharp-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+  )
+
+(use-package eglot-java
+  :hook ((java-mode) . eglot-java-mode)
   )
 
 (use-package company
@@ -110,6 +123,9 @@
   (company-tooltip-width-grow-only t)
   (company-tooltip-maximum-width 80)
   )
+
+(use-package compat
+  :ensure t)
 
 (use-package corfu
   :ensure t
@@ -170,7 +186,7 @@
 
 (defun on-ocaml-mode ()
   (merlin-mode)
-  (corfu-mode 1)
+  (launch-completion)
   )
 
 (use-package tuareg
@@ -395,7 +411,7 @@
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
 
-    (load-theme 'test)
+    ;(load-theme 'test-dark)
     )
   )
 

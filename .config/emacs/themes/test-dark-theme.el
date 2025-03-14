@@ -1,19 +1,41 @@
-(deftheme test
+(deftheme test-dark
+  :family 'test
+  :kind 'color-scheme
+  :background-mode 'dark
   "Created 2022-05-07.")
 
 (custom-theme-set-variables
- 'test
+ 'test-dark
  '(evil-normal-state-cursor '(hbar "#fe8019"))
  '(evil-insert-state-cursor '(bar "#b8bb26"))
  '(evil-replace-state-cursor '(hollow "#b732de"))
  '(evil-visual-state-cursor '(box "turquoise"))
  '(evil-emacs-state-cursor '(hbar "#a575ec"))
- '(cml-visual-mode-bg "turquoise")
- '(cml-visual-mode-fg "#003b50")
- '(cml-normal-mode-bg "#fe8300")
- '(cml-normal-mode-fg "#801100")
- '(cml-insert-mode-bg "#aff212")
- '(cml-insert-mode-fg "#005200")
+ '(cml-visual-mode-bg (if (display-graphic-p)
+                          "turquoise"
+                        "blue"
+                        ))
+ '(cml-visual-mode-fg (if (display-graphic-p)
+                          "#003b50"
+                        "cyan"
+                        ))
+ '(cml-normal-mode-bg (if (display-graphic-p)
+                          "#fe8300"
+                        "red"
+                        ))
+ '(cml-normal-mode-fg (if (display-graphic-p)
+                          "#801100"
+                        "yellow"
+                        ))
+ '(cml-insert-mode-bg (if (display-graphic-p)
+                          "#aff212"
+                        "green"
+                        )
+                      )
+ '(cml-insert-mode-fg (if (display-graphic-p)
+                          "#005200"
+                        "green"
+                        ))
  '(cml-replace-mode-fg "#29005e")
  '(cml-modified-name-color "#fb4934")
  '(cml-read-only-name-color "#fe8019")
@@ -32,28 +54,52 @@
 )
 
 (custom-theme-set-faces
- 'test
+ 'test-dark
  ; General ; :background "#1d2021" :foreground "#fbf1c0"
- '(default ((t (:background "#282828" :foreground "#ebdbb2" :weight regular :width expanded :height 110 :family "Iosevka"))))
+ '(default (
+            (((min-colors 256)) . (:background "#282828" :foreground "#ebdbb2" :weight regular :width expanded :height 110 :family "Iosevka"))
+            (((type tty) (min-colors 8)) . (:background "black" :foreground "white"))
+            )
+           )
  '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
  '(line-number ((t (:background "#3a3432" :foreground "#7c6f64"))))
- '(line-number-current-line ((t (:background "#504945" :foreground "#fe8019"))))
+ '(line-number-current-line (
+                             (((min-colors 256)) (:background "#504945" :foreground "#fe8019"))
+                             (((type tty) (min-colors 8)) (:background "red" :foreground "yellow" :weight black))
+                             )
+                            )
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#bdae93" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :foreground "#928374" :weight bold))))
  '(mode-line ((t (:box nil :foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#928374"))))
  ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#333") :foreground "gray30" :background "#282828"))))
- '(highlight ((t (:background "#83a598" :foreground "gray10"))))
- '(hl-line ((t (:background "#323335" :inherit nil))))
+ '(highlight (
+              (((min-colors 256)) (:background "#83a598" :foreground "gray10"))
+              (((type tty) (min-colors 8)) (:background "blue" :foreground "white"))
+              )
+             )
+ '(hl-line (
+            (((min-colors 256)) (:background "#323335" :inherit nil))
+            (((type tty) (min-colors 8)) (:background "cyan" :foreground "black" :inherit nil))
+            )
+           )
  '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold))))
- '(region ((t (:background "#4a4742" :extend t))))
+ '(region (
+           (((min-colors 256)) (:background "#4a4742" :extend t))
+           (((type tty) (min-colors 8)) (:background "blue" :foreground "white"))
+           )
+          )
  '(ivy-current-match ((t (:background "#65a7e2" :foreground "black" :extend t))))
 
  '(window-divider ((t (:foreground "#504b48"))))
+ '(shadow (
+           (((type tty)) (:inherit font-lock-comment-face))
+           )
+          )
 
  ; Dired
  '(ff-dired ((t (:inherit default :weight regular))))
@@ -77,12 +123,32 @@
  '(treemacs-all-the-icons-root-face ((t (:height 130 :foreground "#fe8019"))))
 
  ; Font lock
- '(font-lock-builtin-face ((t (:foreground "#fe8019"))))
- '(font-lock-function-name-face ((t (:foreground "#b8bb26" :weight bold))))
+ '(font-lock-builtin-face (
+                           (((min-colors 256)) . (:foreground "#fe8019"))
+                           (((type tty) (min-colors 8)) . (:foreground "red" :weight bold))
+                           )
+                          )
+ '(font-lock-function-name-face (
+                                 (((min-colors 256)) (:foreground "#b8bb26" :weight bold))
+                                 (((type tty) (min-colors 8)) (:foreground "green" :weight bold))
+                                 )
+                                )
  '(font-lock-keyword-face ((t (:foreground "#fb4934"))))
- '(font-lock-type-face ((t (:foreground "#fabd2f"))))
- '(font-lock-variable-name-face ((t (:foreground "#83a598"))))
- '(font-lock-string-face ((t (:foreground "#b8bb26" :slant italic)))) ;8ec07c
+ '(font-lock-type-face (
+                        (((min-colors 256)) (:foreground "#fabd2f"))
+                        (((type tty) (min-colors 8)) (:foreground "yellow" :weight bold))
+                        )
+                       )
+ '(font-lock-variable-name-face (
+                                 (((min-colors 256)) (:foreground "#83a598"))
+                                 (((type tty) (min-colors 8)) (:foreground "cyan"))
+                                 )
+                                )
+ '(font-lock-string-face (
+                          (((min-colors 256)) (:foreground "#b8bb26" :slant italic))
+                          (((type tty) (min-colors 256)) (:foreground "green" :weight bold))
+                          )
+                         ) ;8ec07c
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#d3869b"))))
  '(font-lock-comment-face ((t (:foreground "gray50" :width expanded :slant italic))))
  '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-keyword-face))))
@@ -97,7 +163,11 @@
  '(company-tooltip ((t (:background "#32302f" :extend t))))
  '(company-tooltip-annotation ((t (:foreground "#fe8019" :slant italic))))
  '(company-box-scrollbar ((t (:background "#fe8019"))))
- '(company-tooltip-selection ((t (:background "#504945"))))
+ '(company-tooltip-selection (
+                              (((min-colors 256)) (:background "#504945"))
+                              (((type tty) (min-colors 8)) (:background "blue" :foregroudn "white"))
+                              )
+                             )
  '(company-tooltip-common ((t (:foreground "#fe8019" :weight bold))))
 
  ; Latex
@@ -145,7 +215,11 @@
  ;; Tree sitter
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
  '(tree-sitter-hl-face:variable.builtin ((t (:inherit font-lock-keyword-face))))
- '(tree-sitter-hl-face:property ((t (:inherit font-lock-variable-name-face :slant italic))))
+ '(tree-sitter-hl-face:property (
+                                 (default (:inherit font-lock-variable-name-face))
+                                 (((min-colors 256)) (:slant italic))
+                                 )
+                                )
  '(tree-sitter-hl-face:operator ((t (:foreground "#fe8019"))))
  '(tree-sitter-hl-face:punctuation ((t (:foreground "#fe8019"))))
  '(tree-sitter-hl-face:function.call ((t (:inherit font-lock-function-name-face :foreground unspecified))))
@@ -159,4 +233,4 @@
  '(which-key-separator-face ((t (:slant normal :foreground "#8ec07c"))))
  )
 
-(provide-theme 'test)
+(provide-theme 'test-dark)

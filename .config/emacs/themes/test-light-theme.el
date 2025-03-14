@@ -1,4 +1,7 @@
 (deftheme test-light
+  :family 'test
+  :kind 'color-scheme
+  :background-mode 'light
   "Created 2022-05-07.")
 
 (custom-theme-set-variables

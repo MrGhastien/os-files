@@ -1,3 +1,4 @@
+(profiler-start 'cpu)
 (set-language-environment "UTF-8")
 
 (setq custom-file "~/.config/emacs/custom.el")
@@ -22,7 +23,6 @@
 (setq-default tab-width 4)
 (setq c-set-style "k&r")
 (setq c-basic-offset 4)
-
 
 (setq backup-directory-alist '(("." . "~/emacs-backups")))
 
@@ -84,3 +84,5 @@
 
 
 (put 'dired-find-alternate-file 'disabled nil)
+(push '(tty-color-mode . yes) default-frame-alist)
+(profiler-stop)
