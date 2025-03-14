@@ -1,3 +1,4 @@
+(profiler-start 'cpu)
 (set-language-environment "UTF-8")
 
 (setq custom-file "~/.config/emacs/custom.el")
@@ -86,3 +87,5 @@
 
 
 (put 'dired-find-alternate-file 'disabled nil)
+
+(profiler-stop)

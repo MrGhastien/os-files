@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mpc_output="$(MPD_HOST=/tmp/mpd/socket mpc -f '%artist% - %title% [(%album%)]' "$@" | head -n 1)"
+mpc_output="$(MPD_HOST="${XDG_RUNTIME_DIR}/mpd/mpd.socket" mpc -f '%artist% - %title% [(%album%)]' "$@" | head -n 1)"
 
 
 
