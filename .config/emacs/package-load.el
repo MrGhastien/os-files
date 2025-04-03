@@ -38,10 +38,10 @@
 ;; ========================================================================== ;;
 
 (defun launch-completion ()
-  (if (display-graphic-p)
-      (corfu-mode 1)
+  ;; (if (display-graphic-p)
+  ;;     (corfu-mode 1)
     (company-mode 1)
-  )
+  ;; )
   )
 
 (defun launch-lsp ()
@@ -94,7 +94,12 @@
          eglot-server-programs))
 
   (add-to-list 'eglot-server-programs
-               '((java-ts-mode java-mode) . ("/home/mrghastien/.builds/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/jdtls")))
+               `((java-ts-mode java-mode) . ,((format "%s/.builds/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/jdtls" (getenv "HOME"))
+                                             "-configuration"
+                                             ,(format "%s/.config/emacs.eclipse-jdtls/config" (getenv "HOME"))
+                                             "-data"
+                                             ,(format "%s/.config/emacs.eclipse-jdtls/data" (getenv "HOME"))
+                                             )))
 
   :hook ((css-mode csharp-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
   )
@@ -380,6 +385,15 @@
   (setq pixel-scroll-precision-use-momentum nil)
   (pixel-scroll-precision-mode -1)
   )
+
+(use-package ultra-scroll
+  ;:load-path "~/code/emacs/ultra-scroll" ; if you git clone'd instead of using vc
+  ;:vc (:url "https://github.com/jdtsmith/ultra-scroll") ; For Emacs>=30
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0) 
+  :config
+  (ultra-scroll-mode 1))
 
 (use-package org-bullets
   :after org
