@@ -42,14 +42,29 @@
 
 (add-hook 'window-configuration-change-hook #'cml-is-selwin-active)
 
-(add-function :before after-focus-change-function #'cml-is-selwin-active)
+(add-function :bfore after-focus-change-function #'cml-is-selwin-active)
 
-;;(put 'cml-right-txt 'risky-local-variable t)
-;;(put 'cml-major-mode 'risky-local-variable t)
-;;(put 'cml-major-mode-txt 'risky-local-variable t)
-;;(put 'cml-evil-mode 'risky-local-variable t)
-;;(put 'cml-buf-name 'risky-local-variable t)
-;;(put 'cml-buf-icon 'risky-local-variable t)
+(defun cml-propertize (left right)
+  (let* (
+         (space-up       +0.20)
+         (space-down     -0.20)
+         (vim_mode (cml-propertize-evil-mode))
+         (pleft (concat
+                 (propertize " " 'display `(raise ,space-up))
+                 left
+                 (propertize " " 'display `(raise ,space-down))
+                 ))
+         (pright (concat right " "))
+         )
+         
+    (concat 
+     vim_mode
+     pleft
+     (cml-padding vim_mode pleft pright)
+     pright
+     )
+    )
+  )
 
 (defun cml-eol-format ()
   "Return a string representing the current line break encoding."
@@ -81,32 +96,24 @@
    " ")
   )
 
-(setq cml-right-txt
-      '(""
-	    (:eval (cml-eol-format))
-	    (:eval (cml-char-format))
-	    cml-major-mode-txt
-        "  "
-	    )
-      )
-
 (defun cml-get-face-factor (face)
-  (let ((h (face-attribute face ':height nil 'default)) (ph (face-attribute 'default ':height)))
+ (let ((h (face-attribute face ':height nil 'default)) (ph (face-attribute 'default ':height)))
     (+
      (/ h (float ph))
      0.08)
     )
   )
 
-(defun cml-padding ()
-  (let ((r-length (length (format-mode-line cml-right-txt))))
-    (propertize " "
-		        'display `(space :align-to (-
-                                            (+ right right-margin right-fringe)
-                                            ,(*
-                                              (- r-length 1.0)
-                                              (cml-get-face-factor 'mode-line))))
-                'face 'mode-line)))
+(defun cml-padding (vim_mode left right)
+  (let ((padding-length (- (window-total-width) 
+			     (length vim_mode) (length left) (length right)
+			     (/ (window-right-divider-width) (window-font-width nil 'header-line))
+                 )
+                        ))
+    (propertize (make-string padding-length ?\ )
+                'face 'mode-line)
+    )
+  )
 
 (defun cml-icon-for-buffer ()
 
@@ -254,9 +261,9 @@ PROPS is a plist, used by svg-lib to create the icon."
   (setq cml-evil-mode-bg color)
   )
 
-(defun cml-get-evil-mode ()
+(defun cml-propertize-evil-mode ()
   (propertize
-   (concat cml-evil-mode-str "")
+   (concat " " cml-evil-mode-str " ")
    'face
    `(:box
      (:line-width
@@ -272,19 +279,19 @@ PROPS is a plist, used by svg-lib to create the icon."
   )
 
 (defun cml-evil-normal ()
-  (cml-update-evil " NORMAL " cml-normal-mode-bg cml-normal-mode-fg)
+  (cml-update-evil "NORMAL" cml-normal-mode-bg cml-normal-mode-fg)
   )
 (defun cml-evil-insert ()
-  (cml-update-evil " INSERT " cml-insert-mode-bg cml-insert-mode-fg)
+  (cml-update-evil "INSERT" cml-insert-mode-bg cml-insert-mode-fg)
   )
 (defun cml-evil-visual ()
-  (cml-update-evil " VISUAL " cml-visual-mode-bg cml-visual-mode-fg)
+  (cml-update-evil "VISUAL" cml-visual-mode-bg cml-visual-mode-fg)
   )
 (defun cml-evil-replace ()
-  (cml-update-evil " REPLACE " cml-replace-mode-bg cml-replace-mode-fg)
+  (cml-update-evil "REPLACE" cml-replace-mode-bg cml-replace-mode-fg)
   )
 (defun cml-evil-emacs ()
-  (cml-update-evil " EMACS " cml-emacs-mode-bg cml-emacs-mode-fg)
+  (cml-update-evil "EMACS " cml-emacs-mode-bg cml-emacs-mode-fg)
   )
 
 (add-hook 'evil-insert-state-entry-hook 'cml-evil-insert)
@@ -293,25 +300,39 @@ PROPS is a plist, used by svg-lib to create the icon."
 (add-hook 'evil-replace-state-entry-hook 'cml-evil-replace)
 (add-hook 'evil-emacs-state-entry-hook 'cml-evil-emacs)
 
-(defvar cml-format
-  (list
-   "%e"
-   '(:eval (unless buffer-read-only (cml-get-evil-mode)))
-   " "
-   'cml-major-mode
-   '(:eval (cml-get-buf-icon))
-   " "
-   '(:eval (cml-get-buf-name))
-   " %l:%c %o"
-   '(:eval (cml-padding))
-   cml-right-txt
-   )
+(defun cml-default ()
+  (cml-propertize "test" (cml-eol-format))
+)
+
+(defun cml-set-modeline-format ()
+  (message "Setting mode line format.")
+  (cml-on-theme-change)
+  (setq-default mode-line-format
+        '((:eval
+           (cond
+            (t (cml-default))
+            )
+           ))
+        )
+  ;; (setq mode-line-format
+  ;;               (list
+  ;;                "%e"
+  ;;                '(:eval (unless buffer-read-only (cml-get-evil-mode)))
+  ;;                " "
+  ;;                'cml-major-mode
+  ;;                '(:eval (cml-get-buf-icon))
+  ;;                " "
+  ;;                '(:eval (cml-get-buf-name))
+  ;;                '(:eval (cml-padding))
+  ;;                " %l:%c %o "
+  ;;                '(:eval (cml-eol-format))
+  ;;                '(:eval (cml-char-format))
+  ;;                cml-major-mode-txt
+  ;;                "  "
+  ;;                )
+  ;;               )
   )
 
-
-(message "Setting mode line format.")
-(cml-on-theme-change)
-(setq mode-line-format cml-format)
-(setq-default mode-line-format cml-format)
+(cml-set-modeline-format)
 
 (provide 'cml)
