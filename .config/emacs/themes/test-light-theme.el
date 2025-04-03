@@ -36,8 +36,8 @@
 (custom-theme-set-faces
  'test-light
  ; General ; :background "#f9f5d7"
- '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight regular :width expanded :height 110 :family "Iosevka Custom"))))
- '(variable-pitch ((t (:inherit default :family "Cantarell" :width normal :weight regular :slant normal :height 140))))
+ '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight regular :width expanded :height 110 :family "Iosevka"))))
+ '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended" :weight regular))))
  '(error ((t (:foreground "#dd0006" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "RoyalBlue2" :underline t))))
