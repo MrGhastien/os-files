@@ -35,6 +35,13 @@
 (global-set-key (kbd "M-D") 'compile)
 (global-set-key (kbd "C-M-y") 'load-theme)
 
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region compilation-filter-start (point))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
 (defun on-display-mode ()
   (display-line-numbers-mode -1)
   (hl-line-mode -1)
@@ -85,4 +92,5 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 (push '(tty-color-mode . yes) default-frame-alist)
+(setq shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
 (profiler-stop)
