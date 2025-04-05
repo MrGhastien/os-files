@@ -1,5 +1,6 @@
 (require 'svg-lib)
 (require 'all-the-icons)
+(require 'cml-faces "~/.config/emacs/cml-faces.el")
 
 (defvar-local cml-major-mode nil)
 (defvar-local cml-major-mode-txt nil)
@@ -42,19 +43,23 @@
 
 (add-hook 'window-configuration-change-hook #'cml-is-selwin-active)
 
-(add-function :bfore after-focus-change-function #'cml-is-selwin-active)
+(add-function :before after-focus-change-function #'cml-is-selwin-active)
 
-(defun cml-propertize (left right)
+(defun cml-propertize (vim-mode-name prefix primary secondary right)
   (let* (
-         (space-up       +0.20)
-         (space-down     -0.20)
-         (vim_mode (cml-propertize-evil-mode))
+         (space-up       +0.25)
+         (space-down     -0.25)
+         (buf-name (buffer-name))
+         (vim_mode (if (string-empty-p vim-mode-name) "" (cml-propertize-evil-mode vim-mode-name)))
          (pleft (concat
-                 (propertize " " 'display `(raise ,space-up))
-                 left
-                 (propertize " " 'display `(raise ,space-down))
+                 (propertize " " 'display `(raise ,space-up) 'face 'cml-modeline-default)
+                 (propertize prefix 'face 'cml-modeline-default)
+                 (if (string-empty-p prefix) "" (propertize " " 'face 'cml-modeline-default))
+                 (propertize primary 'face 'cml-modeline-primary)
+                 (propertize secondary 'face 'cml-modeline-secondary)
+                 (propertize " " 'display `(raise ,space-down) 'face 'cml-modeline-default)
                  ))
-         (pright (concat right " "))
+         (pright (propertize (concat right " ") 'face 'cml-modeline-secondary))
          )
          
     (concat 
@@ -66,12 +71,13 @@
     )
   )
 
+
 (defun cml-eol-format ()
   "Return a string representing the current line break encoding."
   (pcase (coding-system-eol-type buffer-file-coding-system)
-    (0 "LF ")
-    (1 "CRLF ")
-    (2 "CR "))
+    (0 "LF")
+    (1 "CRLF")
+    (2 "CR"))
   )
 
 (defun cml-bg-color (active &optional inactive)
@@ -88,30 +94,31 @@
 
 
 (defun cml-char-format ()
-  (concat
-   (if (memq (coding-system-get buffer-file-coding-system :category) '(coding-category-undecided coding-category-utf-8))
-       "UTF-8"
-     (upcase (symbol-name (coding-system-get buffer-file-coding-system :name)))
-     )
-   " ")
+  (if (memq (coding-system-get buffer-file-coding-system :category) '(coding-category-undecided coding-category-utf-8))
+      "UTF-8"
+    (upcase (symbol-name (coding-system-get buffer-file-coding-system :name)))
+    )
   )
 
-(defun cml-get-face-factor (face)
- (let ((h (face-attribute face ':height nil 'default)) (ph (face-attribute 'default ':height)))
-    (+
-     (/ h (float ph))
-     0.08)
+(defun cml-count-percent-signs (string)
+  (let ((count 0) (start-pos -1))
+    (while (setq start-pos (string-search "%%" string (1+ start-pos)))
+      (setq count (1+ count))
+      )
+    count
     )
   )
 
 (defun cml-padding (vim_mode left right)
-  (let ((padding-length (- (window-total-width) 
-			     (length vim_mode) (length left) (length right)
-			     (/ (window-right-divider-width) (window-font-width nil 'header-line))
-                 )
+  (let* ((right-length (- (length right) (cml-count-percent-signs right)))
+        (padding-length (- (/ (window-pixel-width) (window-font-width nil 'cml-modeline-default))
+			               (length vim_mode) (length left) right-length
+			               (/ (window-right-divider-width) (window-font-width nil 'cml-modeline-default))
+                           -2 ;; TODO: Find out why this is needed
+                           )
                         ))
-    (propertize (make-string padding-length ?\ )
-                'face 'mode-line)
+    (propertize (make-string (max 1 padding-length) ?\ )
+                'face 'cml-modeline-default)
     )
   )
 
@@ -126,7 +133,8 @@
 	        (format " %s "
 		            (propertize icon
                                 'face `(:height 1.0 :family ,(all-the-icons-icon-family-for-buffer))
-				                'help-echo (format "Major mode: `%s`" major-mode))))))
+				                'help-echo (format "Major mode: `%s`" major-mode)
+                                )))))
   )
 
 (defun cml-update-major-txt (&rest _)
@@ -143,14 +151,13 @@
 (add-hook 'after-change-major-mode-hook #'cml-update-major t)
 (add-hook 'after-change-major-mode-hook #'cml-update-major-txt t)
 
-(defun cml-get-buf-name ()
-  (propertize (buffer-name)
+(defun cml-propertize-buf-name (buf-name)
+  (propertize buf-name
               'face `(:weight bold
-                              :foreground
-							  ,(cml-fg-color (cond
-							                  (buffer-read-only cml-read-only-name-color)
-							                  ((buffer-modified-p) cml-modified-name-color)
-							                  (t cml-normal-name-color))
+                      :foreground ,(cml-fg-color (cond
+							                      (buffer-read-only cml-read-only-name-color)
+							                      ((buffer-modified-p) cml-modified-name-color)
+							                      (t cml-normal-name-color))
                                              )
                               )
 			  )
@@ -261,19 +268,20 @@ PROPS is a plist, used by svg-lib to create the icon."
   (setq cml-evil-mode-bg color)
   )
 
-(defun cml-propertize-evil-mode ()
+(defun cml-propertize-evil-mode (evil-mode-name)
   (propertize
-   (concat " " cml-evil-mode-str " ")
+   (concat " " evil-mode-name " ")
    'face
-   `(:box
-     (:line-width
-      (2 . -1)
-         :color ,(cml-bg-color cml-evil-mode-bg)
-         :style "flat-button"
-         )
-      :background ,(cml-bg-color cml-evil-mode-bg)
+   `(
+     ;; :box
+     ;; (:line-width
+     ;;  (2 . -1)
+     ;;     :color ,(cml-bg-color cml-evil-mode-bg)
+     ;;     :style "flat-button"
+     ;;     )
+     :inherit cml-modeline-primary
+     :background ,(cml-bg-color cml-evil-mode-bg)
 	 :foreground ,(cml-fg-color cml-evil-mode-fg)
-	 :weight bold
      )
    )
   )
@@ -291,7 +299,7 @@ PROPS is a plist, used by svg-lib to create the icon."
   (cml-update-evil "REPLACE" cml-replace-mode-bg cml-replace-mode-fg)
   )
 (defun cml-evil-emacs ()
-  (cml-update-evil "EMACS " cml-emacs-mode-bg cml-emacs-mode-fg)
+  (cml-update-evil "EMACS" cml-emacs-mode-bg cml-emacs-mode-fg)
   )
 
 (add-hook 'evil-insert-state-entry-hook 'cml-evil-insert)
@@ -300,8 +308,29 @@ PROPS is a plist, used by svg-lib to create the icon."
 (add-hook 'evil-replace-state-entry-hook 'cml-evil-replace)
 (add-hook 'evil-emacs-state-entry-hook 'cml-evil-emacs)
 
+(defun cml-buffer-position ()
+  "Returns a string displaying the current position of the cursor inside the current buffer."
+  (let ( (formatted-string (format-mode-line "%l:%c %o")) )
+        (if (string-suffix-p "%" formatted-string)
+            (concat formatted-string "%")
+            formatted-string
+            )
+    )
+  )
+
 (defun cml-default ()
-  (cml-propertize "test" (cml-eol-format))
+  (cml-propertize
+   (if buffer-read-only "" cml-evil-mode-str)
+   (cml-get-buf-icon)
+   (buffer-name)
+   (concat " [" cml-major-mode-txt "] " )
+   (concat (cml-buffer-position) " - " (cml-char-format) " " (cml-eol-format))
+   )
+  ;; The modeline renderer may parse the string again to replace %-constructs. Because the `(format-mode-line "%o")` expression
+  ;; Produces a % at the end of the string, the renderer tries to replace an invalid %-construct and eats characters.
+
+  ;; Adding a '%' sign at the end of the positio string partially fixes the problem. Because 2 '%' signs are counted when
+  ;; calculating the padding length, the padding is incorrect by 1...
 )
 
 (defun cml-set-modeline-format ()

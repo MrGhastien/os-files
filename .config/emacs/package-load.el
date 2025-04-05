@@ -422,8 +422,6 @@
 
 (defun on-make-frame ()
   (when (= (length (frames-on-display-list)) 1)
-    ;; Mode line config
-    (load "~/.config/emacs/cml.el")
 
     ;(load-theme 'test-dark)
     )
@@ -433,3 +431,6 @@
     (add-hook 'after-make-frame-functions (lambda (frame) (with-selected-frame frame (on-make-frame))))
   (on-make-frame)
   )
+
+;; Mode line config
+(require 'cml "~/.config/emacs/cml.el")

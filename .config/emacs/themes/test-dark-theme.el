@@ -62,7 +62,7 @@
             )
            )
  '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka"))))
+ '(fixed-pitch ((t (:inherit default :family "Roboto Mono"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
@@ -74,7 +74,7 @@
                             )
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#bdae93" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :foreground "#928374" :weight bold))))
- '(mode-line ((t (:box nil :foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
+ '(mode-line ((t (:box nil :foreground "#fbf1c7" :background "#303030" :family "Roboto Mono"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#928374"))))
  ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#333") :foreground "gray30" :background "#282828"))))
  '(highlight (
@@ -100,6 +100,22 @@
            (((type tty)) (:inherit font-lock-comment-face))
            )
           )
+
+ (cml-modeline-default (
+                        (t . (:inherit mode-line))
+                        ))
+
+ (cml-modeline-primary (
+                        (t . (:inherit mode-line
+                              :weight bold
+                                       ))
+                        ))
+ (cml-modeline-secondary (
+                        (t . (:inherit mode-line
+                              :slant italic
+                              :foreground "#928374"
+                                       ))
+                        ))
 
  ; Dired
  '(ff-dired ((t (:inherit default :weight regular))))

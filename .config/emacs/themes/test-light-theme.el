@@ -38,7 +38,7 @@
  ; General ; :background "#f9f5d7"
  '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight regular :width expanded :height 110 :family "Iosevka"))))
  '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka Custom Extended" :weight regular))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka" :weight regular :width expanded))))
  '(error ((t (:foreground "#dd0006" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "RoyalBlue2" :underline t))))
  '(fringe ((t (:background "#f2efe5"))))
@@ -47,12 +47,28 @@
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#665c54" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :weight bold))))
  ;'(mode-line ((t (:box (:line-width (-1 . 6) :color "#f0ece1") :height 120 :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
- '(mode-line ((t (:height 120 :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
+ '(mode-line ((t . (:height 120 :foreground "#3c3836" :background "#f0ece1" :family "Roboto Mono"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#99938c"))))
  '(highlight ((t (:background "#83a598" :foreground "gray10"))))
  '(hl-line ((t (:background "#fffff7" :inherit nil))))
  '(minibuffer-prompt ((t (:foreground "#af3a0a" :weight bold))))
  '(region ((t (:background "#a4d6e0" :extend t))))
+
+ '(cml-modeline-default (
+                        (t . (:inherit mode-line))
+                        ))
+
+ '(cml-modeline-primary (
+                        (t . (:inherit mode-line
+                              :weight bold
+                                       ))
+                        ))
+ '(cml-modeline-secondary (
+                        (t . (:inherit mode-line
+                              :slant italic
+                              :foreground "#99938c"
+                                       ))
+                        ))
 
  '(ivy-current-match ((t (:foreground "#d65d0e" :underline t))))
 
