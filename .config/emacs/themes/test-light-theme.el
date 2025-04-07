@@ -47,11 +47,11 @@
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#665c54" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :weight bold))))
  ;'(mode-line ((t (:box (:line-width (-1 . 6) :color "#f0ece1") :height 120 :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
- '(mode-line ((t . (:height 120 :foreground "#3c3836" :background "#f0ece1" :family "Roboto Mono"))))
+ '(mode-line ((t . (:height 110 :foreground "#3c3836" :background "#f0ece1" :family "Roboto Mono"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#99938c"))))
  '(highlight ((t (:background "#83a598" :foreground "gray10"))))
  '(hl-line ((t (:background "#fffff7" :inherit nil))))
- '(minibuffer-prompt ((t (:foreground "#af3a0a" :weight bold))))
+ '(minibuffer-prompt ((t (:foreground "#af3a0a" :weight bold :family "Roboto Mono"))))
  '(region ((t (:background "#a4d6e0" :extend t))))
 
  '(cml-modeline-default (

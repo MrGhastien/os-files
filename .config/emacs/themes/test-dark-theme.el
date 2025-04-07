@@ -74,7 +74,7 @@
                             )
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#bdae93" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :foreground "#928374" :weight bold))))
- '(mode-line ((t (:box nil :foreground "#fbf1c7" :background "#303030" :family "Roboto Mono"))))
+ '(mode-line ((t (:height 110 :foreground "#fbf1c7" :background "#303030" :family "Roboto Mono"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#928374"))))
  ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#333") :foreground "gray30" :background "#282828"))))
  '(highlight (
@@ -87,7 +87,7 @@
             (((type tty) (min-colors 8)) (:background "cyan" :foreground "black" :inherit nil))
             )
            )
- '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold))))
+ '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold :family "Roboto Mono"))))
  '(region (
            (((min-colors 256)) (:background "#4a4742" :extend t))
            (((type tty) (min-colors 8)) (:background "blue" :foreground "white"))
@@ -101,16 +101,16 @@
            )
           )
 
- (cml-modeline-default (
+ '(cml-modeline-default (
                         (t . (:inherit mode-line))
                         ))
 
- (cml-modeline-primary (
+ '(cml-modeline-primary (
                         (t . (:inherit mode-line
                               :weight bold
                                        ))
                         ))
- (cml-modeline-secondary (
+ '(cml-modeline-secondary (
                         (t . (:inherit mode-line
                               :slant italic
                               :foreground "#928374"

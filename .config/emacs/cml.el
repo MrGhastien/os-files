@@ -114,7 +114,6 @@
         (padding-length (- (/ (window-pixel-width) (window-font-width nil 'cml-modeline-default))
 			               (length vim_mode) (length left) right-length
 			               (/ (window-right-divider-width) (window-font-width nil 'cml-modeline-default))
-                           -2 ;; TODO: Find out why this is needed
                            )
                         ))
     (propertize (make-string (max 1 padding-length) ?\ )
