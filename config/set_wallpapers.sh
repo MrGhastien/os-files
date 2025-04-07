@@ -30,14 +30,15 @@ monitors=($(hyprctl monitors  | grep  -oP '^Monitor \K([a-zA-Z0-9-]*)'))
 
 command="swaybg"
 
-selection=( $(shuf -e "${choices[@]}" -n "$monitor_count") )
-
 for i in ${!monitors[@]}; do
-    command="${command} -o ${monitors[$i]} -m fill -i ${wallpaper_dir}/${selection[$i]}"
+    rnumber="$SRANDOM"
+    wallpaper_count="${#choices[@]}"
+    rnumber=$(( rnumber % wallpaper_count ))
+    command="${command} -o ${monitors[$i]} -m fill -i ${wallpaper_dir}/${choices[$rnumber]}"
 done
 
 if $pretend; then
-    echo "$command"
+    echo "exec $command"
 else
-    $command
+    exec $command
 fi

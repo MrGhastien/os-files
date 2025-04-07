@@ -1,0 +1,143 @@
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: "Iosevka Extended", Inter, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+window {
+    padding: 30px;
+}
+
+window#waybar {
+    transition-property: background-color;
+    transition-duration: .5s;
+    padding: 8px;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+    background-color: #3F3F3F;
+}
+
+window#waybar.chromium {
+    background-color: #000000;
+    border: none;
+}
+
+button {
+    /* Use box-shadow instead of border so the text isn't offset */
+    box-shadow: inset 0 -3px transparent;
+    /* Avoid rounded borders under each button name */
+    border: none;
+    border-radius: 0;
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: inherit;
+    transition: all 0.3s 0;
+}
+
+#workspaces button.active {
+    /* Increase the top padding to counter the displacement
+       caused by the border
+   */
+    padding-top: 1px;
+}
+
+
+.modules-right * {
+    padding: 0 10px;
+    border-radius: 0px;
+    /*
+    margin: 8px 0px 8px 6px;
+    background-color: rgba(48, 48, 48, 1);
+   */
+}
+
+.modules-right {
+    margin-left: 6px;
+}
+
+#window,
+#workspaces {
+    margin: 0px;
+    border-radius: 0px;
+    padding: 5px 10px 0px 10px;
+    /*
+    margin: 8px 0px 8px 0px;
+    background-color: rgba(48, 48, 48, 1.0);
+   */
+    font-weight: 600;
+}
+
+#window {
+    transition: all 0.3s 0;
+}
+#custom-media {
+    min-width: 100px;
+}
+
+#tray {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#idle_inhibitor {
+}
+
+#language {
+    min-width: 16px;
+}
+
+#keyboard-state {
+    padding: 0 0px;
+    margin: 0 5px;
+    min-width: 16px;
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#privacy {
+    padding: 0;
+}
+
+#wireplumber {
+    transition: all 0.3s 0;
+}
+
+#privacy-item {
+    padding: 0 5px;
+}
