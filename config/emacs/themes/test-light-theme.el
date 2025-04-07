@@ -1,4 +1,7 @@
 (deftheme test-light
+  :family 'test
+  :kind 'color-scheme
+  :background-mode 'light
   "Created 2022-05-07.")
 
 (custom-theme-set-variables
@@ -33,9 +36,9 @@
 (custom-theme-set-faces
  'test-light
  ; General ; :background "#f9f5d7"
- '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight regular :width regular :height 110 :family "Iosevkb"))))
- '(variable-pitch ((t (:inherit default :family "Cantarell" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevkb" :weight regular))))
+ '(default ((t (:background "#f9f9ef" :foreground "#3c3836" :weight regular :width expanded :height 109 :family "Iosevka"))))
+ '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
+ '(fixed-pitch ((t (:inherit default :family "Iosevka" :weight regular))))
  '(error ((t (:foreground "#dd0006" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "RoyalBlue2" :underline t))))
  '(fringe ((t (:background "#f2efe5"))))
@@ -44,7 +47,7 @@
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#665c54" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :weight bold))))
  ;'(mode-line ((t (:box (:line-width (-1 . 6) :color "#f0ece1") :height 120 :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
- '(mode-line ((t (:height 120 :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
+ '(mode-line ((t (:box nil :foreground "#3c3836" :background "#f0ece1" :family "Fira Code"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#99938c"))))
  '(highlight ((t (:background "#83a598" :foreground "gray10"))))
  '(hl-line ((t (:background "#fffff7" :inherit nil))))
@@ -89,8 +92,8 @@
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#8f3f71"))))
  '(font-lock-number-face ((t (:weight regular :foreground "#8f3f71"))))
 
- '(font-lock-string-face ((t (:foreground "#79740e")))) ;8ec07c
- '(font-lock-comment-face ((t (:foreground "gray50" :width regular :slant italic))))
+ '(font-lock-string-face ((t (:foreground "#79740e" :slant italic)))) ;8ec07c
+ '(font-lock-comment-face ((t (:foreground "gray50" :width expanded :slant italic))))
  '(font-lock-comment-delimiter-face ((t (:inherit font-lock-comment-face :weight bold))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face :slant normal))))
 

@@ -67,8 +67,8 @@
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
   (eglot-ensure)
-  ;(company-mode 1)
-  (corfu-mode 1)
+  (company-mode 1)
+  ; (corfu-mode 1)
   (yas-minor-mode 1)
   ;(tree-sitter-hl-mode)
   ;(eglot-semtok-font-lock-init)
@@ -99,6 +99,16 @@
                 (member 'kotlin-mode (car server-program))))
            )
          eglot-server-programs))
+  (add-to-list 'eglot-server-programs
+               `((java-ts-mode java-mode) . (
+                                             "/home/mrghastien/builds/eclipse-jdtls/org.eclipse.jdt.ls.product/target/repository/bin/jdtls"
+                                             "-configuration"
+                                             ,(format "%s/.config/emacs/eclipse-jdtls/config" (getenv "HOME"))
+                                             "-data"
+                                             ,(format "%s/.config/emacs/eclipse-jdtls/data" (getenv "HOME"))
+                                             )
+                 )
+               )
   :hook ((c-mode c++-mode c-ts-mode css-mode csharp-ts-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
   ;; (eglot-connect . 'eglot-semtok-on-connected)
   )
@@ -125,6 +135,7 @@
   (setq company-idle-delay (lambda () (if (company-in-string-or-comment) nil 0)))
   (setq company-minimum-prefix-length 1)
   (setq company-global-modes nil)
+  (global-company-mode 1)
   :custom
   (company-tooltip-align-annotations t)
   (company-tooltip-margin 2)
@@ -136,8 +147,8 @@
 
 (use-package corfu
   :ensure t
-  :config
-  (global-corfu-mode 1)
+  ;; :config
+  ;; (global-corfu-mode 1)
   :custom
   (corfu-auto t)
   (corfu-auto-delay 0)
@@ -262,9 +273,6 @@
   :custom ((dired-listing-switches "-agho --group-directories-first"))
   )
 
-(use-package dired-single
-  :ensure t)
-
 (defun on-treemacs ()
   (setq line-spacing 0)
   )
@@ -309,7 +317,7 @@
 (defun on-org-mode ()
   (text-scale-increase 1)
 
-  (org-indent-mode 1)
+  ;; (org-indent-mode 1)
   (variable-pitch-mode 1)
   (visual-line-mode 1)
   )
@@ -422,7 +430,15 @@
     ;; Mode line config
     (load "~/.config/emacs/cml.el")
 
-    (load-theme 'test)
+    (load-theme 'test-dark nil t)
+    (load-theme 'test-light nil t)
+    (let* (
+	   (home (getenv "HOME"))
+	   (theme_file_path (format "%s/.config/theme_variant" home))
+	   (theme_variant (f-read-text theme_file_path))
+	   )
+      (enable-theme (intern (format "test-%s" theme_variant)))
+      )
     )
   )
 
