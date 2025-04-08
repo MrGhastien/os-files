@@ -236,6 +236,20 @@
 ;; (use-package tree-sitter-langs
 ;;   :ensure t)
 
+(use-package indent-bars
+  :ensure t
+  :custom
+  (indent-bars-color '(highlight :face-bg t :blend 0.325))
+  (indent-bars-starting-column 0)
+  (indent-bars-pattern ".")
+  (indent-bars-width-frac 0.1)
+  (indent-bars-pad-frac 0.1)
+  (indent-bars-zigzag nil)
+  (indent-bars-color-by-depth t)
+  (indent-bars-highlight-current-depth t)
+  (indent-bars-display-on-blank-lines t)
+  )
+
 ;; ==== Language server front-ends ====
 
 (use-package ccls
