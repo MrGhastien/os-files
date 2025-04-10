@@ -241,13 +241,13 @@
   :custom
   (indent-bars-color '(highlight :face-bg t :blend 0.325))
   (indent-bars-starting-column 0)
-  (indent-bars-pattern ".")
+  (indent-bars-pattern ". . ")
   (indent-bars-width-frac 0.1)
   (indent-bars-pad-frac 0.1)
   (indent-bars-zigzag nil)
-  (indent-bars-color-by-depth t)
-  (indent-bars-highlight-current-depth t)
   (indent-bars-display-on-blank-lines t)
+  (indent-bars-prefer-character t)
+  :hook ((c-mode c-ts-mode c++-mode c++-ts-mode java-mode python-mode vhdl-mode) . indent-bars-mode)
   )
 
 ;; ==== Language server front-ends ====
