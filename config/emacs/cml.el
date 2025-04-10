@@ -1,3 +1,28 @@
+;;; cml.el --- MrGhastien's Custom Mode Line (CML) -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2024 MrGhastien
+
+;; Author:  <mrghastien@pc-raclette>
+;; Keywords: frames, modeline
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; No comment.
+
+;;; Code:
 (require 'svg-lib)
 (require 'all-the-icons)
 (require 'cml-faces "~/.config/emacs/cml-faces.el")
@@ -50,7 +75,7 @@
          (space-up       +0.25)
          (space-down     -0.25)
          (buf-name (buffer-name))
-         (vim_mode (if (string-empty-p vim-mode-name) "" (cml-propertize-evil-mode vim-mode-name)))
+         (vim_mode (cml-propertize-evil-mode vim-mode-name))
          (pleft (concat
                  (propertize " " 'display `(raise ,space-up) 'face 'cml-modeline-default)
                  (propertize prefix 'face 'cml-modeline-default)
@@ -268,20 +293,20 @@ PROPS is a plist, used by svg-lib to create the icon."
   )
 
 (defun cml-propertize-evil-mode (evil-mode-name)
-  (propertize
-   (concat " " evil-mode-name " ")
-   'face
-   `(
-     ;; :box
-     ;; (:line-width
-     ;;  (2 . -1)
-     ;;     :color ,(cml-bg-color cml-evil-mode-bg)
-     ;;     :style "flat-button"
-     ;;     )
-     :inherit cml-modeline-primary
-     :background ,(cml-bg-color cml-evil-mode-bg)
-	 :foreground ,(cml-fg-color cml-evil-mode-fg)
-     )
+  (cond
+   ((string-empty-p evil-mode-name) "")
+   ((string= (string-trim evil-mode-name) "--") (propertize
+       (concat " " evil-mode-name " ")
+       'face 'cml-modeline-primary
+       ))
+   (t (propertize
+       (concat " " evil-mode-name " ")
+       'face
+       `(:inherit cml-modeline-primary
+                  :background ,(cml-bg-color cml-evil-mode-bg)
+	              :foreground ,(cml-fg-color cml-evil-mode-fg)
+                  )
+       ))
    )
   )
 
@@ -319,7 +344,7 @@ PROPS is a plist, used by svg-lib to create the icon."
 
 (defun cml-default ()
   (cml-propertize
-   (if buffer-read-only "" cml-evil-mode-str)
+   cml-evil-mode-str
    (cml-get-buf-icon)
    (buffer-name)
    (concat " [" cml-major-mode-txt "] " )
@@ -332,14 +357,29 @@ PROPS is a plist, used by svg-lib to create the icon."
   ;; calculating the padding length, the padding is incorrect by 1...
 )
 
+(defun cml-readonly ()
+  (cml-propertize
+   " --"
+   (cml-get-buf-icon)
+   (buffer-name)
+   (concat " [" cml-major-mode-txt "] " )
+   (concat (cml-buffer-position) " ")
+   )
+  )
+
+(defun cml-select-format ()
+  (cond
+   (buffer-read-only (cml-readonly))
+   (t (cml-default))
+   )
+  )
+
 (defun cml-set-modeline-format ()
   (message "Setting mode line format.")
   (cml-on-theme-change)
   (setq-default mode-line-format
         '((:eval
-           (cond
-            (t (cml-default))
-            )
+           (cml-select-format)
            ))
         )
   ;; (setq mode-line-format
@@ -364,3 +404,4 @@ PROPS is a plist, used by svg-lib to create the icon."
 (cml-set-modeline-format)
 
 (provide 'cml)
+;;; cml.el ends here
