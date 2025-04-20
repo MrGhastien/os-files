@@ -62,7 +62,7 @@
             )
            )
  '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
- '(fixed-pitch ((t (:inherit default :family "Iosevka"))))
+ '(fixed-pitch ((t (:inherit default :family "Roboto Mono"))))
  '(error ((t (:foreground "red" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "aquamarine" :underline t))))
  '(fringe ((t (:background "#3c3836"))))
@@ -74,7 +74,7 @@
                             )
  '(line-number-major-tick ((t (:inherit (line-number) :foreground "#bdae93" :weight bold))))
  '(line-number-minor-tick ((t (:inherit (line-number) :foreground "#928374" :weight bold))))
- '(mode-line ((t (:box nil :foreground "#fbf1c7" :background "#303030" :family "Fira Code"))))
+ '(mode-line ((t (:height 110 :foreground "#fbf1c7" :background "#303030" :family "Roboto Mono"))))
  '(mode-line-inactive ((t (:inherit mode-line :foreground "#928374"))))
  ;'(mode-line-inactive ((t (:inherit mode-line :box ( :line-width (-1 . 6) :color "#333") :foreground "gray30" :background "#282828"))))
  '(highlight (
@@ -87,7 +87,7 @@
             (((type tty) (min-colors 8)) (:background "cyan" :foreground "black" :inherit nil))
             )
            )
- '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold))))
+ '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold :family "Iosevka"))))
  '(region (
            (((min-colors 256)) (:background "#4a4742" :extend t))
            (((type tty) (min-colors 8)) (:background "blue" :foreground "white"))
@@ -100,6 +100,22 @@
            (((type tty)) (:inherit font-lock-comment-face))
            )
           )
+
+ '(cml-modeline-default (
+                        (t . (:inherit mode-line))
+                        ))
+
+ '(cml-modeline-primary (
+                        (t . (:inherit mode-line
+                              :weight bold
+                                       ))
+                        ))
+ '(cml-modeline-secondary (
+                        (t . (:inherit mode-line
+                              :slant italic
+                              :foreground "#928374"
+                                       ))
+                        ))
 
  ; Dired
  '(ff-dired ((t (:inherit default :weight regular))))
@@ -182,7 +198,7 @@
  '(org-level-2 ((t (:foreground "#fe8019" :weight bold))))
  '(org-level-3 ((t (:foreground "#b8bb26" :weight normal))))
  '(org-hide ((t (:foreground "#282828"))))
- '(org-block ((t (:inherit fixed-pitch :foreground nil :background "#1d2021" :extend t)))) ;171919
+ '(org-block ((t (:inherit fixed-pitch :foreground unspecified :background "#1d2021" :extend t)))) ;171919
  '(org-code ((t (:inherit (fixed-pitch) :background "#1d2021"))))
  '(org-verbatim ((t (:inherit (fixed-pitch)))))
  '(org-checkbox ((t (:inherit fixed-pitch :foreground "#689d6a" :weight bold))))
@@ -193,7 +209,7 @@
  '(org-todo ((t (:weight extrabold :foreground "#fabd2f"))))
  '(org-done ((t (:weight extrabold :foreground "#6eeb42"))))
  '(org-headline-done ((t (:foreground "#a89984"))))
- '(org-date ((t (:inherit (link org-special-keyword) :underline nil :foreground nil :height unspecified))))
+ '(org-date ((t (:inherit (link org-special-keyword) :underline unspecified :foreground unspecified :height unspecified))))
  '(org-agenda-date ((t (:foreground "#fbf1c0" :family "Cantarell"))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :underline t))))
  '(org-agenda-structure ((t (:family "Cantarell" :height 160 :weight ultrabold :foreground "#fb4934"))))
