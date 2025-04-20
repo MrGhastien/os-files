@@ -1,6 +1,6 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Iosevka Extended", Inter, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: "RobotoMono", "Iosevka Extended", Inter, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 500;
 }
