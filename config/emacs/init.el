@@ -8,6 +8,7 @@
 (load "~/.config/emacs/chighlight.el")
 (load custom-file)
 
+;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 
 ;(setq inhibit-startup-message t)
 (tool-bar-mode -1)
@@ -26,13 +27,14 @@
 
 (setq backup-directory-alist '(("." . "~/emacs-backups")))
 
-(setq lsp-java-completion-overwrite nil)
-
 (setq native-comp-async-report-warnings-errors 'silent)
+(add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
+(add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
 
 ;; Keybindings
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(global-set-key (kbd "M-D") 'compile)
+(global-set-key (kbd "M-D c") 'compile)
+(global-set-key (kbd "M-D r") 'recompile)
 (global-set-key (kbd "C-M-y") 'load-theme)
 
 (require 'ansi-color)
@@ -46,6 +48,16 @@
   (display-line-numbers-mode -1)
   (hl-line-mode -1)
   )
+
+(defun find-file-no-ivy ()
+  (interactive)
+  (let ((ivy-state ivy-mode))
+    (ivy-mode -1)
+    (call-interactively 'find-file)
+    (ivy-mode ivy-state))
+  )
+
+(global-set-key (kbd "C-x F") 'find-file-no-ivy) ; steals key from set-fill-column
 
 (dolist (mode '(treemacs-mode-hook
                 org-mode-hook

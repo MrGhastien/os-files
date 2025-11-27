@@ -37,6 +37,10 @@
 ;;                             Programming related                            ;;
 ;; ========================================================================== ;;
 
+(use-package origami
+  :hook ((c-mode c++-mode elisp-mode) . origami-mode)
+  )
+
 (defun launch-completion ()
   ;; (if (display-graphic-p)
   ;;     (corfu-mode 1)
@@ -44,42 +48,41 @@
   ;; )
   )
 
-(defun launch-lsp ()
-  (lsp)
-  (launch-completion)
-  (yas-minor-mode 1)
-  (tree-sitter-hl-mode)
-  )
+;; (defun launch-lsp ()
+;;   (lsp)
+;;   (launch-completion)
+;;   (yas-minor-mode 1)
+;;   )
 
   
-(use-package lsp-mode
-  :init (setq lsp-keymap-prefix "s-m")
-  :commands lsp
-  :config
-  (setq lsp-eldoc-render-all t)
-  (setq lsp-lens-enable nil)
-  (lsp-enable-which-key-integration t)
-  ;:hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-lsp)
-  :ensure t)
+;; (use-package lsp-mode
+;;   :init (setq lsp-keymap-prefix "s-m")
+;;   :commands lsp
+;;   :config
+;;   (setq lsp-eldoc-render-all t)
+;;   (setq lsp-lens-enable nil)
+;;   (lsp-enable-which-key-integration t)
+;;   ;:hook ((css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-lsp)
+;;   :ensure t)
 
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
   (eglot-ensure)
   (launch-completion)
   (yas-minor-mode 1)
-  (tree-sitter-hl-mode)
   )
 
 (use-package eglot
-  :ensure t
+  :defer t
   :config
   (evil-define-key 'normal eglot-mode-map
     (kbd "SPC f") 'eglot-format
     (kbd "SPC r") 'eglot-rename
     (kbd "SPC a") 'eglot-code-actions
+    (kbd "SPC n") 'flymake-goto-next-error
     )
 
-  :config
+  :config  
   (setq eglot-server-programs
         (cl-substitute-if
          (cons
@@ -93,15 +96,26 @@
            )
          eglot-server-programs))
 
+  (add-to-list 'eglot-server-programs `(typst-ts-mode . ("tinymist")))
   (add-to-list 'eglot-server-programs
-               `((java-ts-mode java-mode) . ,((format "%s/.builds/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/jdtls" (getenv "HOME"))
+               `((java-ts-mode java-mode) . ,(,(format "%s/.builds/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/jdtls" (getenv "HOME"))
                                              "-configuration"
                                              ,(format "%s/.config/emacs.eclipse-jdtls/config" (getenv "HOME"))
                                              "-data"
                                              ,(format "%s/.config/emacs.eclipse-jdtls/data" (getenv "HOME"))
                                              )))
 
-  :hook ((css-mode csharp-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+  :hook ((c-mode c-ts-mode c++-mode css-mode csharp-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode typst-ts-mode python-ts-mode) . launch-eglot)
+  )
+
+(use-package c-ts-mode
+  :ensure nil
+  :custom
+  (c-ts-mode-indent-offset 4)
+  )
+
+(use-package treesit
+  :custom (treesit-font-lock-level 4)
   )
 
 (use-package eglot-java
@@ -109,7 +123,7 @@
   )
 
 (use-package company
-  :ensure t
+  :defer t
   :bind (
          ("C-SPC" . company-complete)
           :map company-active-map
@@ -132,14 +146,15 @@
 (use-package compat
   :ensure t)
 
-(use-package corfu
-  :ensure t
-  :config
-  (setq corfu-auto t)
-  (setq corfu-auto-delay 0)
-  )
+;; (use-package corfu
+;;   :ensure t
+;;   :config
+;;   (setq corfu-auto t)
+;;   (setq corfu-auto-delay 0)
+;;   )
 
 (use-package autoinsert
+  :defer t
   :config
   (setq auto-insert-query nil)
   (auto-insert-mode 1)
@@ -160,8 +175,13 @@
   )
 
 (use-package emmet-mode
-  :ensure t
+  :defer t
   :hook ((mhtml-mode css-mode) . emmet-mode)
+  )
+
+(use-package typst-ts-mode
+  :defer t
+  :mode ("\\.type\\'" . typst-ts-mode)
   )
 
 ;; ==== Web Developpement ====
@@ -172,7 +192,7 @@
   )
 
 (use-package web-mode
-  :ensure t
+  :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
@@ -182,7 +202,7 @@
   )
 
 (use-package js2-mode
-  :ensure t
+  :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   )
@@ -195,7 +215,6 @@
   )
 
 (use-package tuareg
-  :ensure t
   :hook (tuareg-mode . on-ocaml-mode)
   :hook (caml-mode . tuareg-mode)
   :config
@@ -203,38 +222,32 @@
   )
 
 (use-package merlin
-  :ensure t
+  :defer t
   )
 
 ;; ==== Style & UI ====
 
-(use-package company-box
-  :ensure t
-  :hook (company-mode . company-box-mode)
-  :custom
-  (company-box-frame-behavior 'point)
-  )
+;; (use-package company-box
+;;   :ensure t
+;;   :hook (company-mode . company-box-mode)
+;;   :custom
+;;   (company-box-frame-behavior 'point)
+;;   )
 
-(use-package lsp-ui
-  :ensure t
-  :custom
-  (lsp-ui-doc-header t)
-  (lsp-ui-doc-position 'at-point)
-  (lsp-ui-doc-show-cursor t)
-  (lsp-ui-doc-include-signature t)
-  )
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :custom
+;;   (lsp-ui-doc-header t)
+;;   (lsp-ui-doc-position 'at-point)
+;;   (lsp-ui-doc-show-cursor t)
+;;   (lsp-ui-doc-include-signature t)
+;;   )
 
 (use-package ligature
   :ensure t
   :config
-  (ligature-set-ligatures '(c-mode c++-mode java-mode python-mode) '("->" "<-" "<=" ">=" "==" "!="))
+  (ligature-set-ligatures '(c-mode c++-mode java-mode python-mode org-agenda-mode) '("->" "<-" "<=" ">=" "==" "!=" "--"))
   )
-
-;; (use-package tree-sitter
-;;   :ensure t)
-
-;; (use-package tree-sitter-langs
-;;   :ensure t)
 
 (use-package indent-bars
   :ensure t
@@ -252,14 +265,14 @@
 
 ;; ==== Language server front-ends ====
 
-(use-package ccls
-  :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-eglot)))
-  :ensure t
-  )
+;; (use-package ccls
+;;   :hook ((c-mode c++-mode) . (lambda () (require 'ccls) (launch-eglot)))
+;;   :ensure t
+;;   )
 
-(use-package lsp-java
-  :ensure t
-  )
+;; (use-package lsp-java
+;;   :ensure t
+;;   )
 
 ;; ========================================================================== ;;
 ;;                                File managers                               ;;
@@ -274,16 +287,18 @@
 (use-package dired-single
   :ensure t)
 
-(defun on-treemacs ()
-  (setq line-spacing 0)
+;; (defun on-treemacs ()
+;;   (setq line-spacing 0)
+;;   )
+
+;; (use-package treemacs
+;;   :ensure t
+;;   :hook (treemacs-mode . on-treemacs)
+;;   )
+
+(use-package vhdl-mode
+  :hook (vhdl-mode . (lambda () vhdl-stutter-mode vhdl-electric-mode))
   )
-
-(use-package treemacs
-  :ensure t
-  :hook (treemacs-mode . on-treemacs)
-  )
-
-
 
 ;; ========================================================================== ;;
 ;;                             Navigation & Search                            ;;
@@ -315,6 +330,21 @@
 ;;                               Org Mode & co.                               ;;
 ;; ========================================================================== ;;
 
+(use-package calendar
+  :ensure nil
+  :defer t
+  :config
+  (setq calendar-week-start-day 1
+        calendar-day-name-array ["Dimanche" "Lundi" "Mardi" "Mercredi"
+                                 "Jeudi" "Vendredi" "Samedi"]
+        calendar-month-name-array ["Janvier" "Février" "Mars" "Avril" "Mai"
+                                   "Juin" "Juillet" "Août" "Septembre"
+                                   "Octobre" "Novembre" "Décembre"])
+  )
+
+(require 'french-holidays "~/.config/emacs/french-holidays.el")
+(setq calendar-holidays holiday-french-holidays)
+
 (defun on-org-mode ()
   (text-scale-increase 1)
 
@@ -324,7 +354,7 @@
   )
 
 
-(load-file "~/epita/ing1/lessons/publication.el")
+(load-file "~/epita/lessons/publication.el")
 (use-package org
   :ensure t
   :hook (org-mode . on-org-mode)
@@ -338,8 +368,35 @@
   (plist-put org-format-latex-options :scale 1.5)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
+  (setq org-agenda-files '("~/agenda/"))
+  (setq org-agenda-block-separator 8411
+        org-priority-faces
+        '((?A :foreground "#ff4934" :weight bold)
+          (?B :foreground "#fe8019" :weight bold)
+          (?C :foreground "#b8bb26" :weight bold)
+          )
+        )
+  (setq org-src-preserve-indentation t)
+  (setq org-edit-src-content-indentation 0)
+  (setq-default org-display-custom-times t)
+  (setq org-time-stamp-custom-formats '("<%a %e %b %Y>" . "<%a %e %b %Y %H:%M>"))
+
   (epipub-setup)
 )
+
+(use-package org-modern
+  :after org
+  :config
+  (global-org-modern-mode 1)
+  (setq org-time-stamp-custom-formats '("<%a %b %e %Y>" . "<%a %b %e %Y %H:%M>"))
+  (setq org-modern-timestamp '("  %a %e %b %Y  " . "  %H:%M  "))
+  )
+
+(use-package htmlize
+  :ensure t
+  :config
+  (setq org-html-htmlize-output-type 'css)
+  )
   
 
 (defun org-mode-visual-fill ()
@@ -353,14 +410,58 @@
   :hook (org-mode . org-mode-visual-fill))
 ;; specify the justification you want
 
+(use-package org-super-agenda 
+  :ensure t
+  :config
+  (setq org-super-agenda-groups
+        '(;; Each group has an implicit boolean OR operator between its selectors.
 
+          ;; This is the first filter, anything found here
+          ;; will be placed in this group
+          ;; even if it matches following groups
+          (:name " En retard" ; Name
+                 :scheduled past ; Filter criteria
+                 :order 2 ; Order it should appear in agenda view
+                 :face 'error) ; Font face used for text
 
+          ;; This is the second filter, anything not found
+          ;; from the first filter, but found here,
+          ;; will be placed in this group
+          ;; even if it matches following groups
+          (:name "personnel" ; Name
+                 :file-path "personal" ; Filter criteria
+                 :order 3 ; Order it should appear in the agenda view
+                 :face 'error) ; Font faced used for text
+
+          (:name "EPITA"  ; Name
+                 :file-path "epita" ; Filter criteria
+                 :order 3 ; Order it should appear in the agenda view
+                 :face 'error) ; Font face used for text
+
+          (:name "JECT"  ; Name
+                 :file-path "ject" ; Filter criteria
+                 :order 3 ; Order it should appear in the agenda view
+                 :face 'error) ; Font face used for text
+
+          (:name " Today "  ; Optionally specify section name
+                 :time-grid t ; Use the time grid
+                 :date today ; Filter criteria
+                 :scheduled today ; Another filter criteria
+                 :order 1 ; Order it should appear in the agenda view
+                 :face 'warning) ; Font face used for text
+          )
+        )
+  )
+
+(use-package org-modern
+  :after 'org
+  :hook (org-mode . org-modern-mode)
+  )
 
 ;; ========================================================================== ;;
 ;;                                    Icons                                   ;;
 ;; ========================================================================== ;;
   
-
 (use-package svg-lib
   :ensure t)
 
@@ -374,31 +475,35 @@
   :ensure auctex)
 
 (use-package pdf-tools
-  :ensure t)
+  :defer t)
 
 (use-package dashboard
   :ensure t
   :config
-  (dashboard-setup-startup-hook)
   (setq dashboard-center-content t)
   (setq dashboard-vertically-center-content nil)
   (setq dashboard-icon-type 'all-the-icons)
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-set-navigator t)
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
+  (setq dashboard-set-heading-icons nil)
+  (setq dashboard-set-file-icons nil)
   ;; (dashboard-modify-heading-icons '((recents   . "file-text")
   ;;                                 (bookmarks . "book")))
+  (setq dashboard-item-names '(("Recent Files:"               . "Fichiers récents")
+                               ("Bookmarks:" . "Marque-pages")
+                               ("Agenda for the coming week:" . "Agenda")))
+
+  (dashboard-setup-startup-hook)
   )
 
-(use-package pixel-scroll
-  :config
-  (setq pixel-scroll-precision-interpolate-mice nil)
-  (setq pixel-scroll-precision-interpolate-page t)
-  (setq pixel-scroll-precision-use-momentum nil)
-  (pixel-scroll-precision-mode -1)
-  )
+;; (use-package pixel-scroll
+;;   :config
+;;   (setq pixel-scroll-precision-interpolate-mice nil)
+;;   (setq pixel-scroll-precision-interpolate-page t)
+;;   (setq pixel-scroll-precision-use-momentum nil)
+;;   (pixel-scroll-precision-mode -1)
+;;   )
 
 (use-package ultra-scroll
   ;:load-path "~/code/emacs/ultra-scroll" ; if you git clone'd instead of using vc
@@ -409,10 +514,11 @@
   :config
   (ultra-scroll-mode 1))
 
-(use-package org-bullets
-  :after org
-  :hook (org-mode . org-bullets-mode)
-  :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+;; replaced by org-modern
+;; (use-package org-bullets
+;;   :after org
+;;   :hook (org-mode . org-bullets-mode)
+;;   :custom (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 
 (use-package all-the-icons
@@ -428,11 +534,11 @@
   :ensure t)
 
 
-(use-package treemacs-all-the-icons
-  :ensure t
-  :config
-  (treemacs-load-theme "all-the-icons")
-  )
+;; (use-package treemacs-all-the-icons
+;;   :ensure t
+;;   :config
+;;   (treemacs-load-theme "all-the-icons")
+;;   )
 
 (defun on-make-frame ()
   (when (= (length (frames-on-display-list)) 1)

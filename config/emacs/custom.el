@@ -3,13 +3,26 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auth-source-save-behavior nil)
  '(custom-safe-themes
-   '("96a993f00d46060fd5b321b9fd9c81d961270daa91f45006d59269d26ec1978e" "05b6f7f8bf2bba4c121123b6b7e414795316c23a960830640ea5b08ad671c235" default))
+   '("0b291218614f0b5f86c5319a9594d76cfa5631f46f968bb7959d415f1de39275"
+     "f3b4a14f799895cea9a9891f955535dc56f25fca28eaac51b70a2f1d621e9964"
+     "6a1d4062edcdfd31f498112a8a2fd12bb9ae188cc1f346bf7bfcc378f195d7f7"
+     default))
  '(package-selected-packages
-   '(realgud-jdb magit cypher-mode ultra-scroll eglot-java phps-mode svelte-mode typescript-mode yaml-mode tree-sitter-langs tree-sitter android-mode kotlin-ts-mode realgud kotlin-mode eglot tuareg merlin ada-ts-mode d-mode bison-mode dockerfile-mode eshell-vterm haskell-mode corfu org-bullets treemacs-all-the-icons all-the-icons counsel ivy-rich ivy dired-single lsp-java yasnippet which-key web-mode treemacs lsp-ui lsp-docker ligature js2-mode general evil emmet-mode company-box ccls))
- '(package-vc-selected-packages
-   '((ultra-scroll :vc-backend Git :url "https://github.com/jdtsmith/ultra-scroll"))))
+   '(ada-mode ada-ts-mode android-mode auctex bison-mode calfw
+              company-box company-coq corfu counsel cuda-mode
+              cypher-mode d-mode dashboard dired-single
+              dockerfile-mode dts-mode eglot-java emmet-mode
+              eshell-vterm evil general glsl-mode haskell-mode
+              highlight-indent-guides highlight-indentation
+              hl-block-mode hl-indent-scope htmlize indent-bars
+              indent-guide ivy-rich js2-mode kotlin-mode
+              kotlin-ts-mode ligature magit merlin org-bullets
+              org-gcal org-modern org-super-agenda origami pdf-tools
+              phps-mode proof-general realgud-jdb rust-mode
+              svelte-mode svg-lib tuareg typescript-mode typst-ts-mode
+              ultra-scroll visual-fill-column web-mode which-key
+              yaml-mode yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
