@@ -1,4 +1,4 @@
-;; ========================================================================== ;;
+
 ;;                                 THE PACKAGE                                ;;
 ;; ========================================================================== ;;
 
@@ -10,6 +10,9 @@
   (package-install 'use-package)
   )
 
+(use-package f
+	     :ensure t
+	   )
 
 
 ;; ========================================================================== ;;
@@ -37,32 +40,32 @@
 ;;                             Programming related                            ;;
 ;; ========================================================================== ;;
 
-(defun launch-lsp ()
-  (lsp)
-  ; (corfu-mode 1)
-  (yas-minor-mode 1)
-  ;; (tree-sitter-hl-mode)
-  ; (lsp-semantic-tokens-mode 1)
-  (company-mode -1)
-  )
+;; (defun launch-lsp ()
+;;   (lsp)
+;;   ; (corfu-mode 1)
+;;   (yas-minor-mode 1)
+;;   ;; (tree-sitter-hl-mode)
+;;   ; (lsp-semantic-tokens-mode 1)
+;;   (company-mode -1)
+;;   )
 
-  
-(use-package lsp-mode
-  :init (setq lsp-keymap-prefix "C-[")
-  (setq lsp-clients-clangd-args (list "--header-insertion-decorators=0" "--clang-tidy" "--enable-config" "--log=verbose"))
-  ;(setq lsp-clients-clangd-executable t)
-  (setq lsp-clangd-binary-path "/usr/lib/llvm/18/bin/clangd")
-  :commands lsp
-  :config
-  (setq lsp-eldoc-render-all t)
-  (setq lsp-lens-enable nil)
-  (lsp-enable-which-key-integration t)
-  (setq lsp-completion-provider :none)
-  (setq lsp-semantic-tokens-enable t)
-  (setq lsp-semantic-tokens-warn-on-missing-face t)
-  (setq lsp-completion-default-behaviour :insert)
-  ;; :hook ((c-mode css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-lsp)
-  :ensure t)
+
+;; (use-package lsp-mode
+;;   :init (setq lsp-keymap-prefix "C-[")
+;;   (setq lsp-clients-clangd-args (list "--header-insertion-decorators=0" "--clang-tidy" "--enable-config" "--log=verbose"))
+;;   ;(setq lsp-clients-clangd-executable t)
+;;   (setq lsp-clangd-binary-path "/usr/lib/llvm/18/bin/clangd")
+;;   :commands lsp
+;;   :config
+;;   (setq lsp-eldoc-render-all t)
+;;   (setq lsp-lens-enable nil)
+;;   (lsp-enable-which-key-integration t)
+;;   (setq lsp-completion-provider :none)
+;;   (setq lsp-semantic-tokens-enable t)
+;;   (setq lsp-semantic-tokens-warn-on-missing-face t)
+;;   (setq lsp-completion-default-behaviour :insert)
+;;   ;; :hook ((c-mode css-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-lsp)
+;;   :ensure t)
 
 (defun launch-eglot ()
   "Start Eglot along with other useful minor modes."
@@ -84,6 +87,12 @@
     (kbd "SPC r") 'eglot-rename
     (kbd "SPC a") 'eglot-code-actions
     )
+  (evil-define-key 'normal flymake-mode-map
+    (kbd "SPC n") 'flymake-goto-next-error
+    (kbd "SPC p") 'flymake-goto-prev-error
+    )
+  :custom
+  (eglot-report-progress nil)
 
 
   :config
@@ -99,6 +108,7 @@
                 (member 'kotlin-mode (car server-program))))
            )
          eglot-server-programs))
+  (add-to-list 'eglot-server-programs '((typst-ts-mode) . ("tinymist")))
   (add-to-list 'eglot-server-programs
                `((java-ts-mode java-mode) . (
                                              "/home/mrghastien/builds/eclipse-jdtls/org.eclipse.jdt.ls.product/target/repository/bin/jdtls"
@@ -109,9 +119,24 @@
                                              )
                  )
                )
-  :hook ((c-mode c++-mode c-ts-mode css-mode csharp-ts-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode) . launch-eglot)
+  :hook ((c-mode c++-mode c-ts-mode css-mode csharp-ts-mode web-mode java-mode js2-mode mhtml-mode rust-mode python-mode LaTeX-mode typst-ts-mode python-ts-mode) . launch-eglot)
   ;; (eglot-connect . 'eglot-semtok-on-connected)
   )
+
+(use-package typst-ts-mode
+  :mode "\\.typ\\'"
+  )
+
+(use-package websocket :ensure t)
+(use-package typst-preview
+  :ensure nil
+  :after websocket
+  :after typst-ts-mode
+  :load-path "~/.config/emacs/manual-packages"
+  :custom
+  (typst-preview-invert-colors "never")
+  )
+
 
 (use-package treesit
   :config
@@ -173,11 +198,11 @@
   )
 
 (use-package yasnippet
-  :ensure t
+  :defer t
   )
 
 (use-package emmet-mode
-  :ensure t
+  :defer t
   :hook ((mhtml-mode css-mode) . emmet-mode)
   )
 
@@ -189,7 +214,7 @@
   )
 
 (use-package web-mode
-  :ensure t
+  :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
@@ -199,7 +224,7 @@
   )
 
 (use-package js2-mode
-  :ensure t
+  :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   )
@@ -212,7 +237,7 @@
   )
 
 (use-package tuareg
-  :ensure t
+  :defer t
   :hook (tuareg-mode . on-ocaml-mode)
   :hook (caml-mode . tuareg-mode)
   :config
@@ -220,31 +245,31 @@
   )
 
 (use-package merlin
-  :ensure t
+  :defer t
   )
 
 ;; ==== Style & UI ====
 
-(use-package company-box
-  :ensure t
-  ; :hook (company-mode . company-box-mode)
-  :custom
-  (company-box-frame-behavior 'point)
-  )
+;; (use-package company-box
+;;   :ensure t
+;;   ; :hook (company-mode . company-box-mode)
+;;   :custom
+;;   (company-box-frame-behavior 'point)
+;;   )
 
-(use-package lsp-ui
-  :ensure t
-  :custom
-  (lsp-ui-doc-header t)
-  (lsp-ui-doc-position 'at-point)
-  (lsp-ui-doc-show-cursor t)
-  (lsp-ui-doc-include-signature t)
-  )
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :custom
+;;   (lsp-ui-doc-header t)
+;;   (lsp-ui-doc-position 'at-point)
+;;   (lsp-ui-doc-show-cursor t)
+;;   (lsp-ui-doc-include-signature t)
+;;   )
 
 (use-package ligature
-  :ensure t
+  :defer t
   :config
-  (ligature-set-ligatures '(c-mode c++-mode java-mode python-mode) '("->" "<-" "<=" ">=" "==" "!="))
+  (ligature-set-ligatures '(c-mode c++-mode java-mode python-mode ada-mode) '("->" "<-" "<=" ">=" "==" "!="))
   )
 
 (use-package indent-bars
@@ -263,13 +288,13 @@
 
 ;; ==== Language server front-ends ====
 
-(use-package ccls
-  :ensure t
-  )
+;; (use-package ccls
+;;   :ensure t
+;;   )
 
-(use-package lsp-java
-  :ensure t
-  )
+;; (use-package lsp-java
+;;   :ensure t
+;;   )
 
 ;; ========================================================================== ;;
 ;;                                File managers                               ;;
@@ -281,14 +306,14 @@
   :custom ((dired-listing-switches "-agho --group-directories-first"))
   )
 
-(defun on-treemacs ()
-  (setq line-spacing 0)
-  )
+;; (defun on-treemacs ()
+;;   (setq line-spacing 0)
+;;   )
 
-(use-package treemacs
-  :ensure t
-  :hook (treemacs-mode . on-treemacs)
-  )
+;; (use-package treemacs
+;;   :ensure t
+;;   :hook (treemacs-mode . on-treemacs)
+;;   )
 
 
 
@@ -345,7 +370,15 @@
   (plist-put org-format-latex-options :scale 1.5)
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
   (setq org-preview-latex-default-process 'imagemagick)
-  ;(setq org-agenda-files "/home/mrghastien/agenda/agendas.txt")
+  (setq org-agenda-files '("~/agenda/"))
+  (setq org-agenda-block-separator 8411
+        org-priority-faces
+        '((?A :foreground "#ff4934" :weight bold)
+          (?B :foreground "#fe8019" :weight bold)
+          (?C :foreground "#b8bb26" :weight bold)
+          )
+        )
+  (setq org-latex-pdf-process '("latexmk -f -pdf -%latex -interaction=nonstopmode -output-directory=%o %f"))
   ;(epipub-setup)
 )
   
@@ -427,11 +460,11 @@
   :ensure t)
 
 
-(use-package treemacs-all-the-icons
-  :ensure t
-  :config
-  (treemacs-load-theme "all-the-icons")
-  )
+;; (use-package treemacs-all-the-icons
+;;   :ensure t
+;;   :config
+;;   (treemacs-load-theme "all-the-icons")
+;;   )
 
 (defun on-make-frame ()
   (when (= (length (frames-on-display-list)) 1)

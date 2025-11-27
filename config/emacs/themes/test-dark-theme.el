@@ -57,7 +57,7 @@
  'test-dark
  ; General ; :background "#1d2021" :foreground "#fbf1c0"
  '(default (
-            (((min-colors 256)) . (:background "#282828" :foreground "#ebdbb2" :weight regular :width expanded :height 109 :family "Iosevka"))
+            (((min-colors 256)) . (:background "#282828" :foreground "#ebdbb2" :weight regular :width expanded :height 110 :family "Iosevka"))
             (((type tty) (min-colors 8)) . (:background "black" :foreground "white"))
             )
            )
@@ -87,7 +87,7 @@
             (((type tty) (min-colors 8)) (:background "cyan" :foreground "black" :inherit nil))
             )
            )
- '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold :family "Iosevka"))))
+ '(minibuffer-prompt ((t (:foreground "#b8bb26" :weight bold :family "Roboto Mono"))))
  '(region (
            (((min-colors 256)) (:background "#4a4742" :extend t))
            (((type tty) (min-colors 8)) (:background "blue" :foreground "white"))
@@ -126,7 +126,7 @@
  '(dired-broken-symlink ((t (:foreground "turquoise" :strike-through t :inherit ff-dired))))
 
  ; Treemacs
- '(ff-treemacs ((t (:family "Iosevka" :weight medium))))
+ '(ff-treemacs ((t (:family "Iosevka Custom" :weight medium))))
  '(treemacs-directory-face ((t (:inherit ff-treemacs))))
  '(treemacs-file-face ((t (:inherit ff-treemacs))))
  '(treemacs-git-ignored-face ((t (:inherit (treemacs-file-face font-lock-comment-face)))))
@@ -151,7 +151,7 @@
                                 )
  '(font-lock-keyword-face ((t (:foreground "#fb4934"))))
  '(font-lock-type-face (
-                        (((min-colors 256)) (:foreground "#fabd2f"))
+                        (((min-colors 256)) (:foreground "#fabd2f" :weight bold))
                         (((type tty) (min-colors 8)) (:foreground "yellow" :weight bold))
                         )
                        )
@@ -160,18 +160,24 @@
                                  (((type tty) (min-colors 8)) (:foreground "cyan"))
                                  )
                                 )
+ '(font-lock-property-name-face ((t (:inherit font-lock-variable-name-face :slant italic))))
  '(font-lock-string-face (
                           (((min-colors 256)) (:foreground "#b8bb26" :slant italic))
                           (((type tty) (min-colors 256)) (:foreground "green" :weight bold))
                           )
                          ) ;8ec07c
  '(font-lock-constant-face ((t (:inherit font-lock-variable-name-face :weight semi-bold :foreground "#d3869b"))))
+ '(font-lock-number-face ((t (:inherit font-lock-constant-face))))
  '(font-lock-comment-face ((t (:foreground "gray50" :width expanded :slant italic))))
  '(font-lock-negation-char-face ((t (:weight normal :inherit font-lock-keyword-face))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face))))
+ '(font-lock-punctuation-face ((t (:inherit font-lock-builtin-face))))
+ '(font-lock-operator-face ((t (:inherit font-lock-builtin-face))))
+ '(font-lock-preprocessor-face ((t (:foreground "#8ec07c"))))
  '(ccls-sem-member-face ((t (:slant normal :foreground "#83a598"))))
  '(ccls-sem-static-face ((t (:weight bold))))
  '(chl-number-face ((t (:weight normal :foreground "#d3869b"))))
+ '(eglot-highlight-symbol-face ((t (:inverse-video t))))
 
  '(lsp-ui-doc-background ((t (:background "#32302f"))))
  '(lsp-ui-doc-header ((t (:background "#fb4934" :foreground "#282828"))))
@@ -198,7 +204,7 @@
  '(org-level-2 ((t (:foreground "#fe8019" :weight bold))))
  '(org-level-3 ((t (:foreground "#b8bb26" :weight normal))))
  '(org-hide ((t (:foreground "#282828"))))
- '(org-block ((t (:inherit fixed-pitch :foreground unspecified :background "#1d2021" :extend t)))) ;171919
+ '(org-block ((t (:inherit fixed-pitch :foreground nil :background "#1d2021" :extend t)))) ;171919
  '(org-code ((t (:inherit (fixed-pitch) :background "#1d2021"))))
  '(org-verbatim ((t (:inherit (fixed-pitch)))))
  '(org-checkbox ((t (:inherit fixed-pitch :foreground "#689d6a" :weight bold))))
@@ -209,11 +215,13 @@
  '(org-todo ((t (:weight extrabold :foreground "#fabd2f"))))
  '(org-done ((t (:weight extrabold :foreground "#6eeb42"))))
  '(org-headline-done ((t (:foreground "#a89984"))))
- '(org-date ((t (:inherit (link org-special-keyword) :underline unspecified :foreground unspecified :height unspecified))))
+ '(org-date ((t (:inherit (link org-special-keyword) :underline nil :foreground nil :height unspecified))))
  '(org-agenda-date ((t (:foreground "#fbf1c0" :family "Cantarell"))))
  '(org-agenda-date-today ((t (:inherit org-agenda-date :underline t))))
  '(org-agenda-structure ((t (:family "Cantarell" :height 160 :weight ultrabold :foreground "#fb4934"))))
  '(org-agenda-done ((t (:foreground "#96eb42"))))
+ '(org-upcoming-deadline ((t (:inherit fixed-pitch :slant italic :foreground "#d65d0e"))))
+ '(org-upcoming-distant-deadline ((t (:inherit org-upcoming-deadline :slant normal :foreground "#3c3836"))))
  '(org-time-grid ((t (:foreground "#7c6f64"))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :weight extrabold))))
  '(org-link ((t (:foreground "aquamarine" :underline t))))

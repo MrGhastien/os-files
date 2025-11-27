@@ -7,6 +7,7 @@
 (load "~/.config/emacs/foundation-faces.el")
 (load "~/.config/emacs/chighlight.el")
 (load custom-file)
+; (add-to-list 'load-path "~/.config/emacs/manual-packages")
 
 
 ;(setq inhibit-startup-message t)
@@ -33,10 +34,19 @@
 
 (setq native-comp-async-report-warnings-errors 'silent)
 
+(defun find-file-no-ivy ()
+  (interactive)
+  (let ((ivy-state ivy-mode))
+    (ivy-mode -1)
+    (call-interactively 'find-file)
+    (ivy-mode ivy-state))
+  )
+
 ;; Keybindings
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "M-D") 'compile)
 (global-set-key (kbd "C-M-y") 'load-theme)
+(global-set-key (kbd "C-x F") 'find-file-no-ivy)
 
 (defun on-display-mode ()
   (display-line-numbers-mode -1)
