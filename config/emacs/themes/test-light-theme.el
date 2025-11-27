@@ -37,7 +37,7 @@
  'test-light
  ; General ; :background "#f9f5d7"
  '(default ((t (:background "#f9f9ec" :foreground "#3c3836" :weight regular :width expanded :height 110 :family "Iosevka"))))
- '(variable-pitch ((t (:inherit default :family "Inter Display" :width normal :weight regular :slant normal :height 140))))
+ '(variable-pitch ((t (:inherit default :family "Libertinus Sans" :width normal :weight regular :slant normal :height 140))))
  '(fixed-pitch ((t (:inherit default :family "Iosevka" :weight regular :width expanded))))
  '(error ((t (:foreground "#dd0006" :weight ultrabold :underline nil))))
  '(link ((t (:foreground "RoyalBlue2" :underline t))))
@@ -128,12 +128,12 @@
  '(font-latex-sectioning-5-face ((t (:weight extra-bold :underline t :inherit font-lock-function-name-face))))
 
  ; Org mode
- '(org-level-1 ((t (:foreground "#cc241d" :weight ultrabold))))
- '(org-level-2 ((t (:foreground "#d65d0e" :weight extrabold))))
- '(org-level-3 ((t (:foreground "#98971a" :weight bold))))
+ '(org-level-1 ((t (:foreground "#cc241d" :weight extrabold))))
+ '(org-level-2 ((t (:foreground "#d65d0e" :weight bold))))
+ '(org-level-3 ((t (:foreground "#98971a" :weight normal))))
  '(org-hide ((t (:foreground "#f9f5d7"))))
- `(org-block ((t (:inherit fixed-pitch :foreground nil :background "#fbf1c7" :extend t)))) ;171919
- '(org-code ((t (:inherit (fixed-pitch) :background nil))))
+ `(org-block ((t (:inherit fixed-pitch :foreground unspecified :background "#fbf1c7" :extend t)))) ;171919
+ '(org-code ((t (:inherit (fixed-pitch) :background unspecified))))
  '(org-verbatim ((t (:inherit (fixed-pitch)))))
  '(org-checkbox ((t (:inherit fixed-pitch :foreground "#427b58" :weight bold))))
  '(org-table ((t (:inherit (fixed-pitch)))))
@@ -150,9 +150,20 @@
  '(org-upcoming-distant-deadline ((t (:inherit org-upcoming-deadline :slant normal :foreground "#3c3836"))))
  '(org-time-grid ((t (:foreground "#928374"))))
  '(org-agenda-current-time ((t (:inherit org-time-grid :weight extrabold))))
- '(org-link ((t (:inherit link :foreground nil :underline nil))))
+ '(org-link ((t (:inherit link :foreground unspecified :underline nil))))
  '(mg/org-bug ((t (:inherit org-todo :foreground "#d3869b"))))
  '(mg/org-crash ((t (:inherit org-todo :foreground "#fb4934"))))
+ '(org-modern-done ((t (:inherit (org-modern-label fixed-pitch) :background "#fbf1c7" :foreground "#68971a"))))
+ '(org-modern-todo ((t (:inherit (org-modern-label fixed-pitch) :weight extrabold :background "#d79921" :foreground "#f9f9ec"))))
+ '(org-modern-time-active ((t (:inherit (variable-pitch org-modern-label) :background "#689d6a" :foreground "#f9f5d7"))))
+ '(org-modern-date-active ((t (:inherit (variable-pitch org-modern-label) :foreground "#689d6a" :background "#f9f5d7"))))
+
+ ;; Dashboard
+ '(dashboard-heading ((t (:inherit variable-pitch :foreground "#d65d0e" :weight semi-bold))))
+ '(dashboard-no-items-face ((t (:inherit variable-pitch :slant italic :foreground unspecified))))
+ '(dashboard-items-face ((t (:inherit fixed-pitch :foreground unspecified :weight normal))))
+ '(dashboard-banner-logo-title ((t (:inherit variable-pitch :height 160))))
+ '(dashboard-footer-face ((t (:inherit (font-lock-comment-face variable-pitch)))))
 
  ;; Tree Sitter
  '(tree-sitter-hl-face:type.builtin ((t (:inherit font-lock-keyword-face))))
