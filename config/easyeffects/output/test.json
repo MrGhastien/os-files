@@ -84,7 +84,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band1": {
                     "frequency": 40.96779623970693,
@@ -94,7 +95,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band10": {
                     "frequency": 2584.8931924611115,
@@ -104,7 +106,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band11": {
                     "frequency": 4096.77962397069,
@@ -114,7 +117,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band12": {
                     "frequency": 6492.958137044547,
@@ -124,7 +128,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band13": {
                     "frequency": 10290.645150336895,
@@ -134,7 +139,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band14": {
                     "frequency": 16309.573444801914,
@@ -144,7 +150,8 @@
                     "q": 2.209713863811955,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band2": {
                     "frequency": 64.9295813704455,
@@ -154,7 +161,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band3": {
                     "frequency": 102.90645150336901,
@@ -164,7 +172,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band4": {
                     "frequency": 163.09573444801924,
@@ -174,7 +183,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band5": {
                     "frequency": 258.4893192461112,
@@ -184,7 +194,8 @@
                     "q": 2.209713863811955,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band6": {
                     "frequency": 409.67796239706917,
@@ -194,7 +205,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band7": {
                     "frequency": 649.295813704455,
@@ -204,7 +216,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band8": {
                     "frequency": 1029.06451503369,
@@ -214,7 +227,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band9": {
                     "frequency": 1630.9573444801922,
@@ -224,7 +238,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 }
             },
             "mode": "IIR",
@@ -241,7 +256,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band1": {
                     "frequency": 40.96779623970693,
@@ -251,7 +267,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band10": {
                     "frequency": 2584.8931924611115,
@@ -261,7 +278,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band11": {
                     "frequency": 4096.77962397069,
@@ -271,7 +289,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band12": {
                     "frequency": 6492.958137044547,
@@ -281,7 +300,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band13": {
                     "frequency": 10290.645150336895,
@@ -291,7 +311,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band14": {
                     "frequency": 16309.573444801914,
@@ -301,7 +322,8 @@
                     "q": 2.209713863811955,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band2": {
                     "frequency": 64.9295813704455,
@@ -311,7 +333,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band3": {
                     "frequency": 102.90645150336901,
@@ -321,7 +344,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band4": {
                     "frequency": 163.09573444801924,
@@ -331,7 +355,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band5": {
                     "frequency": 258.4893192461112,
@@ -341,7 +366,8 @@
                     "q": 2.209713863811955,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band6": {
                     "frequency": 409.67796239706917,
@@ -351,7 +377,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band7": {
                     "frequency": 649.295813704455,
@@ -361,7 +388,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band8": {
                     "frequency": 1029.06451503369,
@@ -371,7 +399,8 @@
                     "q": 2.2097138638119556,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 },
                 "band9": {
                     "frequency": 1630.9573444801922,
@@ -381,7 +410,8 @@
                     "q": 2.209713863811956,
                     "slope": "x1",
                     "solo": false,
-                    "type": "Hi-shelf"
+                    "type": "Hi-shelf",
+                    "width": 4.0
                 }
             },
             "split-channels": false
