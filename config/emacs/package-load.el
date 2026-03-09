@@ -484,6 +484,9 @@
 ;;   (pixel-scroll-precision-mode t)
 ;;   )
 
+(setq scroll-conservatively 101)
+(setq scroll-margin 2)
+
 (use-package org-bullets
   :after org
   :hook (org-mode . org-bullets-mode)
