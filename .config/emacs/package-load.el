@@ -159,6 +159,8 @@
   :config
   (setq corfu-auto t)
   (setq corfu-auto-delay 0)
+  (setq corfu-auto-prefix 2)
+  (setq corfu-cycle t)
   )
 
 (use-package autoinsert
@@ -267,9 +269,6 @@
   :commands (dired dired-jump)
   :custom ((dired-listing-switches "-agho --group-directories-first"))
   )
-
-(use-package dired-single
-  :ensure t)
 
 (defun on-treemacs ()
   (setq line-spacing 0)

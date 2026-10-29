@@ -1,5 +1,17 @@
 (set-language-environment "UTF-8")
 
+(defun mkdir-if-not-exists (dirname &optional parents)
+  (when (not (file-exists-p dirname))
+    (make-directory dirname parents)
+    )
+  )
+
+(mkdir-if-not-exists "~/emacs-session/elpa" t)
+(mkdir-if-not-exists "~/emacs-session/eln-cache" t)
+(when (boundp 'native-comp-eln-load-path)
+  (startup-redirect-eln-cache (expand-file-name "~/emacs-session/eln-cache" user-emacs-directory)))
+(setq package-user-dir "~/emacs-session/elpa")
+
 (setq custom-file "~/.config/emacs/custom.el")
 (setq custom-theme-directory "~/.config/emacs/themes")
 (load "~/.config/emacs/package-load.el")
